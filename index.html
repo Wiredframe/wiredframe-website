@@ -330,6 +330,38 @@
 						</span> E-Mail schreiben </a>
 				</div>
 		</section>
+		<!-- Repos Section (GitHub Card Slider) -->
+		<section class="section repos" id="repos" aria-labelledby="repos-title">
+			<div class="container content" data-animate>
+				<h2 class="heading" id="repos-title">Workflows, die ich wirklich lebe.</h2>
+				<p class="text">Figma-to-Code, Design Systems und Agentic Coding gehören für mich zum Tagesgeschäft. Hier
+					siehst du, woran ich gerade arbeite – öffentliche Repositories, Tools und Experimente, live von GitHub
+					geladen und nach dem letzten Commit sortiert.</p>
+			</div>
+			<div class="repos__viewport" data-animate>
+				<button class="repos__nav repos__nav--prev" type="button" aria-label="Vorherige Repositories"
+					aria-controls="repos-track" disabled>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true">
+						<polyline points="15 18 9 12 15 6"></polyline>
+					</svg>
+				</button>
+				<ul class="repos__track" id="repos-track" role="list" aria-label="GitHub Repositories"></ul>
+				<button class="repos__nav repos__nav--next" type="button" aria-label="Nächste Repositories"
+					aria-controls="repos-track">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true">
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</button>
+			</div>
+			<noscript>
+				<div class="container content">
+					<a class="btn" href="https://github.com/Wiredframe?tab=repositories" target="_blank"
+						rel="noopener">Alle Repositories auf GitHub ansehen</a>
+				</div>
+			</noscript>
+		</section>
 		<div class="retro">
 			<div id="hit-counter" class="retro__counter"></div>
 			<div class="retro__badges">
