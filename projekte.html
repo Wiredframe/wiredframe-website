@@ -304,6 +304,27 @@
 
 				function uniqueSort(arr) { return [...new Set(arr.filter(v => v && String(v).trim()))].sort((a, b) => b.localeCompare(a)); }
 
+				// Keep the detailed industry on each project, but consolidate the filter into useful groups.
+				const BRANCH_GROUP_RULES = [
+					['Öffentlicher Sektor', /öffentliche einrichtung|kommune|freizeitbad/i],
+					['Bildung & Karriere', /bildung|ausbildung|karriere/i],
+					['Gesundheit & Soziales', /gesundheit|sozial|pflege|senior|pharma|medizin|biotech|inklusion|tierschutz|kindergarten/i],
+					['Energie & Umwelt', /energie|photovoltaik|solar|umwelt|nachhaltigkeit/i],
+					['Bauen, Wohnen & Immobilien', /architektur|\bbau|immobil|innenarchitektur|innenausbau|handwerk|sanitär|küchen|möbel/i],
+					['Finanzen, Recht & Beratung', /finanz|investment|steuer|wirtschaftsprüfung|rechtsanw|kanzlei|beratung|coaching/i],
+					['Hotellerie & Gastronomie', /hotel|gastronomie|café/i],
+					['IT & Software', /\bit\b|software|webentwicklung|netzwerktechnik|systemintegration|community/i],
+					['Industrie & Technik', /industrie|technik|elektronik|maschinenbau|messtechnik|metall|ingenieurwesen|automotive|beleuchtung|anlagenbau|hydraulik|laborautomation/i],
+					['Kultur, Medien & Gesellschaft', /kultur|kunst|film|verlag|medien|kommunikation|\bpr\b|airbrush|verband|verein|kirche|gemeinde|ngo|netzwerk|zertifizierung|werkstätten/i],
+					['Sport, Freizeit & Tourismus', /sport|freizeit|tourismus|event/i],
+					['Handel & E-Commerce', /handel|einzelhandel|e-commerce|shop|bürobedarf|ersatzteile|mode|fashion|schmuck|deko|geschenk|spielwaren|spirituosen|lebensmittel|tiernahrung|zigarren|aquaristik|feuerwerk|lifestyle|klebemittel|agrar/i]
+				];
+
+				function branchGroup(branch) {
+					const value = String(branch || '').trim();
+					return BRANCH_GROUP_RULES.find(([, pattern]) => pattern.test(value))?.[0] || 'Weitere Branchen';
+				}
+
 				function placeholder(title) {
 					const initials = (title || '').trim().split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase() || '?';
 					return `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23fff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23e5e7eb' font-family='Maven Pro,Arial' font-size='96'>${initials}</text></svg>`)}`;
@@ -359,7 +380,7 @@
 				// --- populate filters ---
 				uniqueSort(data.map(d => d.Jahr)).forEach(y => createOption(filterYear, y));
 				uniqueSort(data.map(d => d.Typ)).forEach(t => createOption(filterType, t));
-				uniqueSort(data.map(d => d.Branche)).forEach(b => createOption(filterBranch, b));
+				uniqueSort(data.map(d => branchGroup(d.Branche))).forEach(b => createOption(filterBranch, b));
 
 				// --- image handlers (shared) ---
 				function handleImageLoad(e) { e.currentTarget.classList.add('is-loaded'); }
@@ -429,7 +450,7 @@
 					const q = search.value.trim().toLowerCase();
 					const y = filterYear.value; const t = filterType.value; const b = filterBranch.value;
 					let filtered = data.filter(d => {
-						if (y && d.Jahr !== y) return false; if (t && d.Typ !== t) return false; if (b && d.Branche !== b) return false;
+						if (y && d.Jahr !== y) return false; if (t && d.Typ !== t) return false; if (b && branchGroup(d.Branche) !== b) return false;
 						if (q) { const hay = `${d.Projekttitel} ${d.Agentur || ''} ${d.Typ || ''} ${d.Branche || ''}`.toLowerCase(); return hay.includes(q); }
 						return true;
 					});

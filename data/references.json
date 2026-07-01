@@ -1,6 +1,33 @@
 [
 	{
 		"Jahr": "2026",
+		"Projekttitel": "JÖ Reisen – Refresh",
+		"Typ": "Website",
+		"Branche": "Tourismus",
+		"Agentur": "DERTOUR",
+		"Image": "joereisen.jpg",
+		"URL": ""
+	},
+	{
+		"Jahr": "2026",
+		"Projekttitel": "Küchenplaner",
+		"Typ": "Website",
+		"Branche": "Küchen / Möbel",
+		"Agentur": "Küchenatlas",
+		"Image": "kuechenatlas.jpg",
+		"URL": "https://de.kitchenplanner.net/"
+	},
+	{
+		"Jahr": "2026",
+		"Projekttitel": "Seniorenzentrum Kemmelpark Murnau",
+		"Typ": "Payload Website",
+		"Branche": "Soziale Einrichtung / Gesundheit",
+		"Agentur": "datamints",
+		"Image": "kemmelparkmurnau.png",
+		"URL": ""
+	},
+	{
+		"Jahr": "2026",
 		"Projekttitel": "BVT Unternehmensgruppe",
 		"Typ": "Website",
 		"Branche": "Investmentfondsgesellschaft",
