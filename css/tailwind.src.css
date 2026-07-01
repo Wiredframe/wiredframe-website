@@ -1,0 +1,5 @@
+/* Eingabedatei für den Tailwind-Build. Ausgabe: css/projekte.css */
+/* Neu bauen mit:  bash scripts/build-css.sh */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

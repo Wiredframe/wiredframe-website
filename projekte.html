@@ -9,7 +9,7 @@
 	<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 	<title>Referenzen — Wiredframe</title>
 	<!-- Fonts loaded locally -->
-	<script src="js/tailwind.js"></script>
+	<link rel="stylesheet" href="css/projekte.css">
 	<style>
 		/* Local font declarations */
 		@font-face {
@@ -41,6 +41,12 @@
 
 		.card {
 			border-radius: var(--rounded-lg);
+		}
+
+		/* Skip layout/paint for off-screen cards; reserve space to avoid scroll jumps */
+		#grid > article {
+			content-visibility: auto;
+			contain-intrinsic-size: 360px 470px;
 		}
 
 		.pill {
@@ -250,8 +256,12 @@
 			<template id="card-template">
 				<article class="card border border-gray-100 p-4 bg-white group">
 					<div class="w-full aspect-square bg-gray-100 rounded-md mb-4 overflow-hidden">
-						<img src="" alt="Projektbild" class="w-full h-full object-cover object-top placeholder-img"
-							loading="lazy" decoding="async" fetchpriority="low" />
+						<picture class="block w-full h-full">
+							<source type="image/webp" srcset="" sizes="(min-width:1024px) 360px, (min-width:640px) 45vw, 92vw" />
+							<img src="" srcset="" sizes="(min-width:1024px) 360px, (min-width:640px) 45vw, 92vw"
+								alt="Projektbild" class="w-full h-full object-cover object-top placeholder-img"
+								loading="lazy" decoding="async" fetchpriority="low" />
+						</picture>
 					</div>
 					<h3 class="text-lg font-medium project-title"></h3>
 					<p class="text-sm text-gray-500 mt-1 project-meta"></p>
@@ -358,7 +368,7 @@
 				// --- state ---
 				const data = await loadData();
 				data.sort((a, b) => (parseInt(b.Jahr) || 0) - (parseInt(a.Jahr) || 0));
-				const PAGE_SIZE = 24;
+				const PAGE_SIZE = 12;
 				let currentList = [];
 				let renderedCount = 0;
 				let _currentIndex = -1;
@@ -390,7 +400,12 @@
 
 				// --- image handlers (shared) ---
 				function handleImageLoad(e) { e.currentTarget.classList.add('is-loaded'); }
-				function handleImageError(e) { const img = e.currentTarget; img.onerror = null; img.src = placeholder(img.alt || ''); img.classList.add('is-loaded'); }
+				function handleImageError(e) {
+					const img = e.currentTarget; img.onerror = null;
+					const pic = img.parentElement;
+					if (pic && pic.tagName === 'PICTURE') { const s = pic.querySelector('source'); if (s) s.srcset = ''; }
+					img.srcset = ''; img.src = placeholder(img.alt || ''); img.classList.add('is-loaded');
+				}
 
 				// --- rendering ---
 				function renderPage(items) {
@@ -399,6 +414,7 @@
 						const node = tmpl.content.cloneNode(true);
 						const article = node.querySelector('article');
 						const img = node.querySelector('img');
+						const source = node.querySelector('source');
 						const titleEl = node.querySelector('.project-title');
 						const metaEl = node.querySelector('.project-meta');
 						const agencyEl = node.querySelector('.agency');
@@ -412,7 +428,13 @@
 						img.alt = item.Projekttitel || '';
 						const imageFile = item.Image || (slugify(item.Projekttitel) + '.jpg');
 						const imagePath = imageFile ? `images/referenzen/${imageFile}` : '';
-						if (imagePath) { img.classList.remove('is-loaded'); img.onload = handleImageLoad; img.onerror = handleImageError; img.src = imagePath; }
+						if (imageFile) {
+							const thumb = 'images/referenzen/thumbs/' + imageFile.replace(/\.[^.]+$/, '');
+							img.classList.remove('is-loaded'); img.onload = handleImageLoad; img.onerror = handleImageError;
+							source.srcset = `${thumb}-480.webp 480w, ${thumb}-800.webp 800w`;
+							img.srcset = `${thumb}-480.jpg 480w, ${thumb}-800.jpg 800w`;
+							img.src = `${thumb}-800.jpg`;
+						}
 						else { img.src = placeholder(item.Projekttitel); img.classList.add('is-loaded'); }
 
 						article.dataset.index = renderedCount + i;
@@ -448,7 +470,7 @@
 					sentinel.style.display = renderedCount < currentList.length ? 'block' : 'none';
 				}
 
-				const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) renderMore(); }); }, { root: null, rootMargin: '400px', threshold: 0 });
+				const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) renderMore(); }); }, { root: null, rootMargin: '150px', threshold: 0 });
 				io.observe(sentinel);
 
 				// --- filtering ---
