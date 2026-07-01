@@ -274,6 +274,10 @@
 				<div class="modal-details md:col-span-1 overflow-auto">
 					<h2 id="modal-title" class="text-3xl md:text-4xl font-normal mb-6 md:mt-8"></h2>
 					<div id="modal-pairs" class="details flex flex-row flex-wrap gap-8   gap-y-4 text-base"></div>
+					<div id="modal-description-wrap" class="hidden mt-8 pt-6 border-t border-gray-100">
+						<h3 class="text-sm text-gray-500 mb-2">Projektbeschreibung</h3>
+						<p id="modal-description" class="text-base leading-relaxed text-gray-700 whitespace-pre-line"></p>
+					</div>
 					<!-- modal navigation buttons (prev / next) -->
 					<div class="modal-nav" aria-hidden="false">
 						<button id="modal-prev" class="prev" title="Vorheriges" aria-label="Vorheriges"
@@ -373,6 +377,8 @@
 				const modalImg = document.getElementById('modal-img');
 				const modalTitle = document.getElementById('modal-title');
 				const modalPairs = document.getElementById('modal-pairs');
+				const modalDescriptionWrap = document.getElementById('modal-description-wrap');
+				const modalDescription = document.getElementById('modal-description');
 				const modalClose = document.getElementById('modal-close');
 				const modalPrevBtn = document.getElementById('modal-prev');
 				const modalNextBtn = document.getElementById('modal-next');
@@ -451,7 +457,7 @@
 					const y = filterYear.value; const t = filterType.value; const b = filterBranch.value;
 					let filtered = data.filter(d => {
 						if (y && d.Jahr !== y) return false; if (t && d.Typ !== t) return false; if (b && branchGroup(d.Branche) !== b) return false;
-						if (q) { const hay = `${d.Projekttitel} ${d.Agentur || ''} ${d.Typ || ''} ${d.Branche || ''}`.toLowerCase(); return hay.includes(q); }
+						if (q) { const hay = `${d.Projekttitel} ${d.Agentur || ''} ${d.Typ || ''} ${d.Branche || ''} ${d.Beschreibung || ''}`.toLowerCase(); return hay.includes(q); }
 						return true;
 					});
 					render(filtered);
@@ -478,6 +484,9 @@
 					modalPairs.innerHTML = '';
 					[['Jahr', item.Jahr || '–'], ['Agentur', item.Agentur || '–'], ['Typ', item.Typ || '–'], ['Branche', item.Branche || '–']]
 						.forEach(([k, v]) => { const el = document.createElement('div'); el.className = 'pair flex items-baseline gap-1 flex-col'; el.innerHTML = `<div class="key text-sm text-gray-500">${k}</div><div class="value text-base text-gray-700">${v}</div>`; modalPairs.appendChild(el); });
+					const description = String(item.Beschreibung || '').trim();
+					modalDescription.textContent = description;
+					modalDescriptionWrap.classList.toggle('hidden', !description);
 					const rawUrl = item.URL || item.url || '';
 					if (rawUrl && String(rawUrl).trim()) { const raw = String(rawUrl).trim(); const href = normalizeUrl(raw); const isFigma = /figma\.com/i.test(href); const el = document.createElement('div'); el.className = 'pair flex items-baseline gap-1 flex-col'; el.innerHTML = `<div class="key text-sm text-gray-500">Website</div><div class="value text-base"><a class="text-base text-gray-700 underline" target="_blank" rel="noopener noreferrer" href="${href}">${isFigma ? 'Figma Prototype' : raw}</a></div>`; modalPairs.appendChild(el); }
 				}
