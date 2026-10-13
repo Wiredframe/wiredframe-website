@@ -115,6 +115,15 @@
 	--edge: clamp(14px, 2.4vw, 34px);
 	--gutter: clamp(8px, 1.2vw, 16px);
 	--dock-h: 100px;
+	/* Jede Section ist so hoch wie der Schirm. Auf Ultrawide-Schirmen
+	   würde sie dadurch platt wie eine Flunder, deshalb wird die Seite nie
+	   breiter als 16:9 der Höhe (und nie schmaler als 1920px begrenzt).
+	   Bis 16:9 bleibt sie also randlos, darüber steht sie mittig und
+	   links und rechts bleibt der Grund. --rand ist dieser Abstand je
+	   Seite, die fest positionierten Flächen (Bedienzeile, Sheets) rücken
+	   um ihn ein, weil sie am Viewport hängen und nicht am body. */
+	--seite-max: max(1920px, 100lvh * 16 / 9);
+	--rand: max(0px, (100vw - var(--seite-max)) / 2);
 	--radius-panel: clamp(20px, 3vw, 40px);
 	--radius-cell: clamp(16px, 2vw, 28px);
 	--radius-pill: 999px;
@@ -202,6 +211,8 @@ body.app {
 	color: var(--color-primary);
 	background: var(--color-canvas);
 	-webkit-font-smoothing: antialiased;
+	max-width: var(--seite-max);
+	margin-inline: auto;
 }
 
 img {
@@ -1514,7 +1525,7 @@ body.dock-invers:not(:has(#impressum:popover-open, #projekt:popover-open)) .dock
    der Linktext auf dem Weiter-Button gerade ist. */
 .dock {
 	position: fixed;
-	inset: auto 0 0 0;
+	inset: auto var(--rand) 0 var(--rand);
 	z-index: 60;
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -1738,7 +1749,7 @@ body:has(#menu:popover-open) .burger span:nth-child(3) {
    wie die Sections selbst, hell, mit dem Logo als Kopf. */
 .sheet {
 	position: fixed;
-	inset: var(--gutter);
+	inset: var(--gutter) calc(var(--gutter) + var(--rand));
 	width: auto;
 	max-width: none;
 	height: auto;
