@@ -2293,36 +2293,3 @@ body:has(#menu:popover-open) .burger span:nth-child(3) {
 		padding-block: clamp(50px, 9vh, 80px);
 	}
 }
-
-/* ===========================================
-   Reduced Motion
-   =========================================== */
-@media (prefers-reduced-motion: reduce) {
-	.rail {
-		scroll-behavior: auto;
-	}
-
-	/* Animationen: das Signet, die Schlagzeile, die Inhalte der Sections.
-	   Sie standen vorher in der Liste darunter, die aber nur Übergänge
-	   verkürzt, und griffen deshalb gar nicht. */
-	.logo-anim *,
-	.hero .wort,
-	.hero+.text,
-	.screen .stage>*,
-	.screen .rail>* {
-		animation-duration: 1ms !important;
-	}
-
-	.logo-anim,
-	.sheet,
-	.chip,
-	.btn,
-	.rail-btn,
-	.ctrl {
-		transition-duration: 1ms;
-	}
-
-	.rail::scroll-button(*) {
-		transition-duration: 1ms;
-	}
-}

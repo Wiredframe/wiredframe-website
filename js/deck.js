@@ -23,8 +23,6 @@
 	const nextLabel = document.querySelector('[data-next-label]');
 	const menu = document.getElementById('menu');
 	const counterEl = document.querySelector('.counter');
-	// Wer Bewegung abbestellt hat, bekommt die Zahl als Standbild
-	const reduziert = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	// ========================================
 	// 0 · Sprünge macht der Browser
@@ -216,7 +214,7 @@
 
 	// Läuft nur, solange die Section zu sehen ist
 	const zaehlerLaufen = (an) => {
-		if (!counterEl || reduziert) return;
+		if (!counterEl) return;
 		if (an && !zaehlerRaf) {
 			zaehlerZeit = 0;
 			zaehlerRaf = requestAnimationFrame(zaehlerSchritt);
@@ -284,7 +282,7 @@
 		const amEnde = () => rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
 
 		const gleiten = (ziel) => {
-			rail.scrollTo({ left: ziel, behavior: reduziert ? 'instant' : 'smooth' });
+			rail.scrollTo({ left: ziel, behavior: 'smooth' });
 		};
 
 		zurueck?.addEventListener('click', () => gleiten(rail.scrollLeft - schritt()));
@@ -467,7 +465,7 @@
 	// Die Farben kommen aus den Tokens in deck.css, nicht von hier: ändert
 	// sich die Palette, regnet es automatisch in den neuen Tönen.
 	const konfetti = () => {
-		if (reduziert || !konfettiEl?.getContext) return;
+		if (!konfettiEl?.getContext) return;
 		const css = getComputedStyle(document.documentElement);
 		const farben = ['--color-primary', '--color-accent', '--color-accent-strong', '--color-ink', '--color-white']
 			.map((t) => css.getPropertyValue(t).trim()).filter(Boolean);
