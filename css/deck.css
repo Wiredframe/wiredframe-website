@@ -1570,17 +1570,6 @@ body.dock-invers:not(:has(#impressum:popover-open, #projekt:popover-open)) .dock
 	backdrop-filter: blur(14px) saturate(160%);
 }
 
-/* Wer weniger Transparenz eingestellt hat, bekommt statt Glas eine
-   ruhige, deckende Fläche. */
-@media (prefers-reduced-transparency: reduce) {
-
-	.ctrl:not(.ctrl--next),
-	.pager {
-		-webkit-backdrop-filter: none;
-		backdrop-filter: none;
-	}
-}
-
 .ctrl:hover {
 	background: var(--dock-flaeche-hover);
 }
