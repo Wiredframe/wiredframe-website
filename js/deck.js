@@ -48,7 +48,19 @@
 	// ========================================
 	// 1 · Aktive Section
 	// ========================================
+	// Eine verborgene Section (die Mitwisser ohne Daten) hat einen
+	// verborgenen Punkt und wird vom Weiter-Knopf übersprungen.
 	let current = -1;
+
+	const weiterZeigen = () => {
+		const jetzt = screens[current];
+		if (!jetzt) return;
+		const next = screens.slice(current + 1).find((s) => !s.hidden)
+			|| screens[0]; // am Ende zurück zum Start
+		nextLink.href = `#${next.id}`;
+		nextLabel.textContent = jetzt.dataset.next || 'Weiter';
+		nextLink.setAttribute('aria-label', nextLabel.textContent);
+	};
 
 	const setCurrent = (i) => {
 		if (i === current || i < 0) return;
@@ -59,10 +71,7 @@
 			else chip.removeAttribute('aria-current');
 		});
 
-		const next = screens[i + 1] || screens[0]; // am Ende zurück zum Start
-		nextLink.href = `#${next.id}`;
-		nextLabel.textContent = screens[i].dataset.next || 'Weiter';
-		nextLink.setAttribute('aria-label', nextLabel.textContent);
+		weiterZeigen();
 
 		// Was in den Blick kommt, blendet ein. Auf der Startsection ist das
 		// der ganze Auftritt aus Signet, Schlagzeile und Untertitel, sonst
@@ -618,10 +627,7 @@
 		const profil = document.getElementById('profil');
 		if (profil) {
 			profil.dataset.next = TITEL_OFFEN;
-			if (screens[current] === profil) {
-				nextLabel.textContent = TITEL_OFFEN;
-				nextLink.setAttribute('aria-label', TITEL_OFFEN);
-			}
+			weiterZeigen();
 		}
 
 		fetch('data/references.json')
@@ -850,6 +856,63 @@
 			.catch(() => zeigen(vorrat?.liste));
 	};
 
+	// ----------------------------------------
+	// Die Mitwisser
+	// ----------------------------------------
+	// Kennzahlen aus Claude Code als Statistik-Karten wie in Profil. Die
+	// Datei erzeugt werkzeuge/claude-stats.py, sie enthält nur Summen.
+	// Auf der Karte stehen wie dort höchstens drei Ziffern, sonst sprengt
+	// die Schaugröße die Karte. Die Größenordnung wandert deshalb in die
+	// Beschriftung, und wo abgerundet wird, steht „mehr als“ davor.
+	const initMitwisser = () => {
+		const section = document.getElementById('mitwisser');
+		const rail = document.getElementById('mitwisser-rail');
+		if (!section || !rail) return;
+
+		const STUFEN = [[1e9, 'Milliarden'], [1e6, 'Millionen'], [1e3, 'Tausend']];
+		const karte = (n, name) => {
+			const [teiler, wort] = n >= 1000 ? STUFEN.find(([t]) => n >= t) : [1, ''];
+			const wert = Math.floor(n / teiler);
+			const gerundet = wert * teiler !== n;
+			return `
+				<article class="cell cell--stat">
+					${gerundet ? '<p class="text">mehr als</p>' : ''}
+					<p class="stat__value">${wert}</p>
+					<p class="text">${wort ? `${wort} ` : ''}${name}</p>
+				</article>`;
+		};
+		const datum = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+		const ZAHLEN = [
+			['sitzungen', 'konspirative Sitzungen'],
+			['nachrichten', 'geflüsterte Nachrichten'],
+			['handgriffe', 'Handgriffe meiner Helfer'],
+			['tage', 'Tage im Untergrund'],
+			['geschrieben', 'Tokens zu Papier gebracht'],
+			['erinnert', 'Tokens aus dem Gedächtnis gekramt']
+		];
+
+		fetch('data/claude-stats.json')
+			.then((r) => { if (!r.ok) throw 0; return r.json(); })
+			.then((d) => {
+				rail.insertAdjacentHTML('beforeend', ZAHLEN.filter(([k]) => Number.isFinite(d[k]))
+					.map(([k, name]) => karte(d[k], name)).join(''));
+
+				const [erster] = d.mitwisser || [];
+				document.getElementById('mitwisser-fuss').textContent =
+					`${erster ? `Die meisten Worte stammen von ${erster.name}. ` : ''}Stand: ${datum(d.stand)}, gezählt von Claude Code.`;
+
+				section.hidden = false;
+				document.querySelectorAll(`a[href="#${section.id}"]`).forEach((a) => { a.hidden = false; });
+				// Erst jetzt gibt es die Section, also erst jetzt die Überleitung
+				const code = document.getElementById('repos');
+				if (code) code.dataset.next = 'Kollaborateure';
+				weiterZeigen();
+				relayout();
+			})
+			.catch(() => { });
+	};
+
 	// ========================================
 	// Start
 	// ========================================
@@ -858,5 +921,6 @@
 	initReferenzen();
 	if (gemerkt()) freischalten(false);
 	initRepos();
+	initMitwisser();
 	document.fonts?.ready.then(relayout);
 })();

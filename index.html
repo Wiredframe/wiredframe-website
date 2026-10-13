@@ -208,7 +208,7 @@
   }
   </script>
 	<!-- Fonts are now loaded locally from /fonts/ -->
-	<link rel="stylesheet" href="css/deck.css?v=84">
+	<link rel="stylesheet" href="css/deck.css?v=95">
 	<link rel="stylesheet" href="css/icons.css?v=76">
 	<link rel="shortcut icon" href="images/shortcut-icon.svg" type="image/x-icon">
 	<!-- Hier ein PNG und nicht die SVG von oben: apple-touch-icon nimmt kein
@@ -435,7 +435,22 @@
 				</div>
 			</div>
 		</section>
-		<!-- 8 · Kontakt -->
+		<!-- 8 · Mitwisser. Aufbau wie Profil, die Statistik-Karten setzt deck.js
+		     aus data/claude-stats.json (erzeugt von werkzeuge/claude-stats.py).
+		     Ohne die Datei bleibt die Section samt Punkt und Menüeintrag verborgen. -->
+		<section class="screen" id="mitwisser" aria-label="Kollaborateure" data-next="Ich brauche Informationen!" hidden>
+			<div class="panel">
+				<div class="rail" id="mitwisser-rail" tabindex="0" role="group" aria-label="Mitwisser, horizontal">
+					<article class="cell cell--title">
+						<h2 class="title">Die Mitwisser</h2>
+						<p class="text">Seit einiger Zeit werde ich von KI-Agenten unterstützt und sie führen genauer
+							Buch als jeder Informant.</p>
+						<p class="text text--muted" id="mitwisser-fuss"></p>
+					</article>
+				</div>
+			</div>
+		</section>
+		<!-- 9 · Kontakt -->
 		<section class="screen screen--dark" id="kontakt" aria-label="Kontakt" data-next="Zurück zum Start">
 			<div class="panel">
 				<div class="stage">
@@ -480,6 +495,7 @@
 			<a class="chip" href="#profil"><span>Profil</span></a>
 			<a class="chip" href="#projekte"><span>Projekte</span></a>
 			<a class="chip" href="#repos"><span>Code</span></a>
+			<a class="chip" href="#mitwisser" hidden><span>Kollaborateure</span></a>
 			<a class="chip" href="#kontakt"><span>Kontakt</span></a>
 		</nav>
 		<a class="ctrl ctrl--next" id="nav-next" href="#wahrheit">
@@ -503,6 +519,7 @@
 				<a href="#profil">Profil</a>
 				<a href="#projekte">Projekte</a>
 				<a href="#repos">Code</a>
+				<a href="#mitwisser" hidden>Kollaborateure</a>
 				<a href="#kontakt">Kontakt</a>
 			</nav>
 			<div class="menu__meta">
@@ -761,7 +778,7 @@
 			</svg>
 		</button>
 	</div>
-	<script src="js/deck.js?v=84"></script>
+	<script src="js/deck.js?v=96"></script>
 </body>
 
 </html>

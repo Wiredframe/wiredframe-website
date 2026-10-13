@@ -1,0 +1,28 @@
+{
+	"stand": "2026-10-12",
+	"seit": "2026-05-22",
+	"sitzungen": 596,
+	"nachrichten": 245691,
+	"handgriffe": 68100,
+	"tage": 109,
+	"geschrieben": 190925872,
+	"erinnert": 33650299546,
+	"mitwisser": [
+		{
+			"name": "Opus",
+			"anteil": 0.9769
+		},
+		{
+			"name": "Fable",
+			"anteil": 0.0222
+		},
+		{
+			"name": "Sonnet",
+			"anteil": 0.0006
+		},
+		{
+			"name": "Haiku",
+			"anteil": 0.0003
+		}
+	]
+}
