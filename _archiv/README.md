@@ -1,7 +1,7 @@
 # Archiv
 
 Alles hier gehört nicht mehr zur ausgelieferten Seite. Nichts davon wird von
-`index.html`, `projekte.html` (heute eine Weiterleitung) oder `impressum.html` geladen, geprüft über alle
+`index.html` oder `impressum.html` geladen, geprüft über alle
 `href`, `src` und `url()` in den drei Seiten und den Dateien, die sie einbinden.
 
 Der Unterstrich im Ordnernamen ist Absicht: GitHub Pages lässt Jekyll über das
@@ -29,8 +29,9 @@ nicht mehr. Wer sie ansehen will, ändert die zwei Pfade auf `css/` und `js/`.
 ## Was bewusst geblieben ist
 
 `data/references.json` und `images/referenzen/` samt `thumbs/`: die Startseite
-lädt sie nach dem Codewort. `projekte.html` ist nur noch eine Weiterleitung auf
-`/#projekte`. Die archivierte Galerie hier findet Daten, Bilder und Schriften
-nicht mehr, wer sie ansehen will, legt sie zurück ins Wurzelverzeichnis.
+lädt sie nach dem Codewort. Die Adresse `/projekte.html` gibt es nicht mehr.
+Die archivierte Galerie findet hier ihr CSS und ihre Schriften, aber nicht
+`data/` und `images/referenzen/`. Wer sie ansehen will, legt sie samt
+`css/projekte.css` und den Maven-Pro-Dateien zurück ins Wurzelverzeichnis.
 Dazu `impressum.html`, `images/logo1.svg` (steht im JSON-LD der Startseite),
 `google5fc9acafdfb546d0.html` (Search Console) und `CNAME`.

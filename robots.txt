@@ -10,10 +10,8 @@
 User-agent: *
 Allow: /
 
-# Zwei Ausnahmen, beide aus demselben Grund: hier standen bzw. stehen
-# Kundennamen. projekte.html ist nur noch eine Weiterleitung auf /#projekte,
-# die Liste mit Namen lädt die Startseite erst nach dem Codewort.
-Disallow: /projekte.html
+# Eine Ausnahme: hier stehen Kundennamen. Die Startseite lädt die Liste
+# erst nach dem Codewort, vorher nur die anonyme Fassung data/referenzen.json.
 Disallow: /data/references.json
 
 Sitemap: https://www.wiredframe.de/sitemap.xml
