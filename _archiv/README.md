@@ -1,7 +1,7 @@
 # Archiv
 
 Alles hier gehört nicht mehr zur ausgelieferten Seite. Nichts davon wird von
-`index.html`, `projekte.html` oder `impressum.html` geladen, geprüft über alle
+`index.html`, `projekte.html` (heute eine Weiterleitung) oder `impressum.html` geladen, geprüft über alle
 `href`, `src` und `url()` in den drei Seiten und den Dateien, die sie einbinden.
 
 Der Unterstrich im Ordnernamen ist Absicht: GitHub Pages lässt Jekyll über das
@@ -18,7 +18,8 @@ Sollte hier später einmal ein `.nojekyll` liegen, gilt das nicht mehr.
 | `js/theme.js` | der Farbgenerator. Das Ergebnis steht heute fest in `css/deck.css`, die Herleitung ist hier nachlesbar |
 | `images/icons8_*.svg`, `images/Slice*.svg`, `images/ArtBoard1_*.png`, `images/shape-*.svg`, `images/items.svg`, `images/arrow-down.svg`, `images/profile2x.png` | Bildmaterial der alten Startseite |
 | `images/*-1996.gif` | Netscape, Flash und Frontpage, Deko der DOS-Seite |
-| `fonts/MavenProLight-*.otf` | alte Schnitte der Maven Pro. Die Galerie lädt die woff2-Fassung aus `fonts/` |
+| `fonts/MavenProLight-*.otf` | alte Schnitte der Maven Pro |
+| `projekte.html`, `css/projekte.css`, `css/tailwind.src.css`, `tailwind.config.js`, `scripts/build-css.sh`, `fonts/MavenPro-*.woff2` | die eigenständige Referenzgalerie samt Tailwind-Kette. Seit Oktober 2026 zeigt die Section `#projekte` der Startseite dieselben Daten nach dem Codewort, im Formensystem des Decks |
 
 `index-backup.html` funktioniert weiterhin, wenn man sie hier öffnet: CSS, JS
 und Bilder liegen relativ zu ihr an derselben Stelle wie vorher.
@@ -27,8 +28,9 @@ nicht mehr. Wer sie ansehen will, ändert die zwei Pfade auf `css/` und `js/`.
 
 ## Was bewusst geblieben ist
 
-`projekte.html` mit `css/projekte.css`, `data/references.json`,
-`images/referenzen/`, den Maven-Pro-woff2-Dateien und der Tailwind-Kette
-(`tailwind.config.js`, `css/tailwind.src.css`, `scripts/build-css.sh`).
+`data/references.json` und `images/referenzen/` samt `thumbs/`: die Startseite
+lädt sie nach dem Codewort. `projekte.html` ist nur noch eine Weiterleitung auf
+`/#projekte`. Die archivierte Galerie hier findet Daten, Bilder und Schriften
+nicht mehr, wer sie ansehen will, legt sie zurück ins Wurzelverzeichnis.
 Dazu `impressum.html`, `images/logo1.svg` (steht im JSON-LD der Startseite),
 `google5fc9acafdfb546d0.html` (Search Console) und `CNAME`.

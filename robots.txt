@@ -10,9 +10,9 @@
 User-agent: *
 Allow: /
 
-# Zwei Ausnahmen, beide aus demselben Grund: hier stehen Kundennamen.
-# Die Galerie ist zusätzlich auf noindex, die Startseite nutzt nur die
-# anonymisierte Fassung data/referenzen.json.
+# Zwei Ausnahmen, beide aus demselben Grund: hier standen bzw. stehen
+# Kundennamen. projekte.html ist nur noch eine Weiterleitung auf /#projekte,
+# die Liste mit Namen lädt die Startseite erst nach dem Codewort.
 Disallow: /projekte.html
 Disallow: /data/references.json
 

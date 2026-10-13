@@ -132,6 +132,8 @@
 	   die Wellen verschluckt. Übrig sind nur die Linien. */
 	--muster: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' stroke-opacity='1'%3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
 	--muster-groesse: 250px 30px;
+	/* Pfeil der Auswahllisten, als Maske: die Farbe kommt aus currentColor */
+	--chevron-unten: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 	--muster-staerke: 1%;
 }
 
@@ -182,6 +184,15 @@ html {
 
 html::-webkit-scrollbar {
 	display: none;
+}
+
+/* Hinter offenen Projekt-Flächen steht die Seite still. Ein Popover
+   sperrt das Scrollen nicht von selbst, und ein Wisch neben dem Fenster
+   schob sonst die Sections darunter weiter. Die Scrollposition bleibt
+   dabei erhalten, deshalb genügt overflow und braucht es keinen Umbau
+   des body wie früher in projekte.html. */
+html:has(#projekt:popover-open, #freigabe:popover-open) {
+	overflow: hidden;
 }
 
 body.app {
@@ -1273,6 +1284,185 @@ body.dock-invers .dock :focus-visible {
 	}
 }
 
+/* ----------------------------------------
+   Projektkarten nach dem Codewort
+   ----------------------------------------
+   Jetzt darf der Screenshot zu sehen sein, er steht oben in der Karte.
+   Aufbau wie die Repo-Karten: linksbündig, die Angaben am unteren Rand.
+   Die Karte ist ein <button>, deshalb setzt sie Schrift und Farbe des
+   Browsers ausdrücklich zurück.
+
+   Das Bild läuft bis auf einen schmalen Innenrand über die ganze Karte,
+   auch auf dem Telefon, wo die Pfeile in die Karte ragen. Ausweichen
+   muss ihnen nur der Text darunter, deshalb steckt --clear allein in
+   dessen Einzug. */
+.cell--projekt {
+	--innen: clamp(12px, 1.4vw, 18px);
+	--text-einzug: calc(max(var(--pad), var(--clear)) - var(--innen));
+	align-items: stretch;
+	justify-content: flex-start;
+	padding: var(--innen) var(--innen) var(--pad);
+	font: inherit;
+	color: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+
+.projekt__vorschau {
+	display: block;
+	aspect-ratio: 4 / 3;
+	overflow: hidden;
+	border-radius: calc(var(--radius-cell) - var(--innen) / 2);
+	corner-shape: squircle;
+	background: color-mix(in srgb, var(--color-white) 6%, transparent);
+}
+
+/* Bewusst ohne Zoom beim Hover: der Screenshot ist Inhalt, kein Schmuck */
+.projekt__vorschau img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top;
+}
+
+.cell--projekt .subtitle {
+	margin-top: var(--space-sm);
+	padding-inline: var(--text-einzug);
+	overflow-wrap: anywhere;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.cell--projekt .repo__meta {
+	padding-inline: var(--text-einzug);
+	color: var(--color-text);
+}
+
+/* Leere Auswahl: eine ruhige Karte statt einer leeren Reihe */
+.cell--leer {
+	justify-content: center;
+}
+
+/* ----------------------------------------
+   Filter in der Titelspalte
+   ----------------------------------------
+   Native Auswahllisten, damit Tastatur und Telefon das Aufklappen selbst
+   erledigen. Sie tragen die Glasfläche der Bedienzeile auf Dunkel und
+   werden grün, sobald sie etwas eingrenzen. Der Pfeil sitzt auf dem
+   Label, weil ein select kein ::after kennt, und nimmt dessen Farbe an. */
+.filter {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.filter[hidden] {
+	display: none;
+}
+
+.filter__feld {
+	position: relative;
+	display: inline-flex;
+	color: var(--color-white);
+}
+
+.filter__feld::after {
+	content: "";
+	position: absolute;
+	right: 16px;
+	top: 50%;
+	width: 16px;
+	height: 16px;
+	translate: 0 -50%;
+	background: currentColor;
+	-webkit-mask: var(--chevron-unten) center / contain no-repeat;
+	mask: var(--chevron-unten) center / contain no-repeat;
+	pointer-events: none;
+}
+
+/* Der Name steht nur für Screenreader da, sichtbar ist die erste Option */
+.filter__name {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.filter__wahl {
+	appearance: none;
+	max-width: 15em;
+	padding: 12px 42px 12px 20px;
+	border: none;
+	border-radius: var(--radius-pill);
+	corner-shape: squircle;
+	background: color-mix(in srgb, var(--color-white) 10%, transparent);
+	color: inherit;
+	font: inherit;
+	font-size: var(--fs-sm);
+	text-overflow: ellipsis;
+	cursor: pointer;
+	transition: background var(--fast), color var(--fast);
+}
+
+.filter__wahl:hover {
+	background: color-mix(in srgb, var(--color-white) 18%, transparent);
+}
+
+/* Die aufgeklappte Liste malt das System, auf hellem Grund */
+.filter__wahl option {
+	background: var(--color-white);
+	color: var(--color-primary);
+}
+
+.filter__feld.ist-gesetzt {
+	color: var(--color-ink);
+}
+
+.filter__feld.ist-gesetzt .filter__wahl {
+	background: var(--color-accent);
+}
+
+.filter__feld.ist-gesetzt .filter__wahl:hover {
+	background: var(--color-accent-strong);
+}
+
+.filter__zurueck {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: var(--radius-pill);
+	corner-shape: squircle;
+	background: color-mix(in srgb, var(--color-white) 10%, transparent);
+	color: var(--color-white);
+	transition: background var(--fast);
+}
+
+.filter__zurueck[hidden] {
+	display: none;
+}
+
+.filter__zurueck:hover {
+	background: color-mix(in srgb, var(--color-white) 18%, transparent);
+}
+
+.filter__zurueck svg {
+	width: 18px;
+	height: 18px;
+}
+
+.filter__zahl {
+	flex-basis: 100%;
+	font-size: var(--fs-sm);
+	color: var(--color-text);
+}
+
 /* ===========================================
    BLOCK: Dock (Bedienzeile am unteren Rand)
    -------------------------------------------
@@ -1305,7 +1495,7 @@ body.dock-invers .dock :focus-visible {
    Ausgenommen bei offenem Impressum: dessen helle Fläche schiebt sich bis
    unter die Bedienzeile, dann läge Weiß auf Weiß. Das Menü ist davon nicht
    betroffen, es endet oberhalb der Zeile. */
-body.dock-invers:not(:has(#impressum:popover-open)) .dock {
+body.dock-invers:not(:has(#impressum:popover-open, #projekt:popover-open)) .dock {
 	--dock-schrift: var(--color-white);
 	--dock-flaeche: color-mix(in srgb, var(--color-white) 14%, transparent);
 	--dock-flaeche-hover: color-mix(in srgb, var(--color-white) 26%, transparent);
@@ -1589,6 +1779,12 @@ body:has(#menu:popover-open) .burger span:nth-child(3) {
 	position: absolute;
 	top: var(--edge);
 	right: var(--edge);
+}
+
+/* Runde Knöpfe auf hellen Flächen: Schließen und das Blättern im
+   Projekt teilen sich das Aussehen, nur Schließen sitzt in der Ecke. */
+.sheet__close,
+.sheet__knopf {
 	display: grid;
 	place-items: center;
 	width: var(--btn);
@@ -1601,11 +1797,13 @@ body:has(#menu:popover-open) .burger span:nth-child(3) {
 	transition: background var(--fast);
 }
 
-.sheet__close:hover {
+.sheet__close:hover,
+.sheet__knopf:hover {
 	background: color-mix(in srgb, var(--color-primary) 16%, transparent);
 }
 
-.sheet__close svg {
+.sheet__close svg,
+.sheet__knopf svg {
 	width: 22px;
 	height: 22px;
 }
@@ -1752,6 +1950,240 @@ body:has(#menu:popover-open) .burger span:nth-child(3) {
 .mail-rueckwaerts {
 	unicode-bidi: bidi-override;
 	direction: rtl;
+}
+
+/* ----------------------------------------
+   Freischaltung
+   ----------------------------------------
+   Klein und mittig statt randlos. Als einzige Fläche dunkelt sie den
+   Grund ab, sie deckt ihn ja nicht selbst. */
+.sheet--klein {
+	inset: 0;
+	width: min(460px, calc(100% - 2 * var(--gutter)));
+	height: fit-content;
+	margin: auto;
+}
+
+.sheet--klein .sheet__inner {
+	align-items: center;
+	gap: var(--space-md);
+	height: auto;
+	padding: clamp(32px, 5vw, 56px);
+	text-align: center;
+}
+
+.sheet--klein .text {
+	color: color-mix(in srgb, var(--color-primary) 78%, transparent);
+}
+
+#freigabe::backdrop {
+	background: color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+
+/* Der einzige Knopf mit voller Fläche außerhalb der Bedienzeile */
+.btn--voll {
+	border-color: var(--color-accent);
+	background: var(--color-accent);
+	color: var(--color-ink);
+}
+
+.btn--voll:hover {
+	border-color: var(--color-accent-strong);
+	background: var(--color-accent-strong);
+}
+
+/* Das Konfetti liegt als eigenes Popover über allem und lässt jeden
+   Klick durch. Die Vorgaben des Browsers für Popover (Rahmen, Fläche,
+   Abstand) werden dafür zurückgenommen. */
+.konfetti {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	pointer-events: none;
+}
+
+.konfetti::backdrop {
+	background: none;
+}
+
+/* ----------------------------------------
+   Detailansicht eines Projekts
+   ----------------------------------------
+   Zwei Spalten: links der ganze Screenshot in eigenem Scrollbereich,
+   rechts die Angaben. Die Fläche ist nie höher als der sichtbare Teil
+   des Fensters (dvh, wie beim Impressum), und gescrollt wird nur in ihr.
+   Schließen und Blättern liegen deshalb fest auf der Fläche: oben rechts
+   und unten rechts, egal welches Projekt gerade offen ist und wie lang
+   sein Text ist. Wer sich durch die Liste tippt, trifft immer dieselbe
+   Stelle. */
+.sheet--projekt {
+	bottom: auto;
+	height: calc(100dvh - 2 * var(--gutter));
+	/* Reines Weiß statt des grünlichen Off-White der übrigen Flächen: die
+	   Screenshots haben fast alle einen weißen Grund, und neben dem
+	   getönten Ton sähen sie aus wie auf falsches Papier geklebt. */
+	background: #fff;
+}
+
+/* Lange Titel brechen um statt über den Rand zu laufen, notfalls mitten
+   im Wort mit Trennstrich. Die Silbentrennung kennt der Browser aus
+   lang="de" am Dokument. Der Schließknopf oben rechts bekommt seine
+   Breite frei, damit ihm keine Zeile darunter läuft. */
+.sheet--projekt .sheet__title {
+	max-width: 100%;
+	overflow-wrap: break-word;
+	hyphens: auto;
+	text-wrap: balance;
+}
+
+.projekt {
+	display: grid;
+	grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	height: 100%;
+}
+
+.projekt__bild {
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--color-primary) 25%, transparent) transparent;
+}
+
+.projekt__bild img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.projekt__info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-md);
+	/* unten Platz für die feste Blätterleiste */
+	padding: clamp(70px, 12vh, 130px) clamp(28px, 4vw, 64px) calc(var(--btn) + 2 * var(--edge));
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.projekt__daten {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-md) var(--space-lg);
+	width: 100%;
+	margin: 0;
+}
+
+.projekt__daten dt {
+	font-size: var(--fs-sm);
+	color: color-mix(in srgb, var(--color-primary) 62%, transparent);
+}
+
+.projekt__daten dd {
+	margin: 2px 0 0;
+	font-size: var(--fs-ui);
+	color: var(--color-primary);
+	overflow-wrap: anywhere;
+}
+
+.projekt__text {
+	max-width: 60ch;
+	font-size: var(--fs-sm);
+	line-height: 1.65;
+	color: color-mix(in srgb, var(--color-primary) 78%, transparent);
+}
+
+.projekt__text[hidden],
+.sheet--projekt .btn[hidden] {
+	display: none;
+}
+
+.sheet--projekt .btn {
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+
+/* Die Blätterleiste als Pille in der Ecke unten rechts. Auf dem Telefon
+   liegt sie über dem Inhalt, deshalb trägt sie wie der Schließknopf eine
+   eigene, fast deckende Fläche mit Milchglas statt des zarten Schleiers. */
+.projekt__nav {
+	position: absolute;
+	right: var(--edge);
+	bottom: var(--edge);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: var(--fs-sm);
+	color: color-mix(in srgb, var(--color-primary) 70%, transparent);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Das Glas sitzt auf den einzelnen Teilen, nicht auf der Leiste: sie
+   selbst ist ein Rechteck, und das Glas zeichnete dessen Ecken nach. */
+.sheet--projekt .sheet__close,
+.projekt__nav > * {
+	-webkit-backdrop-filter: blur(14px) saturate(160%);
+	backdrop-filter: blur(14px) saturate(160%);
+}
+
+.sheet--projekt .sheet__close,
+.projekt__nav .sheet__knopf {
+	background: color-mix(in srgb, var(--color-white) 85%, transparent);
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.projekt__nav {
+	padding: 0 4px 0 0;
+}
+
+.projekt__stelle {
+	min-width: 6.5em;
+	padding: 6px 12px;
+	border-radius: var(--radius-pill);
+	/* Fast deckend: darunter läuft auf dem Telefon Text durch, und Ziffern
+	   auf Ziffern lesen sich schlecht */
+	background: color-mix(in srgb, var(--color-white) 94%, transparent);
+	text-align: center;
+}
+
+.sheet--projekt .sheet__close:hover,
+.projekt__nav .sheet__knopf:hover {
+	background: color-mix(in srgb, var(--color-white) 70%, var(--color-accent));
+}
+
+/* Schmal: eine Spalte. Gescrollt wird in .projekt, nicht in der Fläche,
+   damit Schließen und Blättern an ihrem Platz bleiben. Der Screenshot
+   bekommt oben ein festes Fenster und scrollt darin weiter. */
+@media (max-width: 899px) {
+	.projekt {
+		display: block;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	.projekt__bild {
+		max-height: 55dvh;
+	}
+
+	.projekt__info {
+		padding-top: var(--space-lg);
+		overflow: visible;
+	}
+}
+
+/* Das Codewort im Kontakt-Text. Auf dem Telefon schaltet ein Tipp darauf
+   die Projekte frei, verraten soll es sich trotzdem nicht: kein Zeiger,
+   kein Aufblitzen beim Antippen, keine Unterstreichung. */
+[data-codewort] {
+	-webkit-tap-highlight-color: transparent;
 }
 
 /* Ein- und Ausblenden ohne JavaScript */

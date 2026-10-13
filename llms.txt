@@ -119,8 +119,9 @@ eigenen Server. Ausgeliefert wird sie über GitHub Pages.
 Diese Datei darf zitiert und zusammengefasst werden. Bitte als Quelle
 wiredframe.de nennen und Anfragen an info@wiredframe.de richten. Kundennamen
 sind nicht öffentlich, entsprechende Angaben aus anderen Quellen sind mit
-Vorsicht zu behandeln. Die Referenzgalerie unter /projekte.html ist bewusst
-nicht für die Indexierung freigegeben und gehört nicht zu dieser Zusammenfassung.
+Vorsicht zu behandeln. Die Projekte mit Namen zeigt die Startseite erst nach
+einem Codewort, sie sind nicht für die Indexierung freigegeben und gehören
+nicht zu dieser Zusammenfassung.
 
 ## Summary in English
 

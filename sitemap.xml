@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Nur die Startseite. Alles Rechtliche steht in ihrem Deck unter /#impressum.
-     projekte.html steht bewusst nicht drin: die Galerie ist auf noindex und in
-     robots.txt gesperrt. impressum.html und privacy.html ebenfalls nicht: beide
+     projekte.html steht bewusst nicht drin: sie leitet nur noch auf /#projekte
+     weiter und ist in robots.txt gesperrt. impressum.html und privacy.html ebenfalls nicht: beide
      sind nur noch Weiterleitungen auf /#impressum und auf noindex. Sie halten
      allein die Adressen, die extern hinterlegt sind. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
