@@ -10,8 +10,11 @@
 User-agent: *
 Allow: /
 
-# Eine Ausnahme: hier stehen Kundennamen. Die Startseite lädt die Liste
+# Ausnahmen: hier stehen Kundennamen. Die Startseite lädt die Liste
 # erst nach dem Codewort, vorher nur die anonyme Fassung data/referenzen.json.
+# Die Screenshots tragen den Kunden im Dateinamen und sollen deshalb nicht
+# in der Bildersuche landen.
 Disallow: /data/references.json
+Disallow: /images/referenzen/
 
 Sitemap: https://www.wiredframe.de/sitemap.xml
