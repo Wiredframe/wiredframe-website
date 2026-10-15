@@ -4,7 +4,10 @@ Baut aus der Projektliste eine anonyme Fassung für die Startseite.
 
     python3 werkzeuge/referenzen.py
 
-Liest  data/references.json  und schreibt  data/referenzen.json.
+Liest  data/references.json  und schreibt die anonymen Karten der Section
+#projekte in index.html, zwischen <!-- referenzen:karten --> und
+<!-- /referenzen:karten -->. Nach dem Codewort ersetzt deck.js sie durch die
+echten Projekte.
 
 Warum überhaupt ein Skript und nicht ein Aufruf im Browser: was der Browser
 holt, kann der Besucher auch holen. Anonymisieren muss deshalb vorher
@@ -23,14 +26,14 @@ Verzeichnis und ist damit öffentlich abrufbar. Diese Ausgabe hier ist für
 sich genommen anonym, sie schützt aber nichts, solange das so bleibt.
 """
 
+import html
 import json
-import pathlib
 import re
 import sys
 
-WURZEL = pathlib.Path(__file__).resolve().parent.parent
+from seite import SEITE, WURZEL, einsetzen
+
 QUELLE = WURZEL / 'data' / 'references.json'
-ZIEL = WURZEL / 'data' / 'referenzen.json'
 ANZAHL = 10
 
 # ----------------------------------------------------------------------
@@ -166,11 +169,10 @@ def main():
 			'icon': icon_fuer(branche),
 		})
 
-	ZIEL.write_text(
-		json.dumps(ausgabe, ensure_ascii=False, indent='\t') + '\n',
-		encoding='utf-8')
+	markup = [z for e in ausgabe for z in karte(e)]
+	SEITE.write_text(einsetzen(SEITE.read_text(encoding='utf-8'), 'referenzen:karten', markup), encoding='utf-8')
 
-	print('%d von %d Einträgen übernommen -> %s\n' % (len(ausgabe), len(quelle), ZIEL.name))
+	print('%d von %d Einträgen übernommen -> %s\n' % (len(ausgabe), len(quelle), SEITE.name))
 	for e in ausgabe:
 		print('  %s  %-10s %s%s' % (
 			e['jahr'], e['icon'], e['satz'],
@@ -194,7 +196,7 @@ def main():
 	# Verglichen wird Wort gegen Wort, nicht Zeichenkette in Zeichenkette.
 	# Sonst schlägt jedes Teilwort an: "Shop" steckt in "Onlineshop",
 	# "Biotech" in "Biotechnologie", und beides ist harmlos.
-	ausgegeben = set(re.findall(r'[a-zäöüß]{4,}', ZIEL.read_text(encoding='utf-8').lower()))
+	ausgegeben = set(re.findall(r'[a-zäöüß]{4,}', '\n'.join(markup).lower()))
 	verraeter = []
 	for eintrag in quelle:
 		for feld in ('Projekttitel', 'Agentur', 'URL', 'Image', 'Beschreibung'):
@@ -211,6 +213,19 @@ def main():
 		sys.exit(1)
 	print('Gegenprobe bestanden: kein Wort aus Titel, Agentur, URL, Bild oder')
 	print('Beschreibung steht in der Ausgabe, das eigene Vokabular ausgenommen.')
+
+
+def karte(e):
+	zeilen = [
+		'<article class="cell cell--referenz">',
+		f'\t<span class="cell__icon icon--{html.escape(e["icon"])}" aria-hidden="true"></span>',
+		f'\t<p class="text">{html.escape(e["satz"])}</p>',
+		'\t<span class="repo__meta">',
+		f'\t\t<span>{html.escape(e["jahr"])}</span>',
+	]
+	if e['technik']:
+		zeilen.append(f'\t\t<span class="referenz__technik">{html.escape(e["technik"])}</span>')
+	return zeilen + ['\t</span>', '</article>']
 
 
 if __name__ == '__main__':

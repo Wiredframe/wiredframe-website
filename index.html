@@ -208,7 +208,7 @@
   }
   </script>
 	<!-- Fonts are now loaded locally from /fonts/ -->
-	<link rel="stylesheet" href="css/deck.css?v=95">
+	<link rel="stylesheet" href="css/deck.css?v=97">
 	<link rel="stylesheet" href="css/icons.css?v=76">
 	<link rel="shortcut icon" href="images/shortcut-icon.svg" type="image/x-icon">
 	<!-- Hier ein PNG und nicht die SVG von oben: apple-touch-icon nimmt kein
@@ -410,9 +410,83 @@
 							<p class="filter__zahl" role="status" aria-live="polite"></p>
 						</div>
 					</article>
-					<!-- Bleibt am Ende der Reihe stehen: die anonymen Karten schiebt
-					     deck.js davor ein, nicht dahinter. Nach dem Codewort weicht
-					     sie samt diesen Karten den echten Projekten. -->
+					<!-- Anonyme Karten aus werkzeuge/referenzen.py. Nach dem Codewort
+					     weichen sie samt der Einladung den echten Projekten. -->
+					<!-- referenzen:karten -->
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--reise" aria-hidden="true"></span>
+						<p class="text">Website für ein Unternehmen aus dem Bereich Tourismus</p>
+						<span class="repo__meta">
+							<span>2026</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--wohnen" aria-hidden="true"></span>
+						<p class="text">Website für ein Unternehmen aus dem Bereich Küchen</p>
+						<span class="repo__meta">
+							<span>2026</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--gesund" aria-hidden="true"></span>
+						<p class="text">Website für eine soziale Einrichtung</p>
+						<span class="repo__meta">
+							<span>2026</span>
+							<span class="referenz__technik">Payload</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--finanz" aria-hidden="true"></span>
+						<p class="text">Website für eine Investmentfondsgesellschaft</p>
+						<span class="repo__meta">
+							<span>2026</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--amt" aria-hidden="true"></span>
+						<p class="text">Website für eine öffentliche Einrichtung</p>
+						<span class="repo__meta">
+							<span>2025</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--energie" aria-hidden="true"></span>
+						<p class="text">Website für ein Unternehmen aus dem Bereich Photovoltaik</p>
+						<span class="repo__meta">
+							<span>2025</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--technik" aria-hidden="true"></span>
+						<p class="text">Website für ein Unternehmen aus dem Bereich Messtechnik</p>
+						<span class="repo__meta">
+							<span>2024</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--handel" aria-hidden="true"></span>
+						<p class="text">Onlineshop für ein Unternehmen aus dem Bereich Ersatzteilehandel</p>
+						<span class="repo__meta">
+							<span>2025</span>
+							<span class="referenz__technik">Shopware</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--wohnen" aria-hidden="true"></span>
+						<p class="text">Onlineshop für ein Unternehmen aus dem Bereich Baustoffhandel</p>
+						<span class="repo__meta">
+							<span>2025</span>
+							<span class="referenz__technik">Shopware</span>
+						</span>
+					</article>
+					<article class="cell cell--referenz">
+						<span class="cell__icon icon--digital" aria-hidden="true"></span>
+						<p class="text">Website für ein Unternehmen aus dem Bereich Biotechnologie</p>
+						<span class="repo__meta">
+							<span>2025</span>
+						</span>
+					</article>
+					<!-- /referenzen:karten -->
 					<a class="cell cell--einladung" id="projekte-einladung" href="#kontakt">
 						<span class="cell__icon icon--post" aria-hidden="true"></span>
 						<h3 class="subtitle">Und die echten Namen?</h3>
@@ -423,7 +497,7 @@
 			</div>
 		</section>
 		<!-- 7 · Repos -->
-		<section class="screen" id="repos" aria-label="Code" data-next="Ich brauche Informationen!">
+		<section class="screen" id="repos" aria-label="Code" data-next="Kollaborateure">
 			<div class="panel">
 				<div class="rail" id="repos-rail" tabindex="0" role="group" aria-label="Repositories, horizontal">
 					<article class="cell cell--title">
@@ -432,21 +506,214 @@
 							mir und meinen Kunden Mehrwert: KI-Workflows, nützliche Software und Apps, oder einfach ein
 							Werkzeug mehr im Skriptkasten.</p>
 					</article>
+					<!-- Karten aus werkzeuge/repos.py -->
+					<!-- repos:karten -->
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/wiredframe-website" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">wiredframe-website</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#e34c26"></span>HTML</span>
+							<span>Oktober 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/kontor-buchhaltung" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">kontor-buchhaltung</h3>
+						<p class="text repo__desc">Lokale Buchhaltungs-App (SwiftUI + SwiftData) für Freelancer – EÜR, UStVA, KSK, MCP-Server</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#F05138"></span>Swift</span>
+							<span>Oktober 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/kontor-landingpage" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">kontor-landingpage</h3>
+						<p class="text repo__desc">Landingpage für Kontor – die native macOS-Buchhaltungs-App für KSK-versicherte Freiberufler (EÜR, UStVA, KSK, Rücklagen, lokal auf dem Mac).</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#e34c26"></span>HTML</span>
+							<span>Oktober 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/homebrew-tap" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">homebrew-tap</h3>
+						<p class="text repo__desc">Homebrew tap for Wiredframe&#x27;s macOS apps</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#701516"></span>Ruby</span>
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/los" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">los</h3>
+						<p class="text repo__desc">A tiny launcher for everything you installed in the terminal. Los means go!</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#89e051"></span>Shell</span>
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/reminders-cli" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">reminders-cli</h3>
+						<p class="text repo__desc">A simple CLI for interacting with macOS reminders</p>
+						<span class="repo__meta">
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/paper-comic-reader" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">paper-comic-reader</h3>
+						<p class="text repo__desc">Paper Comic Reader — a focused iOS comic reader</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#F05138"></span>Swift</span>
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/ricoh-sp150-macos-tahoe" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">ricoh-sp150-macos-tahoe</h3>
+						<p class="text repo__desc">Get the Ricoh SP 150 (USB, host based) printing again on macOS 26 Tahoe using only Apple CoreGraphics. No Ghostscript, no print server.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#7d8b88"></span>C</span>
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Simple-Comic" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Simple-Comic</h3>
+						<p class="text repo__desc">macOS comic viewer</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#7d8b88"></span>Objective-C</span>
+							<span>September 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/vscode-live-inspect" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">vscode-live-inspect</h3>
+						<p class="text repo__desc">Faithful HTML live preview for VS Code with click to source, inspect outline, and lightweight in place editing</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#3178c6"></span>TypeScript</span>
+							<span>Juli 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/paper-comic-reader-landingpage" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">paper-comic-reader-landingpage</h3>
+						<p class="text repo__desc">Landing page for Paper Comic Reader — a lean, native iPhone &amp; iPad comic reader that makes pages read like ink on paper.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#e34c26"></span>HTML</span>
+							<span>Juli 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/basquiat" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">basquiat</h3>
+						<p class="text repo__desc">Agents for Figma design files</p>
+						<span class="repo__meta">
+							<span>März 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Figma-to-Code" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Figma-to-Code</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#f1e05a"></span>JavaScript</span>
+							<span>Februar 2026</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/convert-figma-variables2css-output" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">convert-figma-variables2css-output</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#563d7c"></span>CSS</span>
+							<span>August 2024</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Responsive-Replacer-Dynamic" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Responsive-Replacer-Dynamic</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#3178c6"></span>TypeScript</span>
+							<span>Juni 2023</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Responsive-Replacer-Static" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Responsive-Replacer-Static</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#3178c6"></span>TypeScript</span>
+							<span>Juni 2023</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Responsive-Replacer-Text" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Responsive-Replacer-Text</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#3178c6"></span>TypeScript</span>
+							<span>Juni 2023</span>
+						</span>
+					</a>
+					<a class="cell cell--repo" href="https://github.com/Wiredframe/Duplicate-Component" target="_blank" rel="noopener">
+						<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
+						<h3 class="subtitle">Duplicate-Component</h3>
+						<p class="text repo__desc">Noch ohne Beschreibung, aber öffentlich einsehbar.</p>
+						<span class="repo__meta">
+							<span class="repo__lang"><span class="repo__dot" style="--dot:#3178c6"></span>TypeScript</span>
+							<span>Juni 2023</span>
+						</span>
+					</a>
+					<!-- /repos:karten -->
 				</div>
 			</div>
 		</section>
-		<!-- 8 · Mitwisser. Aufbau wie Profil, die Statistik-Karten setzt deck.js
-		     aus data/claude-stats.json (erzeugt von werkzeuge/claude-stats.py).
-		     Ohne die Datei bleibt die Section samt Punkt und Menüeintrag verborgen. -->
-		<section class="screen" id="mitwisser" aria-label="Kollaborateure" data-next="Ich brauche Informationen!" hidden>
+		<!-- 8 · Mitwisser. Aufbau wie Profil. Statistik-Karten, Schriftführer und
+		     Stand schreibt werkzeuge/claude-stats.py, der Rest ist von Hand. -->
+		<section class="screen" id="mitwisser" aria-label="Kollaborateure" data-next="Ich brauche Informationen!">
 			<div class="panel">
 				<div class="rail" id="mitwisser-rail" tabindex="0" role="group" aria-label="Mitwisser, horizontal">
 					<article class="cell cell--title">
 						<h2 class="title">Die Mitwisser</h2>
 						<p class="text">Seit einiger Zeit werde ich von KI-Agenten unterstützt und sie führen genauer
-							Buch als jeder Informant.</p>
-						<p class="text text--muted" id="mitwisser-fuss"></p>
+							Buch als jeder Informant. Schriftführer war meistens ein gewisser Herr <span
+								data-mitwisser="schriftfuehrer">Opus</span>. Stand: <span
+								data-mitwisser="stand">14. Oktober 2026</span></p>
 					</article>
+					<!-- mitwisser:karten -->
+					<article class="cell cell--stat">
+						<p class="stat__value">616</p>
+						<p class="text">konspirative Sitzungen</p>
+					</article>
+					<article class="cell cell--stat">
+						<p class="text">mehr als</p>
+						<p class="stat__value">253</p>
+						<p class="text">Tausend geflüsterte Nachrichten</p>
+					</article>
+					<article class="cell cell--stat">
+						<p class="text">mehr als</p>
+						<p class="stat__value">69</p>
+						<p class="text">Tausend Handgriffe meiner Helfer</p>
+					</article>
+					<article class="cell cell--stat">
+						<p class="stat__value">111</p>
+						<p class="text">Tage im Untergrund</p>
+					</article>
+					<article class="cell cell--stat">
+						<p class="text">mehr als</p>
+						<p class="stat__value">193</p>
+						<p class="text">Millionen Tokens zu Papier gebracht</p>
+					</article>
+					<article class="cell cell--stat">
+						<p class="text">mehr als</p>
+						<p class="stat__value">34</p>
+						<p class="text">Milliarden Tokens aus dem Gedächtnis gekramt</p>
+					</article>
+					<!-- /mitwisser:karten -->
 				</div>
 			</div>
 		</section>
@@ -455,9 +722,10 @@
 			<div class="panel">
 				<div class="stage">
 					<h2 class="title">Mehr Informationen?</h2>
-					<p class="text">Punkt Mitternacht, an der großen Eiche. Codewort: <span data-codewort>herbstlaub</span>. Keine Namen, keine
-						Visitenkarten, kein Wort über das Wetter. Informanten, die mich auf eine heiße Spur zu künftigen
-						Auftraggebern führen, werden selbstverständlich belohnt.</p>
+					<p class="text">Punkt Mitternacht, an der großen Eiche. Codewort: <span
+							data-codewort>herbstlaub</span>. Keine Namen, keine Visitenkarten, kein Wort über das
+						Wetter. Informanten, die mich auf eine heiße Spur zu künftigen Auftraggebern führen, werden
+						selbstverständlich belohnt.</p>
 					<div class="btn-row">
 						<a class="btn btn--light"
 							href="https://outlook.office.com/book/EinGesprchvereinbaren@wiredframe.onmicrosoft.com/?ismsaljsauthenabled"
@@ -495,7 +763,7 @@
 			<a class="chip" href="#profil"><span>Profil</span></a>
 			<a class="chip" href="#projekte"><span>Projekte</span></a>
 			<a class="chip" href="#repos"><span>Code</span></a>
-			<a class="chip" href="#mitwisser" hidden><span>Kollaborateure</span></a>
+			<a class="chip" href="#mitwisser"><span>Kollaborateure</span></a>
 			<a class="chip" href="#kontakt"><span>Kontakt</span></a>
 		</nav>
 		<a class="ctrl ctrl--next" id="nav-next" href="#wahrheit">
@@ -519,11 +787,12 @@
 				<a href="#profil">Profil</a>
 				<a href="#projekte">Projekte</a>
 				<a href="#repos">Code</a>
-				<a href="#mitwisser" hidden>Kollaborateure</a>
+				<a href="#mitwisser">Kollaborateure</a>
 				<a href="#kontakt">Kontakt</a>
 			</nav>
 			<div class="menu__meta">
-				<button type="button" popovertarget="impressum">Impressum, Datenschutz &amp; Nutzungsbedingungen</button>
+				<button type="button" popovertarget="impressum">Impressum, Datenschutz &amp;
+					Nutzungsbedingungen</button>
 			</div>
 		</div>
 	</div>
@@ -650,23 +919,11 @@
 				<p>Dabei können Daten in die USA übermittelt werden. GitHub hat gegenüber dem US-Handelsministerium
 					zertifiziert, dass es die Grundsätze des EU-US Data Privacy Framework einhält, und stützt
 					Übermittlungen zusätzlich auf die Standardvertragsklauseln der Europäischen Kommission.</p>
-				<p class="sheet__sub">Abruf der Repository-Liste</p>
-				<p>Der Abschnitt „Öffentlicher Code“ zeigt meine öffentlichen Repositories. Diese Liste holt Ihr Browser
-					direkt bei der Schnittstelle von GitHub (api.github.com). Dabei wird Ihre IP-Adresse an GitHub
-					übermittelt, technisch genauso wie beim Aufruf jeder anderen Seite dort. Rechtsgrundlage ist Art. 6
-					Abs. 1 lit. f DSGVO, mein berechtigtes Interesse daran, den Stand meiner Arbeit aktuell zu zeigen.
-				</p>
 				<p class="sheet__sub">Speicherung in Ihrem Browser</p>
-				<p>Damit dieser Abruf nicht bei jedem Seitenaufruf wiederholt wird, legt die Seite die zuletzt geholte
-					Liste im lokalen Speicher Ihres Browsers ab (localStorage, Eintrag „wf-repos“). Darin stehen
-					ausschließlich öffentliche Angaben zu meinen Repositories, keine Daten über Sie. Erneuert wird der
-					Eintrag höchstens einmal am Tag und nur, wenn Sie die Seite aufrufen. Er ist erforderlich, um den
-					angeforderten Inhalt zuverlässig anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG). Löschen können Sie ihn
-					jederzeit in den Einstellungen Ihres Browsers.</p>
-				<p>Wer das Codewort eingibt, schaltet die Projekte mit Namen frei. Damit das beim Neuladen so
-					bleibt, merkt sich die Seite das im Sitzungsspeicher Ihres Browsers (sessionStorage, Eintrag
-					„wf-projekte“). Der Eintrag enthält nur den Wert 1 und verschwindet von selbst, sobald Sie den
-					Tab oder das Fenster schließen (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
+				<p>Wer das Codewort eingibt, schaltet die Projekte mit Namen frei. Damit das beim Neuladen so bleibt,
+					merkt sich die Seite das im Sitzungsspeicher Ihres Browsers (sessionStorage, Eintrag „wf-projekte“).
+					Der Eintrag enthält nur den Wert 1 und verschwindet von selbst, sobald Sie den Tab oder das Fenster
+					schließen (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
 				<p class="sheet__sub">Kontaktaufnahme</p>
 				<p>Schreiben Sie mir eine E-Mail, verarbeite ich Ihre Angaben, um die Anfrage zu beantworten.
 					Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit es um die Anbahnung eines Vertrags geht,
@@ -711,15 +968,15 @@
 				<p>Meine Apps sind kostenlos. Innerhalb einer App können Sie freiwillige Trinkgelder („Tips“) über den
 					App Store geben. Ein Trinkgeld ist eine Unterstützung meiner Arbeit und kein Kauf von Funktionen,
 					Leistungen oder Support. Daraus entsteht insbesondere kein Anspruch auf bestimmte Funktionen, auf
-					Updates, auf Support oder auf Weiterentwicklung und Verfügbarkeit einer App. Die Abwicklung übernimmt
-					Apple, für Rückerstattungen gelten die Bedingungen von Apple.</p>
+					Updates, auf Support oder auf Weiterentwicklung und Verfügbarkeit einer App. Die Abwicklung
+					übernimmt Apple, für Rückerstattungen gelten die Bedingungen von Apple.</p>
 				<p class="sheet__sub">2. Keine Zusicherung von Funktionen, Updates oder Weiterentwicklung</p>
 				<p>Über Inhalt, Umfang und Weiterentwicklung meiner Apps entscheide ich allein. Ich darf jederzeit und
 					ohne Vorankündigung Funktionen hinzufügen, ändern, einschränken oder entfernen, Betrieb, Pflege,
 					Aktualisierung oder Support einer App einstellen und eine App vorübergehend oder dauerhaft aus dem
-					App Store nehmen. Ein Anspruch auf den Fortbestand bestimmter Funktionen, auf Updates, auf dauerhafte
-					Verfügbarkeit oder auf Weiterentwicklung besteht nicht, auch nicht infolge geleisteter Trinkgelder.
-				</p>
+					App Store nehmen. Ein Anspruch auf den Fortbestand bestimmter Funktionen, auf Updates, auf
+					dauerhafte Verfügbarkeit oder auf Weiterentwicklung besteht nicht, auch nicht infolge geleisteter
+					Trinkgelder. </p>
 				<p class="sheet__sub">3. Nutzungsrecht</p>
 				<p>Ich räume Ihnen ein einfaches, nicht ausschließliches und nicht übertragbares Recht ein, die App im
 					Rahmen der jeweils geltenden App-Store-Nutzungsregeln von Apple für eigene Zwecke zu nutzen.</p>
@@ -731,8 +988,8 @@
 					Vorsatz und grobe Fahrlässigkeit. Für einfache Fahrlässigkeit hafte ich nicht. Das gilt insbesondere
 					für Schäden aus der Nutzung oder der Nichtnutzbarkeit einer App, einschließlich Datenverlust,
 					entgangenem Gewinn und Betriebsunterbrechungen. Unberührt bleibt meine Haftung bei Verletzung des
-					Lebens, des Körpers oder der Gesundheit, nach dem Produkthaftungsgesetz sowie in Fällen, in denen ich
-					einen Mangel arglistig verschwiegen oder eine Garantie übernommen habe. Soweit meine Haftung
+					Lebens, des Körpers oder der Gesundheit, nach dem Produkthaftungsgesetz sowie in Fällen, in denen
+					ich einen Mangel arglistig verschwiegen oder eine Garantie übernommen habe. Soweit meine Haftung
 					ausgeschlossen oder beschränkt ist, gilt das auch für die persönliche Haftung meiner gesetzlichen
 					Vertreter und Erfüllungsgehilfen.</p>
 				<p class="sheet__sub">5. Nutzung auf eigene Gefahr, Daten und Backups</p>
@@ -742,15 +999,15 @@
 					ich nur nach Ziffer 4.</p>
 				<p class="sheet__sub">6. Berechnungen, Steuern und Finanzen</p>
 				<p>Einzelne Apps unterstützen bei Berechnungen und Auswertungen, etwa zu Buchhaltung, Einnahmen und
-					Ausgaben, Umsatz- und Einkommensteuer. Sämtliche Ergebnisse, Werte, Übersichten und Berichte erfolgen
-					ohne Gewähr auf Richtigkeit, Vollständigkeit oder Aktualität.</p>
+					Ausgaben, Umsatz- und Einkommensteuer. Sämtliche Ergebnisse, Werte, Übersichten und Berichte
+					erfolgen ohne Gewähr auf Richtigkeit, Vollständigkeit oder Aktualität.</p>
 				<p>Sie sind ausdrücklich keine Steuerberatung, keine Rechtsberatung und keine Finanz- oder
 					Anlageberatung, insbesondere nicht im Sinne des Steuerberatungsgesetzes oder des
-					Rechtsdienstleistungsgesetzes. Die Apps ersetzen weder die Beratung durch eine fachlich qualifizierte
-					Person noch die Prüfung durch das Finanzamt. Sie sind allein dafür verantwortlich, alle Ergebnisse
-					selbst zu prüfen und Ihre steuerlichen und rechtlichen Pflichten korrekt zu erfüllen. Für Nachteile,
-					die aus dem Vertrauen auf berechnete Ergebnisse entstehen, etwa Steuernachzahlungen, Zinsen,
-					Säumniszuschläge oder Bußgelder, hafte ich nach Ziffer 4.</p>
+					Rechtsdienstleistungsgesetzes. Die Apps ersetzen weder die Beratung durch eine fachlich
+					qualifizierte Person noch die Prüfung durch das Finanzamt. Sie sind allein dafür verantwortlich,
+					alle Ergebnisse selbst zu prüfen und Ihre steuerlichen und rechtlichen Pflichten korrekt zu
+					erfüllen. Für Nachteile, die aus dem Vertrauen auf berechnete Ergebnisse entstehen, etwa
+					Steuernachzahlungen, Zinsen, Säumniszuschläge oder Bußgelder, hafte ich nach Ziffer 4.</p>
 				<p class="sheet__sub">7. Apple als Drittbegünstigte</p>
 				<p>Apple und die mit Apple verbundenen Unternehmen sind Drittbegünstigte dieser Bedingungen und
 					berechtigt, sie Ihnen gegenüber durchzusetzen. Apple ist nicht Vertragspartei und übernimmt keine
@@ -778,7 +1035,7 @@
 			</svg>
 		</button>
 	</div>
-	<script src="js/deck.js?v=96"></script>
+	<script src="js/deck.js?v=98"></script>
 </body>
 
 </html>

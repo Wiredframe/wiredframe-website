@@ -4,7 +4,10 @@ Zieht die Kennzahlen der Mitwisser aus Claude Code für die Startseite.
 
     python3 werkzeuge/claude-stats.py [pfad/zur/stats-cache.json]
 
-Liest  ~/.claude/stats-cache.json  und schreibt  data/claude-stats.json.
+Liest  ~/.claude/stats-cache.json  und schreibt die Statistik-Karten der
+Section #mitwisser direkt in index.html, zwischen <!-- mitwisser:karten -->
+und <!-- /mitwisser:karten -->, dazu die Werte der Spans data-mitwisser="schriftfuehrer" und "stand" im Text.
+Alles andere bleibt von Hand.
 
 Die Quelle ist die Datei, aus der Claude Code selbst /stats berechnet. Sie
 ist nicht dokumentiert und kann sich mit einem Update ändern, deshalb prüft
@@ -18,14 +21,31 @@ Die Logs mit Inhalten und Projektpfaden liest das Skript gar nicht erst.
 Gezählt wird nur, was auf diesem Rechner lief.
 """
 
+import datetime
+import html
 import json
 import pathlib
 import re
 import sys
 
-WURZEL = pathlib.Path(__file__).resolve().parent.parent
+from seite import MONATE, SEITE, WURZEL, einsetzen, ersetzen
+
 QUELLE = pathlib.Path.home() / '.claude' / 'stats-cache.json'
-ZIEL = WURZEL / 'data' / 'claude-stats.json'
+
+# Beschriftung der Karten, in dieser Reihenfolge
+ZAHLEN = [
+	('sitzungen', 'konspirative Sitzungen'),
+	('nachrichten', 'geflüsterte Nachrichten'),
+	('handgriffe', 'Handgriffe meiner Helfer'),
+	('tage', 'Tage im Untergrund'),
+	('geschrieben', 'Tokens zu Papier gebracht'),
+	('erinnert', 'Tokens aus dem Gedächtnis gekramt'),
+]
+
+# Auf der Karte stehen wie in Profil höchstens drei Ziffern, sonst sprengt
+# die Schaugröße die Karte. Die Größenordnung wandert in die Beschriftung,
+# und wo abgerundet wird, steht „mehr als“ davor.
+STUFEN = [(10**9, 'Milliarden'), (10**6, 'Millionen'), (10**3, 'Tausend')]
 
 # Modellkennungen wechseln mit jeder Generation, die Familien bleiben.
 # Auf der Seite stehen deshalb nur sie, nicht claude-opus-4-8 und Co.
@@ -37,6 +57,23 @@ def familie(modell):
 		if re.search(name, modell, re.I):
 			return name
 	return None
+
+
+def karte(n, name):
+	teiler, wort = next(((t, w) for t, w in STUFEN if n >= t), (1, ''))
+	wert = n // teiler
+	zeilen = ['<article class="cell cell--stat">']
+	if wert * teiler != n:
+		zeilen.append('\t<p class="text">mehr als</p>')
+	zeilen.append(f'\t<p class="stat__value">{wert}</p>')
+	zeilen.append(f'\t<p class="text">{html.escape(f"{wort} {name}".strip())}</p>')
+	zeilen.append('</article>')
+	return zeilen
+
+
+def datum(iso):
+	d = datetime.date.fromisoformat(iso)
+	return f'{d.day}. {MONATE[d.month - 1]} {d.year}'
 
 
 def main():
@@ -77,8 +114,17 @@ def main():
 		'mitwisser': mitwisser,
 	}
 
-	ZIEL.write_text(json.dumps(daten, ensure_ascii=False, indent='\t') + '\n')
-	print(f'{ZIEL.relative_to(WURZEL)}: Stand {daten["stand"]}')
+	seite = SEITE.read_text()
+	seite = einsetzen(seite, 'mitwisser:karten', [z for k, name in ZAHLEN for z in karte(daten[k], name)])
+	werte = {'stand': datum(daten['stand'])}
+	if mitwisser:
+		werte['schriftfuehrer'] = mitwisser[0]['name']
+	for name, wert in werte.items():
+		seite = ersetzen(seite, rf'(<span\s+data-mitwisser="{name}">).*?(</span>)',
+			lambda m: m[1] + html.escape(wert) + m[2], f'<span data-mitwisser="{name}">')
+	SEITE.write_text(seite)
+
+	print(f'{SEITE.relative_to(WURZEL)}: Stand {daten["stand"]}')
 	for k in ('sitzungen', 'nachrichten', 'handgriffe', 'tage', 'geschrieben', 'erinnert'):
 		print(f'  {k:12} {daten[k]:>16,}'.replace(',', '.'))
 	print('  ' + ', '.join(f'{m["name"]} {m["anteil"]:.0%}' for m in mitwisser))

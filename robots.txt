@@ -11,7 +11,7 @@ User-agent: *
 Allow: /
 
 # Ausnahmen: hier stehen Kundennamen. Die Startseite lädt die Liste
-# erst nach dem Codewort, vorher nur die anonyme Fassung data/referenzen.json.
+# erst nach dem Codewort, vorher stehen nur anonyme Karten im Markup.
 # Die Screenshots tragen den Kunden im Dateinamen und sollen deshalb nicht
 # in der Bildersuche landen.
 Disallow: /data/references.json

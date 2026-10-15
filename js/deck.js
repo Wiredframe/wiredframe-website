@@ -7,8 +7,11 @@
  * kümmert sich nur noch um drei Dinge:
  *
  *   1. welche Section gerade aktiv ist (Indikator, Linktext, Zählerlauf)
- *   2. eine Notbremse gegen Überlauf auf sehr kleinen Screens
- *   3. Inhalte: Jahre, Mail-Schutz, GitHub, Projekte hinter dem Codewort
+ *   2. Kleinkram: Jahre, Mail-Schutz, Impressum per Link
+ *   3. die Projekte hinter dem Codewort
+ *
+ * Alle anderen Inhalte stehen fertig im Markup. Die Karten für Referenzen,
+ * Repos und Mitwisser schreiben die Skripte in werkzeuge/ vorab hinein.
  *
  * Die Farben stehen fest in css/deck.css. Sie stammen aus theme.js, das
  * sie eine Zeit lang bei jedem Aufruf neu gewürfelt hat; die Datei liegt
@@ -46,15 +49,12 @@
 	// ========================================
 	// 1 · Aktive Section
 	// ========================================
-	// Eine verborgene Section (die Mitwisser ohne Daten) hat einen
-	// verborgenen Punkt und wird vom Weiter-Knopf übersprungen.
 	let current = -1;
 
 	const weiterZeigen = () => {
 		const jetzt = screens[current];
 		if (!jetzt) return;
-		const next = screens.slice(current + 1).find((s) => !s.hidden)
-			|| screens[0]; // am Ende zurück zum Start
+		const next = screens[current + 1] || screens[0]; // am Ende zurück zum Start
 		nextLink.href = `#${next.id}`;
 		nextLabel.textContent = jetzt.dataset.next || 'Weiter';
 		nextLink.setAttribute('aria-label', nextLabel.textContent);
@@ -119,41 +119,19 @@
 		screens.forEach((s) => dockBeobachter.observe(s));
 	};
 
-	// ========================================
-	// 2 · Notbremse: Inhalt größer als der Screen wird herunterskaliert.
-	//     Greift nur in Ausnahmefällen, etwa im Querformat auf dem Handy.
-	// ========================================
-	const MIN_FIT = 0.7;
-
-	const fit = (screen) => {
-		const panel = screen.querySelector('.panel');
-		const box = panel?.querySelector('.stage, .rail');
-		if (!box) return;
-		const need = box.scrollHeight;
-		const avail = panel.clientHeight;
-		if (!need || !avail) return;
-		box.style.setProperty('--fit', (need > avail ? Math.max(MIN_FIT, avail / need) : 1).toFixed(4));
-	};
-
-	// Das Band der Bedienzeile hängt an der Fensterhöhe, deshalb wird der
-	// Beobachter bei jeder echten Größenänderung neu aufgespannt.
-	const relayout = () => {
-		screens.forEach(fit);
-		dockBeobachten();
-	};
-
-	// Am Fenster zu horchen wäre zu grob: resize feuert auf dem Handy auch,
-	// wenn nur die URL-Leiste ein- oder ausfährt, und rechnet dann mitten im
-	// Scrollen neu. Die Panelhöhe bleibt dabei konstant, weil .screen mit lvh
+	// Das Band hängt an der Fensterhöhe, deshalb wird der Beobachter bei
+	// jeder echten Größenänderung neu aufgespannt. Am Fenster zu horchen wäre
+	// zu grob: resize feuert auf dem Handy auch, wenn nur die URL-Leiste ein-
+	// oder ausfährt. Die Panelhöhe bleibt dabei konstant, weil .screen mit lvh
 	// misst. Ein Observer auf den Panels sieht deshalb nur echte Änderungen.
-	const panelSize = new ResizeObserver(relayout);
+	const panelSize = new ResizeObserver(dockBeobachten);
 	screens.forEach((s) => {
 		const panel = s.querySelector('.panel');
 		if (panel) panelSize.observe(panel);
 	});
 
 	// ========================================
-	// 3 · Inhalte
+	// 2 · Kleinkram
 	// ========================================
 	const logo = document.querySelector('.logo-anim');
 
@@ -226,95 +204,6 @@
 
 	zaehlerZeigen();
 
-	// ========================================
-	// 4 · Pfeile der Schienen
-	// ----------------------------------------
-	// Zwei Dinge, die ::scroll-button() allein nicht leistet.
-	//
-	// Erstens kennen es Stand August 2026 nur Chromium-Browser. Wo es fehlt,
-	// legt der Zweig unten echte Knöpfe an, die genauso aussehen und
-	// genauso weit rücken. Sie sind Ersatz, kein Ersatzteil auf Dauer:
-	// sobald Safari und Firefox nachziehen, kann NATIVE_PFEILE true bleiben
-	// und dieser ganze Abschnitt fällt weg.
-	//
-	// Zweitens schaltet das Pseudoelement am Ende der Reihe von selbst auf
-	// :disabled, und das lässt sich nicht überstimmen. Der Rücksprung an den
-	// Anfang braucht deshalb in jedem Browser einen eigenen Knopf. Er sitzt
-	// genau dort, wo der native gerade auf opacity: 0 gegangen ist, und
-	// übernimmt dessen Platz, sobald die Reihe am Ende steht.
-	// ========================================
-	const NATIVE_PFEILE = CSS.supports('selector(::scroll-button(*))');
-
-	const knopf = (art, text) => {
-		const b = document.createElement('button');
-		b.type = 'button';
-		b.className = `rail-btn rail-btn--${art}`;
-		b.setAttribute('aria-label', text);
-		b.hidden = true;
-		return b;
-	};
-
-	document.querySelectorAll('.rail').forEach((rail) => {
-		// Ins Panel und nicht in die Section: das Pseudoelement rechnet
-		// gegen dasselbe Panel, nachgemessen in deck.css bei .rail-btn.
-		const buehne = rail.closest('.panel');
-		if (!buehne) return;
-
-		// Ohne native Pfeile braucht die Schiene beide Richtungen, mit ihnen
-		// nur den Rücksprung. Der trägt bewusst dieselbe Klasse wie der
-		// Vorwärtsknopf: gleiche Stelle, gleiches Aussehen, anderes Ziel.
-		const zurueck = NATIVE_PFEILE ? null : knopf('prev', 'Vorheriges Element');
-		const weiter = knopf('next', NATIVE_PFEILE ? 'Zurück zum Anfang' : 'Nächstes Element');
-		if (zurueck) buehne.append(zurueck);
-		buehne.append(weiter);
-
-		// Eine Snap-Position entspricht einer Spalte samt Abstand. Beides
-		// hängt an Container-Queries, wird also bei jedem Klick neu gemessen
-		// statt einmal beim Laden.
-		const schritt = () => {
-			const zelle = rail.querySelector('.cell');
-			if (!zelle) return rail.clientWidth;
-			const abstand = parseFloat(getComputedStyle(rail).columnGap) || 0;
-			return zelle.getBoundingClientRect().width + abstand;
-		};
-
-		const amAnfang = () => rail.scrollLeft <= 2;
-		const amEnde = () => rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
-
-		const gleiten = (ziel) => {
-			rail.scrollTo({ left: ziel, behavior: 'smooth' });
-		};
-
-		zurueck?.addEventListener('click', () => gleiten(rail.scrollLeft - schritt()));
-
-		weiter.addEventListener('click', () => {
-			// Am Ende zurück auf Null, sonst eine Position weiter. Der native
-			// Knopf deckt den Normalfall bereits ab, dort bleibt nur der
-			// Rücksprung übrig.
-			if (amEnde()) gleiten(0);
-			else gleiten(rail.scrollLeft + schritt());
-		});
-
-		// Direkt im Handler und nicht über requestAnimationFrame gesammelt:
-		// Scroll-Ereignisse stellt der Browser ohnehin nur beim Aktualisieren
-		// der Darstellung zu, also höchstens einmal pro Bild. Die Sammelstelle
-		// sparte damit nichts und war nur eine Indirektion mehr.
-		const zeigen = () => {
-			// Steht alles nebeneinander, gibt es nichts zu blättern.
-			const scrollbar = rail.scrollWidth > rail.clientWidth + 2;
-			if (zurueck) zurueck.hidden = !scrollbar || amAnfang();
-			weiter.hidden = !scrollbar || (NATIVE_PFEILE && !amEnde());
-		};
-
-		rail.addEventListener('scroll', zeigen, { passive: true });
-		addEventListener('resize', zeigen);
-		// Die Reihen der Projekte und Repos werden erst nachträglich gefüllt.
-		// Ein ResizeObserver hilft dabei nicht: neue Karten verändern die
-		// Scrollbreite, nicht die Größe der Schiene selbst.
-		new MutationObserver(zeigen).observe(rail, { childList: true });
-		zeigen();
-	});
-
 	// ----------------------------------------
 	// Direktlink auf das Impressum
 	// ----------------------------------------
@@ -354,57 +243,10 @@
 		this.dataset.ready = '1';
 	});
 
-	// Beide Reihen unten setzen Markup aus Daten zusammen, deshalb steht
-	// das Maskieren hier oben und nicht zweimal darunter.
 	const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-	// ----------------------------------------
-	// Referenzen
-	// ----------------------------------------
-	// Die Datei data/referenzen.json ist bereits anonym: sie kennt weder
-	// Kundennamen noch Agenturen, weil werkzeuge/referenzen.py nur Jahr,
-	// Art und Branche übernimmt und daraus einen Satz baut. Hier wird also
-	// nichts mehr verschwiegen, sondern nur noch gezeichnet.
-	//
-	// Wer das Codewort kennt, bekommt statt dieser zehn Karten die echten
-	// Projekte, siehe weiter unten. Ist die Reihe in dieser Sitzung schon
-	// offen, wird die anonyme Fassung gar nicht erst geholt.
-	const projekteRail = document.getElementById('projekte-rail');
-	const einladung = document.getElementById('projekte-einladung');
-	const MERKER = 'wf-projekte';
-	const gemerkt = () => { try { return sessionStorage.getItem(MERKER) === '1'; } catch { return false; } };
-
-	const initReferenzen = () => {
-		if (!projekteRail || gemerkt()) return;
-
-		const karte = (r) => `
-			<article class="cell cell--referenz">
-				<span class="cell__icon icon--${esc(r.icon)}" aria-hidden="true"></span>
-				<p class="text">${esc(r.satz)}</p>
-				<span class="repo__meta">
-					<span>${esc(r.jahr)}</span>
-					${r.technik ? `<span class="referenz__technik">${esc(r.technik)}</span>` : ''}
-				</span>
-			</article>`;
-
-		// Die Einladung steht schon im Markup und soll die letzte Spalte
-		// bleiben, deshalb wird davor eingefügt und nicht ans Ende.
-		fetch('data/referenzen.json')
-			.then((r) => { if (!r.ok) throw 0; return r.json(); })
-			.then((liste) => {
-				// Kam das Codewort schneller als die Antwort, ist die Reihe
-				// schon umgebaut und die anonymen Karten haben dort nichts
-				// mehr verloren.
-				if (projekteRail.dataset.offen) return;
-				(einladung || projekteRail).insertAdjacentHTML(
-					einladung ? 'beforebegin' : 'beforeend', liste.map(karte).join(''));
-			})
-			.catch(() => { })
-			.finally(relayout);
-	};
-
 	// ========================================
-	// 5 · Projekte hinter dem Codewort
+	// 3 · Projekte hinter dem Codewort
 	// ----------------------------------------
 	// Herbstlaub. Das Wort steht im Kontakt-Text, wer es irgendwo auf der
 	// Seite eintippt, bekommt die echten Projekte samt Namen. Ein Schloss
@@ -417,6 +259,9 @@
 	// aussieht.
 	// ========================================
 	const CODEWORT = 'herbstlaub';
+	const projekteRail = document.getElementById('projekte-rail');
+	const MERKER = 'wf-projekte';
+	const gemerkt = () => { try { return sessionStorage.getItem(MERKER) === '1'; } catch { return false; } };
 	const freigabe = document.getElementById('freigabe');
 	const konfettiEl = document.getElementById('konfetti');
 	const titelZelle = document.getElementById('projekte-titel');
@@ -612,7 +457,6 @@
 			? liste.map(projektKarte).join('')
 			: '<article class="cell cell--leer"><p class="text">Für diese Auswahl gibt es kein Projekt. Vielleicht ein Filter weniger?</p></article>');
 		projekteRail.scrollLeft = 0;
-		relayout();
 	};
 
 	const projekteLaden = () => {
@@ -646,7 +490,6 @@
 			.catch(() => {
 				projekteRail.querySelectorAll('.cell:not(.cell--title)').forEach((c) => c.remove());
 				projekteRail.insertAdjacentHTML('beforeend', '<article class="cell cell--leer"><p class="text">Die Akten klemmen gerade. Später noch einmal versuchen, oder direkt nachfragen.</p></article>');
-				relayout();
 			});
 	};
 
@@ -752,173 +595,10 @@
 		karte?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 	});
 
-	// GitHub-Repos als weitere Spalten der Code-Reihe
-	const initRepos = () => {
-		const rail = document.getElementById('repos-rail');
-		if (!rail) return;
-
-		const USER = 'Wiredframe';
-		const LANG = {
-			Swift: '#F05138', HTML: '#e34c26', CSS: '#563d7c', SCSS: '#c6538c', TypeScript: '#3178c6',
-			JavaScript: '#f1e05a', Ruby: '#701516', Python: '#3572A5', Shell: '#89e051', Go: '#00ADD8',
-			Rust: '#dea584', Java: '#b07219', Kotlin: '#A97BFF', PHP: '#4F5D95', 'C++': '#f34b7d', 'C#': '#178600'
-		};
-		const rtf = new Intl.RelativeTimeFormat('de', { numeric: 'auto' });
-		const timeAgo = (iso) => {
-			const diff = (Date.now() - new Date(iso).getTime()) / 1000;
-			for (const [unit, secs] of [['year', 31536e3], ['month', 2592e3], ['week', 6048e2], ['day', 864e2], ['hour', 3600], ['minute', 60]]) {
-				if (Math.abs(diff) >= secs) return rtf.format(-Math.round(diff / secs), unit);
-			}
-			return 'gerade eben';
-		};
-
-		const card = (r) => `
-			<a class="cell cell--repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
-				<span class="repo__icon"><span class="repo__glyph icon--repo"></span></span>
-				<h3 class="subtitle">${esc(r.name)}</h3>
-				<p class="text repo__desc">${esc(r.description || 'Noch ohne Beschreibung, aber öffentlich einsehbar.')}</p>
-				<span class="repo__meta">
-					${r.language ? `<span class="repo__lang"><span class="repo__dot" style="--dot:${LANG[r.language] || '#7d8b88'}"></span>${esc(r.language)}</span>` : ''}
-					<span>${timeAgo(r.pushed_at || r.updated_at)}</span>
-				</span>
-			</a>`;
-
-		// ----------------------------------------
-		// Einmal am Tag holen, sonst aus dem Vorrat
-		// ----------------------------------------
-		// GitHub lässt ohne Anmeldung 60 Anfragen pro Stunde und IP zu. Das
-		// klingt viel, ist es aber nicht: die Grenze zählt pro IP, nicht pro
-		// Besucher, und hinter einem Mobilfunknetz oder einem Firmenanschluss
-		// teilen sich viele dieselbe. Ist sie erreicht, antwortet die API mit
-		// 403, und die Section stand dann leer da.
-		//
-		// Deshalb liegt die letzte Antwort im Browser des Besuchers. Geholt
-		// wird nur, wenn sie älter als einen Tag ist, und immer nur beim
-		// Aufruf der Seite: kein Timer, kein Nachladen im Hintergrund.
-		// Schlägt das Holen fehl, wird der alte Vorrat gezeigt, auch ein
-		// abgelaufener. Eine Woche alte Zeitangaben sind allemal besser als
-		// eine Karte, die sich entschuldigt.
-		const VORRAT = 'wf-repos';
-		const TAG = 24 * 60 * 60 * 1000;
-
-		const lesen = () => {
-			try {
-				const roh = localStorage.getItem(VORRAT);
-				if (!roh) return null;
-				const v = JSON.parse(roh);
-				return Array.isArray(v.liste) ? v : null;
-			} catch { return null; }
-		};
-
-		const schreiben = (liste) => {
-			try {
-				localStorage.setItem(VORRAT, JSON.stringify({ zeit: Date.now(), liste }));
-			} catch { /* privater Modus oder voll: dann eben ohne Vorrat */ }
-		};
-
-		const zeigen = (liste) => {
-			if (liste?.length) {
-				rail.insertAdjacentHTML('beforeend', liste.map(card).join(''));
-			} else {
-				rail.insertAdjacentHTML('beforeend', card({
-					html_url: `https://github.com/${USER}?tab=repositories`,
-					name: 'Ab zu GitHub',
-					description: 'Die Live-Vorschau lädt gerade nicht. Schau dir die Repositories direkt auf GitHub an.'
-				}));
-			}
-			relayout();
-		};
-
-		// Aus der Antwort wird nur behalten, was die Karte braucht. Sonst
-		// lägen hundert Repositories mit je vier Dutzend Feldern im Speicher
-		// des Besuchers, und die Fünf-Megabyte-Grenze ist schneller erreicht,
-		// als man denkt.
-		const knapp = (r) => ({
-			html_url: r.html_url, name: r.name, description: r.description,
-			language: r.language, pushed_at: r.pushed_at || r.updated_at
-		});
-
-		const vorrat = lesen();
-		if (vorrat && Date.now() - vorrat.zeit < TAG) {
-			zeigen(vorrat.liste);
-			return;
-		}
-
-		fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=pushed&direction=desc`, { headers: { Accept: 'application/vnd.github+json' } })
-			.then((r) => { if (!r.ok) throw 0; return r.json(); })
-			.then((repos) => {
-				const liste = (repos || []).filter((r) => !r.archived).map(knapp);
-				schreiben(liste);
-				zeigen(liste);
-			})
-			.catch(() => zeigen(vorrat?.liste));
-	};
-
-	// ----------------------------------------
-	// Die Mitwisser
-	// ----------------------------------------
-	// Kennzahlen aus Claude Code als Statistik-Karten wie in Profil. Die
-	// Datei erzeugt werkzeuge/claude-stats.py, sie enthält nur Summen.
-	// Auf der Karte stehen wie dort höchstens drei Ziffern, sonst sprengt
-	// die Schaugröße die Karte. Die Größenordnung wandert deshalb in die
-	// Beschriftung, und wo abgerundet wird, steht „mehr als“ davor.
-	const initMitwisser = () => {
-		const section = document.getElementById('mitwisser');
-		const rail = document.getElementById('mitwisser-rail');
-		if (!section || !rail) return;
-
-		const STUFEN = [[1e9, 'Milliarden'], [1e6, 'Millionen'], [1e3, 'Tausend']];
-		const karte = (n, name) => {
-			const [teiler, wort] = n >= 1000 ? STUFEN.find(([t]) => n >= t) : [1, ''];
-			const wert = Math.floor(n / teiler);
-			const gerundet = wert * teiler !== n;
-			return `
-				<article class="cell cell--stat">
-					${gerundet ? '<p class="text">mehr als</p>' : ''}
-					<p class="stat__value">${wert}</p>
-					<p class="text">${wort ? `${wort} ` : ''}${name}</p>
-				</article>`;
-		};
-		const datum = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
-
-		const ZAHLEN = [
-			['sitzungen', 'konspirative Sitzungen'],
-			['nachrichten', 'geflüsterte Nachrichten'],
-			['handgriffe', 'Handgriffe meiner Helfer'],
-			['tage', 'Tage im Untergrund'],
-			['geschrieben', 'Tokens zu Papier gebracht'],
-			['erinnert', 'Tokens aus dem Gedächtnis gekramt']
-		];
-
-		fetch('data/claude-stats.json')
-			.then((r) => { if (!r.ok) throw 0; return r.json(); })
-			.then((d) => {
-				rail.insertAdjacentHTML('beforeend', ZAHLEN.filter(([k]) => Number.isFinite(d[k]))
-					.map(([k, name]) => karte(d[k], name)).join(''));
-
-				const [erster] = d.mitwisser || [];
-				document.getElementById('mitwisser-fuss').textContent =
-					`${erster ? `Die meisten Worte stammen von ${erster.name}. ` : ''}Stand: ${datum(d.stand)}, gezählt von Claude Code.`;
-
-				section.hidden = false;
-				document.querySelectorAll(`a[href="#${section.id}"]`).forEach((a) => { a.hidden = false; });
-				// Erst jetzt gibt es die Section, also erst jetzt die Überleitung
-				const code = document.getElementById('repos');
-				if (code) code.dataset.next = 'Kollaborateure';
-				weiterZeigen();
-				relayout();
-			})
-			.catch(() => { });
-	};
-
 	// ========================================
 	// Start
 	// ========================================
 	setCurrent(0);
-	relayout();
-	initReferenzen();
+	dockBeobachten();
 	if (gemerkt()) freischalten(false);
-	initRepos();
-	initMitwisser();
-	document.fonts?.ready.then(relayout);
 })();
