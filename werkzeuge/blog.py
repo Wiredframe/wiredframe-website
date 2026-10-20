@@ -546,17 +546,79 @@ def bento_art(b):
 	return 'klein'
 
 
+def packen(beitraege):
+	"""Ordnet die Karten in Bänder aus zwei Zeilen und sechs Spalten, die
+	jeweils aufgehen: groß + klein, klein + zwei niedrige, drei kleine.
+	Gefüllt wird in Datumsfolge, ein passender Partner darf von weiter
+	hinten nachrücken. Die Seiten wechseln von Band zu Band. Was nicht mehr
+	aufgeht, bekommt eine Ausweichform: breit (ganze Zeile), hoch (niedrige
+	Karte über zwei Zeilen) oder halb (zwei niedrige nebeneinander).
+	Gibt (Beitrag, Klassen) in Reihenfolge des Markups zurück."""
+	rest = [(b, bento_art(b)) for b in beitraege]
+	raus, band = [], 0
+
+	def nimm(art):
+		for i, (_, a) in enumerate(rest):
+			if a == art:
+				return rest.pop(i)[0]
+		return None
+
+	def zahl(art):
+		return sum(1 for _, a in rest if a == art)
+
+	while rest:
+		b, art = rest.pop(0)
+		links = band % 2 == 0
+		if art == 'gross':
+			k = nimm('klein')
+			teile = [(b, 'gross'), (k, 'klein')] if k else [(b, 'gross breit')]
+			if k and not links:
+				teile.reverse()
+		elif art == 'klein':
+			# der erste Partner, der das Band füllt, in Reihenfolge des Rests
+			nach = next((a for _, a in rest if a == 'gross' or zahl(a) >= 2), None)
+			if nach == 'gross':
+				teile = [(b, 'klein'), (nimm('gross'), 'gross')]
+			elif nach == 'ohne':
+				o1, o2 = nimm('ohne'), nimm('ohne')
+				teile = [(b, 'klein'), (o1, 'ohne'), (o2, 'ohne')] if links else [(o1, 'ohne'), (b, 'klein'), (o2, 'ohne')]
+			elif nach == 'klein':
+				teile = [(b, 'klein'), (nimm('klein'), 'klein'), (nimm('klein'), 'klein')]
+			elif zahl('ohne'):
+				teile = [(b, 'klein'), (nimm('ohne'), 'ohne hoch')]
+			elif zahl('klein'):
+				teile = [(b, 'klein halb'), (nimm('klein'), 'klein halb')]
+			else:
+				teile = [(b, 'klein breit')]
+			if nach in ('gross', None) and len(teile) == 2 and not links:
+				teile.reverse()
+		else:
+			k, o2 = nimm('klein'), nimm('ohne')
+			if k and o2:
+				teile = [(b, 'ohne'), (k, 'klein'), (o2, 'ohne')] if links else [(k, 'klein'), (b, 'ohne'), (o2, 'ohne')]
+			elif k:
+				teile = [(b, 'ohne hoch'), (k, 'klein')] if links else [(k, 'klein'), (b, 'ohne hoch')]
+			elif o2:
+				teile = [(b, 'ohne halb'), (o2, 'ohne halb')]
+			else:
+				teile = [(b, 'ohne breit')]
+		raus += teile
+		band += 1
+	return raus
+
+
 def uebersicht(beitraege):
 	e = html.escape
 	eintraege = []
-	for b in beitraege:
-		art = bento_art(b)
-		eintraege += [f'\t\t<li class="bento bento--{art}">', f'\t\t\t<a class="bento__link" href="{b["url"]}">']
+	for b, klassen in packen(beitraege):
+		art = klassen.split()[0]
+		mods = ''.join(f' bento--{k}' for k in klassen.split())
+		eintraege += [f'\t\t<li class="bento{mods}">', f'\t\t\t<a class="bento__link" href="{b["url"]}">']
 		c = b['cover']
 		if c:
 			srcset = ', '.join(f'{b["url"]}{c["name"]}-{w}.webp {w}w' for w in c['varianten'])
 			klasse = 'bento__bild freigestellt' if c['frei'] else 'bento__bild'
-			groesse = '(max-width: 60rem) 92vw, 36rem' if art == 'gross' else '(max-width: 36rem) 92vw, 18rem'
+			groesse = '(max-width: 60rem) 92vw, 48rem' if art == 'gross' else '(max-width: 36rem) 92vw, 24rem'
 			eintraege += ['\t\t\t\t<span class="bento__flaeche">',
 				f'\t\t\t\t\t<img class="{klasse}" src="{b["url"]}{c["name"]}-{c["varianten"][0]}.webp" srcset="{srcset}"',
 				f'\t\t\t\t\t\tsizes="{groesse}" width="{c["breite"] // 2}" height="{c["hoehe"] // 2}" alt="" decoding="async">',

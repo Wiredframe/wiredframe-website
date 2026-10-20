@@ -496,12 +496,16 @@ a {
    der Startseite. Die Größe einer Karte folgt ihrem Titelbild, blog.py
    setzt die Klasse:
 
-     gross   gerahmtes Querformat   2 × 2, dunkel wie die dunklen Sections
-     klein   jedes andere Bild      1 × 2
-     ohne    kein Bild              2 × 1, niedrige Textkarte
+     gross   gerahmtes Querformat   4 × 2 Spalten, dunkel wie die dunklen Sections
+     klein   jedes andere Bild      2 × 2
+     ohne    kein Bild              4 × 1, niedrige Textkarte
 
-   grid-auto-flow: dense schließt Lücken, dabei darf eine Karte etwas
-   nach vorn rutschen. Unter 60rem zwei Spalten, unter 36rem eine.
+   Sechs Spalten, damit jedes Band aus zwei Zeilen aufgeht: groß + klein,
+   klein + zwei niedrige übereinander, oder drei kleine. Mit vier Spalten
+   wären die kleinen Karten ein Viertel breit, aber so hoch wie die große,
+   und dadurch lang gezogen. Die Bänder packt blog.py (packen), dort stehen
+   auch die Ausweichformen breit, hoch und halb. Unter 60rem zwei Spalten,
+   unter 36rem eine.
    =========================================== */
 .mitschrift {
 	max-width: 76rem;
@@ -528,9 +532,8 @@ a {
 	--bento-radius: clamp(24px, 3.2vw, 44px);
 	--bento-pad: clamp(24px, 2.8vw, 40px);
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-columns: repeat(6, minmax(0, 1fr));
 	grid-auto-rows: minmax(12rem, auto);
-	grid-auto-flow: row dense;
 	gap: var(--abstand);
 	list-style: none;
 }
@@ -541,16 +544,29 @@ a {
 }
 
 .bento--gross {
-	grid-column: span 2;
+	grid-column: span 4;
 	grid-row: span 2;
 }
 
 .bento--klein {
+	grid-column: span 2;
 	grid-row: span 2;
 }
 
 .bento--ohne {
-	grid-column: span 2;
+	grid-column: span 4;
+}
+
+.bento--breit {
+	grid-column: 1 / -1;
+}
+
+.bento--halb {
+	grid-column: span 3;
+}
+
+.bento--hoch {
+	grid-row: span 2;
 }
 
 .bento__link {
@@ -642,6 +658,18 @@ a {
 	font-size: clamp(1.6rem, 1.2rem + 1vw, 2.15rem);
 }
 
+/* Eine niedrige Karte, die als Ausweichform zwei Zeilen hoch wird, füllt
+   die Fläche mit großem Titel und vollem Teaser statt mit Leere */
+.bento--hoch .bento__titel {
+	font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.9rem);
+	line-height: 1.08;
+}
+
+.bento--hoch .bento__teaser {
+	-webkit-line-clamp: unset;
+	font-size: 1.0625rem;
+}
+
 .bento--gross .bento__titel {
 	font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.9rem);
 	line-height: 1.08;
@@ -682,7 +710,18 @@ a {
 	}
 
 	.bento--gross,
+	.bento--ohne,
+	.bento--breit {
+		grid-column: span 2;
+	}
+
 	.bento--klein {
+		grid-column: span 1;
+	}
+
+	.bento--gross,
+	.bento--klein,
+	.bento--hoch {
 		grid-row: auto;
 	}
 }
@@ -694,7 +733,9 @@ a {
 	}
 
 	.bento--gross,
-	.bento--ohne {
+	.bento--ohne,
+	.bento--klein,
+	.bento--breit {
 		grid-column: auto;
 	}
 }
