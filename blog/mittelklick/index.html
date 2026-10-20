@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Mittelklick: Der dritte Helfer an einem Sonntag | Mitschrift | wiredframe</title>
+	<meta name="description" content="Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/mittelklick/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/mittelklick/">
+	<meta property="og:title" content="Mittelklick: Der dritte Helfer an einem Sonntag | Mitschrift | wiredframe">
+	<meta property="og:description" content="Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta name="twitter:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta property="article:published_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/mittelklick/#beitrag",
+		"headline": "Mittelklick: Der dritte Helfer an einem Sonntag",
+		"description": "Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.",
+		"url": "https://www.wiredframe.de/blog/mittelklick/",
+		"datePublished": "2026-10-20",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 543,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		}
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>3 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Mittelklick: Der dritte Helfer an einem Sonntag</h1>
+				<p class="beitrag__lead">Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.</p>
+			</header>
+			<div class="beitrag__text">
+				<figure>
+					<img class="freigestellt" src="/blog/mittelklick/icon-256.webp" srcset="/blog/mittelklick/icon-256.webp 256w" sizes="(max-width: 208px) 92vw, 128px"
+						width="128" height="128" alt="Das App-Symbol von Mittelklick" decoding="async">
+				</figure>
+				<p>An jenem Sonntag hatte ich schon zwei meiner kleinen Helfer durch eigene ersetzt: die Ablage DropMe und den Fenstermanager Rectmangle. Beim Durchsehen der Menüleiste blieb mein Blick an Middle hängen. Das ist eine kleine App, die dem Trackpad einen Mittelklick beibringt, vom selben Hersteller wie Rectangle. Wenn ich schon dabei war, dann auch die.</p>
+				<p>Der Mittelklick ist eines dieser Dinge, die man erst vermisst, wenn sie fehlen: Links im Hintergrund öffnen, Tabs mit einem Klick schließen. Mit Maus selbstverständlich, mit Trackpad gar nicht vorgesehen.</p>
+				<h2 id="ein-framework-das-es-nicht-gibt">Ein Framework, das es nicht gibt</h2>
+				<p>Für einen Mittelklick per Tippen muss die App sehen, wie viele Finger gerade auf dem Trackpad liegen. Eine offizielle Schnittstelle dafür hat macOS nicht. Es gibt aber ein privates Framework, <code>MultitouchSupport</code>, das die rohen Berührungen Bild für Bild liefert. Mittelklick lädt es erst zur Laufzeit. Fehlt es in einer künftigen macOS-Version, startet die App trotzdem und schreibt das ins Systemprotokoll.</p>
+				<p>Daraus wird ein Tippen, wenn genau die eingestellte Zahl von Fingern aufsetzt, sich kaum bewegt (höchstens 4 Prozent der Fläche) und innerhalb von 0,4 Sekunden wieder abhebt. Dann schickt Mittelklick einen Klick mit der mittleren Taste an die Stelle des Mauszeigers.</p>
+				<p>Voreingestellt sind vier Finger. Drei wären bequemer, kollidieren aber mit zwei Gesten von macOS, dem Nachschlagen per Dreifingertipp und dem Ziehen mit drei Fingern. Vier Finger sind frei.</p>
+				<h2 id="wann-ein-tippen-kein-tippen-ist">Wann ein Tippen kein Tippen ist</h2>
+				<p>Die erste Version funktionierte, und gerade deshalb fiel schnell auf, wo sie zu eifrig war. Noch am selben Tag gab es eine Fehlerrunde:</p>
+				<ul>
+					<li>Drückte ich das Trackpad mit vier Fingern richtig herunter, also ein Klick statt eines Tippens, kam trotzdem ein Mittelklick dazu.</li>
+					<li>Beim Tippen auf der Tastatur streifen die Handballen gern das Trackpad. Auch das wurde manchmal zum Mittelklick.</li>
+				</ul>
+				<p>Jetzt passiert eine halbe Sekunde nach einem Tastendruck oder Linksklick gar nichts. Abgefragt wird dafür nur die Zeit des letzten Tastendrucks, nie die Taste selbst. Eine App, die mitbekommt, was ich tippe, wollte ich auf keinen Fall.</p>
+				<p>Dazu kamen Bluetooth-Trackpads, die nach dem Verbinden erkannt werden, und halbe Gesten, die nach dem Aufwachen aus dem Ruhezustand hängen blieben und jetzt verworfen werden. Für den Fall, dass doch einmal etwas nicht stimmt, gibt es ein Protokoll, das jede Geste mit Fingerzahl, Dauer und Ergebnis aufschreibt.</p>
+				<h2 id="klein-mit-absicht">Klein mit Absicht</h2>
+				<p>Mittelklick hat kein Fenster, nur ein Menü in der Menüleiste: Fingerzahl, Start beim Anmelden, Symbol ausblenden. Wer lieber klickt als tippt, kann zusätzlich Fn und Linksklick als Mittelklick nehmen, Ziehen eingeschlossen. Dieser Teil sieht nur Mausereignisse, nie die Tastatur.</p>
+				<p>Wie die beiden anderen kommt Mittelklick ohne Netzwerkcode, Konto und Telemetrie aus. Vom Trackpad liest die App nur Position und Zustand der Berührungen und vergisst sie sofort wieder.</p>
+				<p>Gerade hier merke ich, warum ich solche Werkzeuge gern selbst baue. Ich brauche genau eine Geste, und die soll zuverlässig sein, nachvollziehbar und so klein, dass ich den ganzen Code an einem Abend lesen könnte. Bei 446 Zeilen Swift geht das.</p>
+				<p>Mittelklick kam in fünf Commits von Version 1.0.0 bis 1.0.3. Der Code liegt auf <a href="https://github.com/Wiredframe/mittelklick">GitHub</a>.</p>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/rectmangle/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">Rectmangle: Vom Config-File zum Einstellungsfenster</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/live-inspect/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Live Inspect: Von der Vorschau zurück in den Quelltext</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

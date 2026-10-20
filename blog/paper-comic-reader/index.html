@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Paper Comic Reader: Comics wie auf Papier gedruckt | Mitschrift | wiredframe</title>
+	<meta name="description" content="Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/paper-comic-reader/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/paper-comic-reader/">
+	<meta property="og:title" content="Paper Comic Reader: Comics wie auf Papier gedruckt | Mitschrift | wiredframe">
+	<meta property="og:description" content="Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/blog/paper-comic-reader/vorschau-zuletzt.jpg">
+	<meta name="twitter:image" content="https://www.wiredframe.de/blog/paper-comic-reader/vorschau-zuletzt.jpg">
+	<meta property="og:image:alt" content="Die Ansicht „Recents“ mit dem Cover des Demo-Comics „Deep Blue“ im Karussell, darunter Titel, Seitenzahl und der Knopf „Read“">
+	<meta property="article:published_time" content="2026-07-24">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/paper-comic-reader/#beitrag",
+		"headline": "Paper Comic Reader: Comics wie auf Papier gedruckt",
+		"description": "Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.",
+		"url": "https://www.wiredframe.de/blog/paper-comic-reader/",
+		"datePublished": "2026-07-24",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 1302,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		},
+		"image": "https://www.wiredframe.de/blog/paper-comic-reader/vorschau-zuletzt.jpg"
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-07-24">24. Juli 2026</time><span>aktualisiert am <time datetime="2026-10-20">20. Oktober 2026</time></span><span>7 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Paper Comic Reader: Comics wie auf Papier gedruckt</h1>
+				<p class="beitrag__lead">Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.</p>
+			</header>
+			<div class="beitrag__text">
+				<figure>
+					<img src="/blog/paper-comic-reader/zuletzt-1200.webp" srcset="/blog/paper-comic-reader/zuletzt-1200.webp 1200w, /blog/paper-comic-reader/zuletzt-1284.webp 1284w" sizes="(max-width: 376px) 92vw, 296px"
+						width="296" height="640" alt="Die Ansicht „Recents“ mit dem Cover des Demo-Comics „Deep Blue“ im Karussell, darunter Titel, Seitenzahl und der Knopf „Read“" decoding="async">
+					<figcaption>Zuletzt gelesen als Karussell. Die Cover sind mitgelieferte Demo-Comics, keine Verlagsware.</figcaption>
+				</figure>
+				<p>Ich kann eine halbe Stunde über einen Schatten mit vier Punkt Unschärfe diskutieren. Eine saubere <code>for</code>-Schleife bekomme ich allein nicht hin. Paper Comic Reader gibt es trotzdem: ein schlanker, nativer Comic-Reader für iPhone und iPad, der Seiten so zeigt, als wären sie mit Tinte auf Papier gedruckt, statt hinter leuchtendem Glas.</p>
+				<p>Angefangen hat es auf dem Mac. Ich hatte <a href="https://github.com/Wiredframe/Simple-Comic">Simple Comic</a>, einen alten Open-Source-Reader, geforkt und ihm einen Metal-Shader für einen Papier-Look eingebaut. Als die erste Comicseite damit aussah wie frisch gedruckt, war die Frage naheliegend: Geht das auch auf dem iPhone?</p>
+				<p>Der Anlass war dann ganz unspektakulär. Abends sah ich, dass ich in Claude Code noch Tokens für die Woche übrig hatte, die am nächsten Tag um zwölf verfallen würden. Also habe ich angefangen. Kein Plan, keine Roadmap, nur die Idee. Die Arbeitsteilung blieb danach immer gleich: Ich habe geschaut, entschieden und verworfen, Claude hat den Code geschrieben, Geometrie durchgerechnet und mit der Toolchain gerungen.</p>
+				<h2 id="papier-aus-licht">Papier aus Licht</h2>
+				<p>Ein Bildschirm leuchtet, Papier nicht. Comics wurden auf warmes, leicht cremefarbenes Papier gedruckt, hinter Glas wirken sie zu sauber und zu blau. Der Effekt zieht deshalb reines Weiß Richtung Creme, hebt reines Schwarz zu einem warmen, tiefen Grau an und nimmt Sättigung und Kontrast etwas zurück. Aus Hochglanz wird matter Druck.</p>
+				<p>Dazu kommt das Korn, und zwar zweifach, so wie bei echtem Papier: eine feine Struktur auf den hellen Flächen und Fasern, die durch die Druckfarbe schimmern, am stärksten in den dunklen Partien. Gerade dieses Durchscheinen macht für mich den Reiz eines gedruckten Comics aus.</p>
+				<p>Die erste Fassung des Korns hatte ein feines Gitter, wie ein Fliegengitter. Das Rauschen lag brav am Pixelraster. Die Lösung war, jede Rauschebene ein Stück zu drehen, damit sich nichts mehr mit dem Raster deckt. Bewusst bemerkt das niemand. Dass es fehlt, bemerkt dagegen jeder.</p>
+				<figure>
+					<img src="/blog/paper-comic-reader/papiereffekt-1200.webp" srcset="/blog/paper-comic-reader/papiereffekt-1200.webp 1200w, /blog/paper-comic-reader/papiereffekt-1284.webp 1284w" sizes="(max-width: 376px) 92vw, 296px"
+						width="296" height="640" alt="Die Einstellungsseite „Paper Effect“ mit einer Musterseite in Creme, darunter Schalter, Voreinstellung „Cream paper“ und Regler für Durchscheinen und Korn" loading="lazy" decoding="async">
+					<figcaption>Die Einstellungen mit Vorschau. Die Regler gibt es auch als benannte Papiersorten.</figcaption>
+				</figure>
+				<p>Weil ich in Materialien denke und nicht in Prozentwerten, gibt es Voreinstellungen: Cream Paper, Newsprint, Manga und E-Ink. Der Effekt läuft als kleines Programm auf der Grafikkarte, mit einem Ersatzweg, falls es einmal nicht lädt.</p>
+				<h2 id="was-nur-beim-anfassen-auffaellt">Was nur beim Anfassen auffällt</h2>
+				<p>Comics lesen heißt blättern und drehen. Am ersten Tag brauchte es sechs Anläufe für eine einzige Drehung, weil im Querformat die rechte Hälfte einer Doppelseite beim Drehen nie zur linken werden darf. Technisch lief es vorher schon. Es sah nur falsch aus.</p>
+				<p>Hartnäckiger war ein Gefühl: Umblättern wirkte einen Hauch weniger flüssig als der Zoom. Es stellte sich heraus, dass die beiden Animationen über zwei verschiedene Wege liefen. Der Zoom lief über Core Animation, das Blättern über eine eigene Schleife auf dem Hauptthread, die auf 120-Hz-Displays gelegentlich ein Bild verschluckte. Auf 60 Hz unsichtbar. Seit das Blättern ebenfalls über Core Animation läuft, ist der Unterschied weg.</p>
+				<p>Ähnlich das Karussell für „Entdecken“: Es ruckte am Ende eines langsamen Wischens, bei einem schnellen nicht. Der Container las bei jedem Bild mit, welches Cover gerade in der Mitte steht, zeichnete sich deshalb neu und schubste die Karte, die gerade einrasten wollte. Jetzt wissen das nur noch die Ansichten, die es brauchen. Nachweisen ließ sich das nur am echten Gerät. Solche Dinge findet kein Test, man muss sie ertasten.</p>
+				<h2 id="raus-aus-dem-app-store-und-wieder-rein">Raus aus dem App Store und wieder rein</h2>
+				<p>Am 7. Juli war die App schon auf Paper Comic Reader umbenannt und für den App Store vorbereitet. Zurück kam eine Ablehnung, unter anderem mit „Tips failed to load“. Ich hatte einen kleinen Trinkgeld-Knopf eingebaut, und ausgerechnet der lud beim Prüfer nicht.</p>
+				<p>Der Aufwand mit Freigaben und Verträgen war mir das für eine kostenlose App nicht wert. Am 14. Juli flog der Bezahlcode raus, und die App ging stattdessen als unsignierte <code>.ipa</code> auf GitHub. Wer sie will, signiert sie mit der eigenen Apple-ID neu, etwa mit AltStore oder Sideloadly. Fummelig, aber unabhängig.</p>
+				<h2 id="ein-regal-mit-comics-die-gar-nicht-da-sind">Ein Regal mit Comics, die gar nicht da sind</h2>
+				<p>In der zweiten Woche lernte die App, die Angaben in <code>ComicInfo.xml</code> zu lesen, also Serie, Ausgabe und Story, und speichert sie mit dem Lesefortschritt in einer kleinen Datenbank. CBR flog dafür raus, seitdem liest die App nur noch CBZ.</p>
+				<p>Das Stück, das mir am meisten gefällt, sieht man nicht. Eine Comic-Sammlung ist schnell viele Gigabyte groß, die will niemand komplett auf dem Telefon haben. Man zeigt der App deshalb einen Ordner, den die Dateien-App erreicht, etwa ein NAS, iCloud oder einen Fileserver. Sie geht ihn einmal durch und holt aus jedem Comic nur Cover und Metadaten. Die Bibliothek sieht vollständig aus, durchsuchbar nach Titel, Story und Ausgabe. Erst beim Antippen wird ein Comic geladen, und wer Platz braucht, entfernt die Datei wieder, Cover und Titel bleiben stehen.</p>
+				<p>Dahinter steckt viel unsichtbare Arbeit: eine Zugriffserlaubnis auf den fremden Ordner, die Neustarts übersteht. Die Frage „ist der Ordner überhaupt da?“, die bei einem schlafenden NAS hängen kann und deshalb nicht auf dem Hauptthread laufen darf. Und ein Ordner <code>ComicsExtra</code>, der nicht fälschlich in <code>Comics</code> landen soll, nur weil der Name gleich anfängt.</p>
+				<h2 id="zurueck-in-den-store">Zurück in den Store</h2>
+				<p>Am 17. Juli kam die Kehrtwende, zurück in den App Store. Der Trinkgeld-Knopf existierte da schon nicht mehr, „Bezahlfunktion entfernen“ war am Ende ein gestrichener Satz in einem Formular. Dazu kamen vier mitgelieferte Demo-Comics, damit eine frische Installation nicht leer ist und die Screenshots ohne fremde Cover auskommen, ein Datenschutz-Manifest und am selben Tag eine kleine <a href="https://wiredframe.github.io/paper-comic-reader-landingpage/">Landingpage</a>.</p>
+				<p>Der signierte Build scheiterte dann reproduzierbar mit einer nichtssagenden Kopier-Fehlermeldung. Schuld war ein per Homebrew installiertes Kopier-Werkzeug, das sich im Pfad vor das von Apple gedrängelt hatte. Zwei Stunden Suche, eine Zeile Fix. Seit dem 19. Juli steht die App im <a href="https://apps.apple.com/app/paper-comic-reader/id6788421253">App Store</a>, die <code>.ipa</code> gibt es weiterhin auf <a href="https://github.com/Wiredframe/paper-comic-reader/releases">GitHub</a>.</p>
+				<p>Vom ersten Commit am 7. Juli bis zur Einreichung am 17. Juli waren es elf Tage und knapp hundert Commits. Die wichtigste Erkenntnis für mich: „Es kompiliert“ ist der Anfang, nicht das Ende. Fast jedes echte Problem war erst sichtbar, als ich das Telefon in der Hand hatte. Allein hätte ich das nicht gebaut, nicht in elf Tagen und vermutlich überhaupt nicht.</p>
+				<figure>
+					<img class="freigestellt" src="/blog/paper-comic-reader/icon-256.webp" srcset="/blog/paper-comic-reader/icon-256.webp 256w" sizes="(max-width: 208px) 92vw, 128px"
+						width="128" height="128" alt="Das App-Symbol von Paper Comic Reader, eine lachende Sprechblase auf Gelb" loading="lazy" decoding="async">
+				</figure>
+				<h2 id="nachtraege">Nachträge</h2>
+				<h3 id="widget-deutsch-und-italienisch-22-september">Widget, Deutsch und Italienisch (22. September)</h3>
+				<p>Nach dem Sommer ist die App weitergewachsen. Ende Juli kamen Favoriten und ein Export der ganzen Bibliothek als eine Datei dazu, im August eine feste Zoomleiter statt freiem Kneifen. Mit Version 1.4.0 gibt es ein Widget für den Homescreen, das den zuletzt gelesenen Comic zeigt, und die Oberfläche ist auf Deutsch und Italienisch übersetzt. Einen Tag später brachte 1.4.1 einen Lesemodus fürs Hochformat, in dem die Seiten als ein durchgehender Streifen laufen und beim Drehen in Doppelseiten übergehen.</p>
+				<p>Der Papiereffekt hat inzwischen auch ein Geschwisterprojekt: „Papier“ legt ihn über den ganzen macOS-Desktop, ohne Bildschirmaufnahme und ohne Berechnung pro Bild. Die Tonwertkurve steckt dort in der Display-Pipeline, das Korn in einem transparenten Fenster.</p>
+				<h3 id="ein-tag-nur-fuer-robustheit-19-oktober">Ein Tag nur für Robustheit (19. Oktober)</h3>
+				<p>Version 1.4.2 besteht aus 46 Commits an einem Tag, und fast keiner davon ist eine neue Funktion. Claude und ich sind die App auf Fehlerfälle durchgegangen. Der wichtigste betrifft die Datenbank: Lässt sie sich nicht öffnen, wird sie nie mehr gelöscht. Die App versucht es erneut, legt die Datei sonst in eine Sicherung (die fünf neuesten bleiben) und schreibt bei jedem Wechsel in den Hintergrund einen Schnappschuss der Bibliothek, aus dem sie sich nach einem Zurücksetzen einmal wiederherstellen lässt. Dazu: abgebrochene Downloads werden nicht mehr installiert, Sicherungen mit Dateinamen außerhalb ihres Ordners abgelehnt, VoiceOver kann blättern, und die Detailansicht wächst mit der Schriftgröße.</p>
+				<p>Stand heute: 202 Commits, Version 1.4.2.</p>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/bloeckli/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">Blöckli: Erst der Block, dann der Satz</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/kontor/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

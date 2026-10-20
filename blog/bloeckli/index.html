@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Blöckli: Erst der Block, dann der Satz | Mitschrift | wiredframe</title>
+	<meta name="description" content="Über 500 UI-Blöcke als Vokabular und ein Skill, der Webcopy schreibt. Entstanden ist er aus einem Ablauf, der für eine Seite mit 282 Wörtern rund 1.000 Zeilen Papier erzeugt hat.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/bloeckli/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/bloeckli/">
+	<meta property="og:title" content="Blöckli: Erst der Block, dann der Satz | Mitschrift | wiredframe">
+	<meta property="og:description" content="Über 500 UI-Blöcke als Vokabular und ein Skill, der Webcopy schreibt. Entstanden ist er aus einem Ablauf, der für eine Seite mit 282 Wörtern rund 1.000 Zeilen Papier erzeugt hat.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta name="twitter:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta property="article:published_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/bloeckli/#beitrag",
+		"headline": "Blöckli: Erst der Block, dann der Satz",
+		"description": "Über 500 UI-Blöcke als Vokabular und ein Skill, der Webcopy schreibt. Entstanden ist er aus einem Ablauf, der für eine Seite mit 282 Wörtern rund 1.000 Zeilen Papier erzeugt hat.",
+		"url": "https://www.wiredframe.de/blog/bloeckli/",
+		"datePublished": "2026-10-20",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 1328,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		}
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>7 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Blöckli: Erst der Block, dann der Satz</h1>
+				<p class="beitrag__lead">Über 500 UI-Blöcke als Vokabular und ein Skill, der Webcopy schreibt. Entstanden ist er aus einem Ablauf, der für eine Seite mit 282 Wörtern rund 1.000 Zeilen Papier erzeugt hat.</p>
+			</header>
+			<div class="beitrag__text">
+				<p>Wenn ich eine Seite entwerfe, denke ich Text und Layout nie getrennt. Eine Headline, die in drei Zeilen umbricht, ist im Hero eine andere Headline als eine, die in eine Zeile passt. Drei Leistungskarten mit Texten von zwölf, vierzig und neunzig Wörtern sind kein Raster mehr, sondern ein Unfall. Und ein Abschnitt, der eine Behauptung aufstellt, braucht einen Platz für den Beleg, sonst steht die Behauptung allein da.</p>
+				<p>Genau das verlieren Texte, die ohne Layout geschrieben werden. Und Texte von Sprachmodellen verlieren noch etwas mehr: Sie klingen nach allem und nach niemandem. Blöckli ist mein Versuch, beides zusammen in den Griff zu bekommen, gebaut mit Claude als Mitarbeiter. Es besteht aus zwei Teilen: einem Datensatz von Inhaltsblöcken und dem Claude-Skill <code>bloeckli</code>, der damit arbeitet.</p>
+				<h2 id="der-datensatz">Der Datensatz</h2>
+				<p>Ein Block ist im Datensatz ein Eintrag mit drei Teilen: eine ID, eine Zeile <strong>Structure</strong> und eine Zeile <strong>Purpose</strong>. So sieht einer aus:</p>
+				<pre><code>### cta-remaining-questions
+Structure: Two columns. On the left heading, one sentence and the action,
+on the right three to five collapsed questions that can be opened
+individually, below them a link to the full list of questions. Opening
+one shifts only the right-hand column. On narrow viewports action part
+on top, questions below.
+Purpose: Answer open questions in the same section in which the action
+is offered.</code></pre>
+				<p>Die Struktur soll so konkret sein, dass man ein Wireframe daraus zeichnen kann, ohne die Vorlage je gesehen zu haben. Der Zweck sagt in einem Satz, was der Block in der Argumentation einer Seite leistet. Mehr steht da nicht, und das ist Absicht: keine Farben, keine Schriften, keine Abstände, keine Frameworks, keine Bewertung, keine Empfehlung. Alles davon veraltet schnell oder gehört zu einem bestimmten Projekt. Zwei Blöcke, die sich nur in Farbe, Ausrichtung oder Bildausschnitt unterscheiden, sind derselbe Block. Ein eigener Eintrag braucht eine andere Struktur oder einen anderen Zweck.</p>
+				<p>Geschrieben ist der Datensatz nicht aus dem Gedächtnis. Für jede Kategorie läuft einmal ein eigener Agent, der <code>blockfinder</code>. Er sieht sich aktuelle Websites und Shops an, quer durch Branchen, auch außerhalb des englischsprachigen Markts, und beschreibt die Strukturen, die er findet, in eigenen Worten und auf Englisch. „Modern“ ist dabei ein Auswahlkriterium, kein Wort, das im Text vorkommen darf: Maßstab sind Seiten der letzten ein bis zwei Jahre, verschwundene Muster fliegen raus. Ziel sind 20 bis 35 Einträge je Kategorie, und die Regel dazu gefällt mir besonders: Achtzehn scharfe schlagen fünfunddreißig mit Dubletten.</p>
+				<p>Fertig sind bisher 16 Kategorien für Websites, vom Header über Hero, Leistungen, Preise und FAQ bis zum Footer, zusammen 508 Blöcke. Allein für Abschlüsse und Handlungsaufrufe sind es 34, von der schlichten zentrierten Aufforderung bis zum Einschub, der den Lesefluss einmal anhält. Geplant sind weitere Website-Kategorien und dreizehn für Onlineshops, vom Produktraster bis zum Checkout.</p>
+				<h2 id="wie-es-dazu-kam">Wie es dazu kam</h2>
+				<p>Der Skill in seiner heutigen Form ist die dritte Fassung innerhalb weniger Tage Anfang September. Die erste war ein Orchestrator für Inhaltskonzepte: zwei Skills mit 378 Zeilen, neun Beilagen, vier Agenten, vier Tore mit kaltem Gegenlesen, drei Rechercherunden. Am Ende einer Lösungsseite für B2B und Industrie stand eine Bilanz, die ich im Archiv festgehalten habe: rund 1.000 Zeilen Prozessdokument für 282 Wörter Seite. Dazu ein Layout, dessen Gewichtung man nicht sehen konnte, weil alle Abschnitte dieselben Abstände hatten.</p>
+				<p>Am meisten gelernt habe ich aus den Textregeln. Die damalige Textwerkstatt bestand aus 220 neuen Zeilen, fast alle Verbote. Herausgekommen sind fehlerfreie leere Sätze. Mein Lieblingsbeispiel:</p>
+				<blockquote><p>Neue Systeme setzen wir neben die, die bei Ihnen laufen.</p></blockquote>
+				<p>Dieser Satz besteht jede Prüfung. Er sagt nur nichts. In der Knowledgebase habe ich danach mit Claude zusammengetragen, warum das so ist: Sprachmodelle werden im Training auf das Typische hin belohnt. Appelle wie „schreib menschlich“ ändern daran wenig, lange Verbotslisten eher gar nichts, und ein Modell, das seinen eigenen Text bewerten soll, hält ihn gern für besonders gelungen. Was eher hilft: echte Sätze als Vorbild, mechanische Prüfungen von außen und ein Mensch, der auswählt.</p>
+				<p>Die zweite Fassung baute das Layout direkt in Figma, mit drei Skeletten nebeneinander und einem Audit per Skript. Auch sie liegt jetzt im Archiv. Übrig geblieben sind aus beiden Fassungen nur der Datensatz und eine einzige Prüfung: Jede Block-ID wird per <code>grep</code> im Datensatz gesucht, bevor sie verwendet wird. Gibt es keinen Treffer, gibt es den Block nicht. Erfundene Block-IDs waren einer der Fehler, die die alten Tore immer wieder gefunden hatten.</p>
+				<h2 id="sechs-schritte-im-kreis">Sechs Schritte im Kreis</h2>
+				<p>Die heutige Fassung kann zwei Dinge, sonst nichts: Copy schreiben, die trägt, und je Abschnitt den Block wählen, in dem sie steht. Das Ergebnis ist eine einzige Datei pro Seite. Der Ablauf:</p>
+				<ol>
+					<li><strong>Worum geht es.</strong> Eine Runde mit höchstens vier Fragen, nur nach dem, was die Sätze ändert: Angebot, Ziel, wie Besucher ankommen, welches Material es gibt.</li>
+					<li><strong>Recherche.</strong> Drei bis fünf echte Auftritte, die dieselbe Aufgabe für dieselbe Zielgruppe lösen, dazu Branchenmedien, Foren und Bewertungen. Dort spricht die Zielgruppe selbst. Ergebnis ist ein Sprachprofil von höchstens zwölf Zeilen, mit den Begriffen der Zielgruppe neben den Anbieterwörtern, die sie ersetzen.</li>
+					<li><strong>Gerüst.</strong> Erst die Abschnitte als reine Liste von Zwecken, dann je Abschnitt ein Block aus dem Datensatz.</li>
+					<li><strong>Schreiben.</strong> Slot für Slot, in den Feldern, die der Block vorgibt.</li>
+					<li><strong>Verfeinern.</strong> Der Skill <code>humanizer-de</code> geht einmal über den ganzen Text.</li>
+					<li><strong>Abgleich.</strong> Text gegen Block halten. Passt es nicht, zurück zu Schritt 3.</li>
+				</ol>
+				<p>Schritt 3 vor Schritt 4 ist der Kern, und es ist der Teil, der am meisten nach UI-Design aussieht. Der Block kommt vor dem Feintext, weil er die Slots und die Textmenge vorgibt. Ein Block wie <code>services-alternating-row-proof</code> hat neben Titel, Text und Bild einen Platz für einen Beleg, ein Zitat mit Name und Funktion oder eine einzelne Zahl. Wer das vorher weiß, schreibt den Absatz so, dass er auf diesen Beleg zuläuft. Wer erst schreibt und dann sucht, schreibt an jedem Block vorbei.</p>
+				<p>Schritt 6 schließt den Kreis mit Fragen, die ich mir auch beim Entwerfen stelle: Trägt die Headline in einer Zeile? Sind drei Karten annähernd gleich lang? Bleibt die Subline unter der üblichen Menge? Wenn nicht, wird einmal bewusst entschieden, ob der Text kürzer wird oder der Block wechselt.</p>
+				<h2 id="eine-frage-statt-einer-verbotsliste">Eine Frage statt einer Verbotsliste</h2>
+				<p>Von den 220 Zeilen Verboten ist eine Frage übrig geblieben:</p>
+				<blockquote><p>Kann dieser Satz falsch sein?</p></blockquote>
+				<p>Könnte ihm niemand widersprechen, ist er Dekoration. „Ihr Kunde findet das Bauteil über Merkmale statt über die Artikelnummer“ kann falsch sein, also bleibt er. Der Satz von oben mit den neuen Systemen kann es nicht, also fliegt er.</p>
+				<h2 id="was-bewusst-nicht-automatisiert-wird">Was bewusst nicht automatisiert wird</h2>
+				<p>Ein paar Dinge macht Blöckli absichtlich nicht.</p>
+				<ul>
+					<li><strong>Zahlen, Referenzen, Zitate.</strong> Werden nie erfunden. Was fehlt, steht sichtbar als <code>[offen: …]</code> in der Datei und wird nicht glattgeschrieben.</li>
+					<li><strong>Gestaltung.</strong> Gebaut wird woanders. Der Datensatz kennt keine Design-Tokens, damit er in jedes Figma-File und neben jedes Designsystem passt.</li>
+					<li><strong>Geschmack.</strong> Der Skill soll zu jeder Option eine Meinung haben und einmal deutlich widersprechen, wenn es nötig ist. Über Stil und Geschmack entscheide ich.</li>
+					<li><strong>Fremde Sätze.</strong> Aus der Recherche kommen Wortwahl, Tonfall und übliche Abschnittsfolgen mit, nie Sätze im Wortlaut, fremde Claims oder fremde Zahlen.</li>
+				</ul>
+				<p>Im Chat bleibt Claude dabei kurz: höchstens zehn Zeilen je Antwort, kein Vorwort, keine Zusammenfassung des gerade Geschriebenen. Der Skill hat heute 132 Zeilen. Das ist die vielleicht wichtigste Zahl in diesem Beitrag, weil die Fassungen davor jeweils ein Vielfaches davon hatten.</p>
+				<p>Ob die neue Fassung hält, was sie verspricht, muss sich noch zeigen. In meiner Knowledgebase steht dazu offen, dass die Gegenmittel aus der Literatur belegt, im eigenen Ablauf aber noch nicht getestet sind. Eine erste Seite liegt als Entwurf vor, mit einem Sprachprofil, acht Abschnitten in ihren Blöcken und einer ehrlichen Menge an <code>[offen]</code>. Das finde ich nicht schlimm. Lieber eine Lücke, die man sieht, als ein Satz, der nur so tut.</p>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/dropme/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">DropMe: Ein kleines Fenster, das sich richtig anfühlen soll</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/paper-comic-reader/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Paper Comic Reader: Comics wie auf Papier gedruckt</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

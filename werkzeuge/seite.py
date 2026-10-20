@@ -20,14 +20,14 @@ MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August'
 	'September', 'Oktober', 'November', 'Dezember']
 
 
-def einsetzen(seite, name, markup):
+def einsetzen(seite, name, markup, datei=SEITE):
 	"""Ersetzt den Inhalt zwischen <!-- name --> und <!-- /name -->.
 	markup ist eine Liste von Zeilen ohne Einrückung, sie übernehmen die
-	Einrückung des Startmarkers."""
+	Einrückung des Startmarkers. datei nennt nur die Fehlermeldung."""
 	muster = re.compile(rf'^([ \t]*)(<!-- {re.escape(name)} -->).*?(<!-- /{re.escape(name)} -->)', re.S | re.M)
 	m = muster.search(seite)
 	if not m:
-		sys.exit(f'Nicht gefunden in {SEITE.name}: <!-- {name} --> … <!-- /{name} -->. Marker wieder einsetzen.')
+		sys.exit(f'Nicht gefunden in {datei.name}: <!-- {name} --> … <!-- /{name} -->. Marker wieder einsetzen.')
 	einzug = m[1]
 	block = ''.join(f'{einzug}{z}\n' if z else '\n' for z in markup)
 	return seite[:m.start()] + f'{einzug}{m[2]}\n{block}{einzug}{m[3]}' + seite[m.end():]

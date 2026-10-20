@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe | Mitschrift | wiredframe</title>
+	<meta name="description" content="Den Swift-Code hat Claude geschrieben. Was die App rechnet, was sie weglässt und wann sie stehen bleibt, habe ich entschieden. In unter drei Wochen wurde daraus eine echte macOS-App.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/kontor/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/kontor/">
+	<meta property="og:title" content="Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe | Mitschrift | wiredframe">
+	<meta property="og:description" content="Den Swift-Code hat Claude geschrieben. Was die App rechnet, was sie weglässt und wann sie stehen bleibt, habe ich entschieden. In unter drei Wochen wurde daraus eine echte macOS-App.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/blog/kontor/vorschau-uebersicht.jpg">
+	<meta name="twitter:image" content="https://www.wiredframe.de/blog/kontor/vorschau-uebersicht.jpg">
+	<meta property="og:image:alt" content="Die Übersicht von Kontor mit offenen Rechnungen, Zahllast, einem Balkendiagramm zum betrieblichen Gewinn und Schnellstart-Karten">
+	<meta property="article:published_time" content="2026-07-17">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/kontor/#beitrag",
+		"headline": "Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe",
+		"description": "Den Swift-Code hat Claude geschrieben. Was die App rechnet, was sie weglässt und wann sie stehen bleibt, habe ich entschieden. In unter drei Wochen wurde daraus eine echte macOS-App.",
+		"url": "https://www.wiredframe.de/blog/kontor/",
+		"datePublished": "2026-07-17",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 1320,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		},
+		"image": "https://www.wiredframe.de/blog/kontor/vorschau-uebersicht.jpg"
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-07-17">17. Juli 2026</time><span>aktualisiert am <time datetime="2026-10-20">20. Oktober 2026</time></span><span>7 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe</h1>
+				<p class="beitrag__lead">Den Swift-Code hat Claude geschrieben. Was die App rechnet, was sie weglässt und wann sie stehen bleibt, habe ich entschieden. In unter drei Wochen wurde daraus eine echte macOS-App.</p>
+			</header>
+			<div class="beitrag__text">
+				<figure>
+					<img src="/blog/kontor/uebersicht-1200.webp" srcset="/blog/kontor/uebersicht-1200.webp 1200w, /blog/kontor/uebersicht-1600.webp 1600w" sizes="(max-width: 880px) 92vw, 800px"
+						width="800" height="502" alt="Die Übersicht von Kontor mit offenen Rechnungen, Zahllast, einem Balkendiagramm zum betrieblichen Gewinn und Schnellstart-Karten" decoding="async">
+					<figcaption>Die Übersicht, gefüllt mit Demodaten einer erfundenen Designerin aus Berlin.</figcaption>
+				</figure>
+				<p>Ich bin UI Designer, kein Swift-Entwickler. Den Quelltext von Kontor, meiner lokalen Buchhaltungs-App für macOS, hat Claude im Terminal getippt, Schritt für Schritt. Meine Rolle war die eines Product Owners: Ich habe spezifiziert, entschieden, geprüft und am Ende verantwortet, was die App ausrechnet. Vom ersten Commit am 28. Juni bis zu diesem Beitrag waren es 127 Commits, abgesichert von 226 Tests.</p>
+				<h2 id="warum-ein-drittes-werkzeug">Warum ein drittes Werkzeug</h2>
+				<p>Jahrelang lief meine Buchhaltung in Obsidian, mit Rechenblöcken in <code>math.js</code>. Das war charmant und ganz meins, bis Quartalsabschluss, Soll-Versteuerung, Reverse-Charge, Künstlersozialkasse und Forderungsausfälle daraus ein Gebilde machten, bei dem ich vor jeder Änderung die Luft anhielt.</p>
+				<p>Für Zeiten und Rechnungen nutze ich zwei Apps von Timo Partl, WorkingHours und SubTotal. Was fehlte, war der Ort, an dem zum Monats-, Quartals- und Jahresabschluss alles zusammenläuft. Das wurde Kontor, als Ergänzung zu den beiden, nicht als Ersatz. Die ersten Versionen hatten sogar eigene Importer für meine alten Daten aus Obsidian und SubTotal. Nach der Übernahme flogen sie wieder raus.</p>
+				<h2 id="eine-rechnung-zwei-kalender">Eine Rechnung, zwei Kalender</h2>
+				<p>Das Wichtigste an der App sieht man von außen nicht: Dieselbe Rechnung lebt in zwei Kalendern. Die Umsatzsteuer zählt bei mir nach Soll, also wenn ich die Rechnung schreibe. Der Gewinn zählt nach Zufluss, also wenn das Geld ankommt. Im Dezember geschrieben, im Januar bezahlt: Die Umsatzsteuer gehört ins vierte Quartal, der Gewinn ins Folgejahr. Wer das nicht sauber trennt, rechnet falsch und merkt es vielleicht nie.</p>
+				<p>Die Umsatzsteuer-Voranmeldung füllt Kontor nach den echten ELSTER-Kennzahlen aus (KZ 81 und 86 für die Bemessung, KZ 66 für die Vorsteuer, KZ 83 für die Zahllast) und rundet auf den Cent wie ELSTER selbst. Zwei Sonderfälle mussten dabei genau stimmen:</p>
+				<ul>
+					<li><strong>Reverse-Charge nach §13b:</strong> Für ein US-Werkzeug wie Figma schulde ich die Umsatzsteuer selbst und ziehe sie im selben Zug als Vorsteuer wieder ab. Unterm Strich null, der Nettobetrag bleibt aber eine Betriebsausgabe.</li>
+					<li><strong>Forderungsausfall nach §17:</strong> Zahlt ein Kunde nie, bekomme ich die Umsatzsteuer zurück. Das Formular hat dafür kein eigenes Feld, also mindert die Korrektur die Bemessungsgrundlage, statt als eigene Zeile aufzutauchen.</li>
+				</ul>
+				<p>Die Regeln selbst habe ich nicht erfunden, sie kommen aus meinem Alltag als KSK-versicherter Freiberufler und standen vorab in einer ausführlichen Spezifikation. Neu war ihre Übersetzung in eine Rechenlogik, die stur getestet wird. Getestet wird gegen eine erfundene Demo-Persona, damit keine echten Finanzdaten im offenen Quellcode landen. Ein eigener Wächter schlägt an, falls doch einmal etwas Persönliches hineinrutscht.</p>
+				<h2 id="der-kontoauszug-der-dazulernt">Der Kontoauszug, der dazulernt</h2>
+				<p>Die naheliegende Idee war: Kontoauszug rein, die KI ordnet alles zu. Wir haben das gebaut und wieder verworfen. Das Raten nach Beträgen machte aus 14 Euro in der Apotheke schon mal zuversichtlich ein neues Handy.</p>
+				<p>Jetzt rät Kontor nichts mehr vollautomatisch. Ich ordne jede Bankbewegung selbst zu, und die App merkt sich das pro Händler. Habe ich Figma einmal als Reverse-Charge-Ausgabe gebucht, schlägt sie es beim nächsten Mal vor. Nur aktives Buchen lehrt, wer überspringt, bringt der App nichts bei. Ein kleiner Satz Startregeln für verbreitete Werkzeuge ist dabei, und wer denselben Auszug zweimal lädt, bekommt keine Dubletten. Das automatische Zuordnen habe ich bewusst nicht wieder eingebaut.</p>
+				<h2 id="was-schwierig-war">Was schwierig war</h2>
+				<p>Die gefährlichen Fehler sahen selten gefährlich aus. Meistens sahen sie richtig aus.</p>
+				<p><strong>Typografische Anführungszeichen.</strong> Wo im Swift-Code gerade Anführungszeichen stehen müssen, landeten manchmal die geschwungenen, und der Build brach mit einer kryptischen Meldung ab. Im Diff sehen beide fast gleich aus. Die Lösung war kein Code, sondern ein kleines Skript, das vor jedem Commit nach diesem einen Zeichen sucht.</p>
+				<p><strong>Die Belegerkennung.</strong> Den Text liest Apples Erkennung direkt auf dem Gerät, ohne Upload. Aus verstreuten Wortfetzen wieder „das ist der Nettobetrag“ zu machen, war Handarbeit: Beträge den richtigen Beschriftungen zuordnen, englische Datumsformate wie „June 4, 2025“, deutsche Tausenderpunkte. Dazu kam ein sporadischer Absturz. Die PDF-Seiten wurden über einen Zeichenweg gerendert, der nur auf dem Haupt-Thread erlaubt ist, und die Stapelverarbeitung renderte mehrere Belege gleichzeitig im Hintergrund. Seitdem rendert jeder Vorgang für sich, und ein Test fährt bewusst acht Renderings parallel.</p>
+				<p><strong>Die plausible falsche Zahl.</strong> Meine Kernzahl „Frei verfügbar“ wurde an drei Stellen unabhängig berechnet. Die falsche Variante nutzte ausgerechnet der lokale KI-Server: Er meldete 2.233 Euro, der Monatsabschluss 1.043 Euro. Die Differenz von 1.190 Euro war genau eine Betriebsausgabe, die die falsche Formel vergessen hatte. Der Commit dazu heißt „Gewinn-Waterfall hat eine Quelle“. Dazu kamen ein Import, der aus englischem „1332.80“ still 133.280 machte, und eine vierteljährliche Aufgabe, die sich beim Abhaken täglich neu anlegte. Fast jeder dieser Fehler hatte dieselbe Ursache: Dieselbe Wahrheit lebte an zwei Orten und lief auseinander.</p>
+				<p><strong>Die echte Datenbank.</strong> In Kontor liegen meine echten Finanzdaten. Ein übereifriger Notfallpfad hätte die Datenbank schon bei einem harmlosen Fehler, etwa einer kurz gesperrten Datei, beiseitegeschoben und die App leer neu gestartet. Jetzt gibt es erst einen zweiten, ruhigen Versuch, und wenn wirklich alles scheitert, wird die alte Datenbank verschoben, nie gelöscht. Ob eine Notfallreparatur so weit gehen darf, ist keine Frage an den Code, sondern an den, der die Verantwortung trägt.</p>
+				<h2 id="veroeffentlichen">Veröffentlichen</h2>
+				<p>Kontor ist kostenlos und quelloffen. Das hat einen sehr deutschen Grund: Als KSK-Versicherter möchte ich meinen Status nicht gefährden, indem ich Software gewerblich verkaufe. Verschenken geht. Vertrieben wird über GitHub und Homebrew, bewusst ohne Notarisierung, mit dem bekannten Umweg beim ersten Start.</p>
+				<p>Der Mac App Store brauchte mehrere Anläufe. Die erste Einreichung wurde zweimal abgelehnt: einmal wegen des optionalen lokalen KI-Servers (Regel 2.4.5), einmal wegen meines freiwilligen Spendenlinks (In-App-Kauf-Pflicht, Regel 3.1.1). Am 14. Juli habe ich den Store-Vertrieb komplett entfernt, am 17. Juli kam eine schlanke Variante ohne KI-Server und Spende zurück, mit der alten Bundle-ID, damit vorhandene Daten weiterleben.</p>
+				<p>An einem Punkt habe ich außerdem die Git-Historie neu aufgesetzt, um Claude als Mitautor aus den Commits zu nehmen. Nicht aus Scham, sondern damit das Repository unter dem Namen dessen steht, der dafür geradesteht.</p>
+				<h2 id="was-ich-mitnehme">Was ich mitnehme</h2>
+				<p>Jede Zahl braucht genau eine Quelle. Klein und für einen einzigen Fall gebaut schlägt groß und für alle: Kontor kann keine Bilanzierung und keine Kleinunternehmerregelung, aber genau meine Steuersituation, und die richtig. Und die wichtigste Regel in der Zusammenarbeit mit Claude ist „frag nach“. Wo die Maschine bei Unsicherheit stehen blieb, wurde es gut. Wo sie plausibel weiterriet, wurde es teuer.</p>
+				<p>Claude hat Code geschrieben, den ich selbst nie geschrieben hätte. Die Verantwortung hat es mir nicht abgenommen. Es hätte mir drei leicht verschiedene Versionen derselben Zahl hingeschrieben und alle für richtig gehalten, bis ich das Gefühl hatte, dass da etwas nicht stimmt. Dieses Gefühl hat der Mensch, der die Zahl am Ende ans Finanzamt schickt.</p>
+				<p><em>Kontor ersetzt keine Steuerberatung, die Zahlen gehören vor jeder Abgabe selbst geprüft. Danke an Timo Partl für WorkingHours und SubTotal.</em></p>
+				<h2 id="nachtraege">Nachträge</h2>
+				<h3 id="abgeloest-von-wiredframe-20-oktober">Abgelöst von wiredframe (20. Oktober)</h3>
+				<p>Kontor ist veröffentlicht und bleibt es: als Quellcode und Release auf <a href="https://github.com/Wiredframe/kontor-buchhaltung">GitHub</a> und per Homebrew. Im Mac App Store stand es von Juli bis Anfang Oktober, seitdem gibt es Updates nur noch über GitHub und Homebrew.</p>
+				<p>Im Alltag benutze ich Kontor seit Ende September nicht mehr. Am 26. September habe ich meine echten Daten aus WorkingHours, SubTotal und Kontor in <a href="/blog/wiredframe/">wiredframe</a> übernommen, meine eigene Terminal-App, in der Zeiten, Rechnungen, Ausgaben, Kontoauszug und Steuern als verbundene Datensätze zusammenlaufen. Die Rechenlogik aus Kontor ist dabei in mehreren Schritten mitgewandert.</p>
+				<p>Ganz eingeschlafen ist Kontor trotzdem nicht. Am 19. Oktober kam Version 3.2.13 mit Steuerfristen, einer Seite für die Steuererklärung und einem Export für Mein ELSTER. Eine Zusage für die Zukunft gibt es aber nicht, das steht inzwischen auch so im README: Ich pflege Kontor nach Möglichkeit weiter, für meine eigene Buchhaltung ist es abgelöst.</p>
+				<figure>
+					<img class="freigestellt" src="/blog/kontor/icon-256.webp" srcset="/blog/kontor/icon-256.webp 256w" sizes="(max-width: 208px) 92vw, 128px"
+						width="128" height="128" alt="Das App-Symbol von Kontor" loading="lazy" decoding="async">
+				</figure>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/paper-comic-reader/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">Paper Comic Reader: Comics wie auf Papier gedruckt</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Rectmangle: Vom Config-File zum Einstellungsfenster | Mitschrift | wiredframe</title>
+	<meta name="description" content="Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/rectmangle/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/rectmangle/">
+	<meta property="og:title" content="Rectmangle: Vom Config-File zum Einstellungsfenster | Mitschrift | wiredframe">
+	<meta property="og:description" content="Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta name="twitter:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta property="article:published_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/rectmangle/#beitrag",
+		"headline": "Rectmangle: Vom Config-File zum Einstellungsfenster",
+		"description": "Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.",
+		"url": "https://www.wiredframe.de/blog/rectmangle/",
+		"datePublished": "2026-10-20",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 659,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		}
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>4 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Rectmangle: Vom Config-File zum Einstellungsfenster</h1>
+				<p class="beitrag__lead">Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.</p>
+			</header>
+			<div class="beitrag__text">
+				<figure>
+					<img class="freigestellt" src="/blog/rectmangle/einstellungen-1200.webp" srcset="/blog/rectmangle/einstellungen-1200.webp 1200w, /blog/rectmangle/einstellungen-1598.webp 1598w" sizes="(max-width: 879px) 92vw, 799px"
+						width="799" height="512" alt="Das Einstellungsfenster von Rectmangle mit allen Aktionen und ihren Tastenkürzeln" decoding="async">
+					<figcaption>Jede Aktion mit einem kleinen Bild ihrer Position und einem Feld, in das man das Kürzel einfach drückt.</figcaption>
+				</figure>
+				<p>Fenster per Tastatur in Hälften, Drittel und Ecken zu schieben, gehört für mich zum Arbeiten wie Kopieren und Einfügen. Dafür hatte ich Rectangle, zuletzt die gekaufte Pro-Version. Was mich störte: Sie braucht eine Internetverbindung, um die Lizenz zu prüfen. Ein Werkzeug, das Fenster verschiebt, hat im Netz nichts verloren.</p>
+				<p>Also habe ich Claude gebeten, einen minimalistischen Nachbau zu machen, für mich und als Open Source.</p>
+				<h2 id="meine-einstellungen-eins-zu-eins">Meine Einstellungen, eins zu eins</h2>
+				<p>Ich hatte einen Screenshot meiner Kürzel mitgeschickt. Claude las sie aber gleich direkt aus den Einstellungen von Rectangle aus und fand dabei noch zwei, die im Screenshot eingeklappt waren. Auch die Feinheiten kamen mit: Drückt man ein zweites Mal auf „linke Hälfte“, wandert das Fenster auf den Bildschirm daneben, „fast maximieren“ nutzt 90 Prozent der Fläche, und der Mauszeiger folgt dem Fenster auf einen anderen Bildschirm. Die Bereiche zum Andocken am Bildschirmrand hatte ich in Rectangle abgeschaltet, also gibt es sie in Rectmangle gar nicht erst.</p>
+				<p>Version 1.0 hatte kein Einstellungsfenster. Alles stand in einer Datei, <code>~/.config/rectmangle/config.json</code>, die beim Speichern sofort neu geladen wird. Für einen Entwickler ist das elegant. Für mich war es ehrlich gesagt etwas rough.</p>
+				<h2 id="das-auge-des-designers">Das Auge des Designers</h2>
+				<p>Eine Datei ist eine Schnittstelle, aber keine Oberfläche. Man muss wissen, wie ein Kürzel geschrieben wird, ob <code>⌃⌥←</code> oder <code>ctrl+opt+left</code>, und man sieht erst nach dem Speichern, ob es geklappt hat. Dazu fehlte der App etwas, das DropMe und Mittelklick vom selben Tag schon hatten: ein eigenes Symbol und ein Menü in der Menüleiste.</p>
+				<p>Also kam das in zwei Schritten dazu. Zuerst Symbol und Menü, in dem jede Aktion mit ihrem Kürzel steht. Dann das Einstellungsfenster, nach dem Vorbild von Rectangle:</p>
+				<ul>
+					<li>Jede Aktion hat ein kleines Bild, das zeigt, wo das Fenster landet. Man muss „Erste zwei Drittel“ nicht lesen, man sieht es.</li>
+					<li>Ins Feld klicken, Tasten drücken, fertig. Esc bricht ab, die Rückschritt-Taste löscht.</li>
+					<li>Ist ein Kürzel schon vergeben, lehnt das Feld es ab und sagt, für welche Aktion. Belegt eine andere App das Kürzel, steht ein Warnsymbol in der Zeile.</li>
+					<li>Ein zweiter Reiter regelt den Rest: Start beim Anmelden, Menüleistensymbol, die Größe von „fast maximieren“ und die Schrittweite für Größer und Kleiner.</li>
+				</ul>
+				<p>Die Datei ist dabei geblieben. Das Fenster schreibt sie neu, in fester Reihenfolge, und von Hand bearbeiten kann man sie weiterhin. Eine einzige Quelle für alle Einstellungen, zwei Wege dorthin.</p>
+				<h2 id="was-die-pruefung-fand">Was die Prüfung fand</h2>
+				<p>Nach jeder Stufe lasse ich eine Fehlerrunde laufen, inklusive einer unabhängigen Durchsicht. Beim Einstellungsfenster fand sie unter anderem:</p>
+				<ul>
+					<li>Ein Kürzel auf der Taste „#“ ließ sich nach dem Speichern nicht mehr einlesen.</li>
+					<li>Wechselte man während einer Aufnahme den Reiter, nahm das Feld unsichtbar weiter auf.</li>
+					<li>Kürzel nur mit ⌘ oder nur mit ⌥ hätten in allen Apps zum Beispiel ⌘C oder das Tippen von „€“ blockiert. Sie werden jetzt abgelehnt.</li>
+				</ul>
+				<p>Schön fand ich einen Nebeneffekt aus dem Testen. Claude darf keine Tasten drücken, konnte die Kürzel also nicht selbst ausprobieren. Stattdessen bekam Rectmangle ein URL-Schema, <code>open -g rectmangle://leftHalf</code>, mit dem Claude jede Aktion an einem Finder-Fenster durchspielte. Heute ist das eine Funktion: Man kann Rectmangle damit aus Raycast oder der Kurzbefehle-App steuern.</p>
+				<h2 id="ein-nachspiel-am-naechsten-tag">Ein Nachspiel am nächsten Tag</h2>
+				<p>Am Montag fiel auf, dass alle drei Apps vom Sonntag im alten Fensterlook erschienen, mit kleinen Ampeln. Der Grund war unscheinbar: Das Build-Werkzeug hatte das Mindestsystem als SDK-Version eingetragen, und macOS hielt die Apps deshalb für alt. Seit einem Linker-Schalter zeigen sie das aktuelle Design, so wie im Screenshot oben.</p>
+				<figure>
+					<img class="freigestellt" src="/blog/rectmangle/icon-256.webp" srcset="/blog/rectmangle/icon-256.webp 256w" sizes="(max-width: 208px) 92vw, 128px"
+						width="128" height="128" alt="Das App-Symbol von Rectmangle" loading="lazy" decoding="async">
+				</figure>
+				<p>Rectmangle hat in einem Tag sieben Versionen bekommen, in elf Commits und rund 1.700 Zeilen Swift. Was fehlt, fehlt bewusst: Andocken am Bildschirmrand, Abstände zwischen Fenstern und Ausnahmen pro App. Der Code liegt auf <a href="https://github.com/Wiredframe/rectmangle">GitHub</a>.</p>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/wiredframe/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/mittelklick/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Mittelklick: Der dritte Helfer an einem Sonntag</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

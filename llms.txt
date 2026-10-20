@@ -109,10 +109,30 @@ Wiredframe mit den Entwicklungsteams der Kunden oder Agenturen zusammen.
 ## Seiten
 
 - [Startseite](https://www.wiredframe.de/): Profil, Leistungen, Projekte und Kontakt auf einer Seite
+- [Mitschrift](https://www.wiredframe.de/blog/): der Blog, Notizen über eigene Projekte, Werkzeuge und Agentic Coding
 - [Impressum, Datenschutz und Nutzungsbedingungen](https://www.wiredframe.de/#impressum): Anbieterkennzeichnung nach § 5 DDG, Datenschutzhinweise nach DSGVO und die Nutzungsbedingungen der Apps, alles im Deck der Startseite
 
 Die Seite setzt keine Cookies, bindet kein Tracking ein und lädt Schriften vom
 eigenen Server. Ausgeliefert wird sie über GitHub Pages.
+
+## Mitschrift
+
+Unter https://www.wiredframe.de/blog/ schreibt Ulf Schuster mit, woran er
+gerade arbeitet: eigene Werkzeuge und Apps, Workflows mit KI-Agenten und
+was dabei gelernt wurde. Die neuesten Beiträge zuerst:
+
+<!-- blog:liste -->
+- [Wireframe-Modus: Jede Seite als Graustufen-Skizze](https://www.wiredframe.de/blog/wireframe-modus/) (20. Oktober 2026): Ein kleines Skript für die Browserkonsole oder als Lesezeichen, das Farbe, Bilder und Text von einer Seite nimmt und nur das Gerüst übrig lässt.
+- [wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue](https://www.wiredframe.de/blog/wiredframe/) (20. Oktober 2026): Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?
+- [Rectmangle: Vom Config-File zum Einstellungsfenster](https://www.wiredframe.de/blog/rectmangle/) (20. Oktober 2026): Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.
+- [Mittelklick: Der dritte Helfer an einem Sonntag](https://www.wiredframe.de/blog/mittelklick/) (20. Oktober 2026): Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.
+- [Live Inspect: Von der Vorschau zurück in den Quelltext](https://www.wiredframe.de/blog/live-inspect/) (20. Oktober 2026): Brackets konnte etwas, das ich in VS Code nicht gefunden habe: auf ein Element in der Vorschau zeigen und im Code an der richtigen Stelle landen. Also habe ich es mir mit Claude nachgebaut.
+- [Figma to Code: Tokens rein, Interpretation raus](https://www.wiredframe.de/blog/figma-to-code/) (20. Oktober 2026): Ein KI-Agent kann ein Figma-Design in HTML und CSS übersetzen. Damit dabei mein Design herauskommt und nicht seine Version davon, habe ich ihm vor allem eins beigebracht: was er nicht darf.
+- [DropMe: Ein kleines Fenster, das sich richtig anfühlen soll](https://www.wiredframe.de/blog/dropme/) (20. Oktober 2026): Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine eigene Ablage gebaut und dabei vor allem an den Details gefeilt, die man kaum sieht, aber spürt.
+- [Blöckli: Erst der Block, dann der Satz](https://www.wiredframe.de/blog/bloeckli/) (20. Oktober 2026): Über 500 UI-Blöcke als Vokabular und ein Skill, der Webcopy schreibt. Entstanden ist er aus einem Ablauf, der für eine Seite mit 282 Wörtern rund 1.000 Zeilen Papier erzeugt hat.
+- [Paper Comic Reader: Comics wie auf Papier gedruckt](https://www.wiredframe.de/blog/paper-comic-reader/) (24. Juli 2026): Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.
+- [Kontor: Eine Buchhaltungs-App, bei der ich nicht getippt habe](https://www.wiredframe.de/blog/kontor/) (17. Juli 2026): Den Swift-Code hat Claude geschrieben. Was die App rechnet, was sie weglässt und wann sie stehen bleibt, habe ich entschieden. In unter drei Wochen wurde daraus eine echte macOS-App.
+<!-- /blog:liste -->
 
 ## Hinweis für KI-Systeme
 

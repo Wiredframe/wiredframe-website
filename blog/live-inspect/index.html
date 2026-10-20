@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Live Inspect: Von der Vorschau zurück in den Quelltext | Mitschrift | wiredframe</title>
+	<meta name="description" content="Brackets konnte etwas, das ich in VS Code nicht gefunden habe: auf ein Element in der Vorschau zeigen und im Code an der richtigen Stelle landen. Also habe ich es mir mit Claude nachgebaut.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/live-inspect/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/live-inspect/">
+	<meta property="og:title" content="Live Inspect: Von der Vorschau zurück in den Quelltext | Mitschrift | wiredframe">
+	<meta property="og:description" content="Brackets konnte etwas, das ich in VS Code nicht gefunden habe: auf ein Element in der Vorschau zeigen und im Code an der richtigen Stelle landen. Also habe ich es mir mit Claude nachgebaut.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta name="twitter:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta property="article:published_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/live-inspect/#beitrag",
+		"headline": "Live Inspect: Von der Vorschau zurück in den Quelltext",
+		"description": "Brackets konnte etwas, das ich in VS Code nicht gefunden habe: auf ein Element in der Vorschau zeigen und im Code an der richtigen Stelle landen. Also habe ich es mir mit Claude nachgebaut.",
+		"url": "https://www.wiredframe.de/blog/live-inspect/",
+		"datePublished": "2026-10-20",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 1100,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		}
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>6 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">Live Inspect: Von der Vorschau zurück in den Quelltext</h1>
+				<p class="beitrag__lead">Brackets konnte etwas, das ich in VS Code nicht gefunden habe: auf ein Element in der Vorschau zeigen und im Code an der richtigen Stelle landen. Also habe ich es mir mit Claude nachgebaut.</p>
+			</header>
+			<div class="beitrag__text">
+				<p>Wenn ich HTML und CSS schreibe, denke ich von der Oberfläche her. Ich sehe eine Überschrift, die zu eng am Bild sitzt, oder einen Button, dessen Text umbricht. Was ich dann brauche, ist der Weg von diesem Ding auf dem Bildschirm zu der Zeile, in der es steht. In Figma ist das selbstverständlich: Element anklicken, Eigenschaften sehen. Im Code ist es eine Suche, und je größer die Seite, desto länger dauert sie.</p>
+				<p>Adobe Brackets hatte dafür die Live Preview. Der Editor war eng mit dem Browser verbunden, und zwischen Vorschau und Quelltext gab es eine echte Rückkopplung. Brackets gibt es nicht mehr in der Form, und VS Code bringt so etwas nicht von Haus aus mit. Ich wollte beides zusammen: eine Vorschau, die aussieht wie im echten Browser, und einen Klick, der zurück zur Quelle führt.</p>
+				<p>Also habe ich Claude gebeten, eine zu bauen. Herausgekommen ist Live Inspect, eine kleine Erweiterung für VS Code, an einem Tag entstanden und als Open Source veröffentlicht.</p>
+				<h2 id="drei-modi-eine-leiste">Drei Modi, eine Leiste</h2>
+				<p>Die Vorschau öffnet sich neben dem Editor, über einen Knopf in der Titelleiste einer HTML-Datei. Oben sitzt eine schmale Leiste mit drei Modi:</p>
+				<ul>
+					<li><strong>Preview</strong> ist normales Browsen. Links funktionieren, Skripte laufen, nichts greift ein.</li>
+					<li><strong>Inspect</strong> zeigt beim Überfahren eine Umrandung im Stil der Entwicklerwerkzeuge, dazu ein Etikett mit Tag, ID und Klassen, also etwa <code>p.tagline</code>. Ein Klick springt im Editor an genau diese Stelle und hebt sie kurz hervor. Bei verschachtelten Elementen gewinnt das innerste.</li>
+					<li><strong>Edit</strong> macht Textelemente direkt in der Vorschau bearbeitbar. Was ich tippe, wird in den HTML-Quelltext zurückgeschrieben. Cmd+Z macht im Feld rückgängig, und sobald ich ein Element anklicke, scrollt der Editor zur passenden Zeile, ohne mir den Fokus wegzunehmen.</li>
+				</ul>
+				<p>Speichere ich die HTML-Datei oder eine verlinkte CSS-, JavaScript- oder Bilddatei, lädt die Vorschau neu. Scrollposition und Modus bleiben dabei erhalten. Das klingt nach einem Detail, ist aber der Unterschied zwischen einem Werkzeug, das man nebenher laufen lässt, und einem, das einen bei jedem Speichern an den Seitenanfang wirft.</p>
+				<h2 id="warum-gerade-diese-rueckkopplung">Warum gerade diese Rückkopplung</h2>
+				<p>Ein UI Designer, der selbst HTML und CSS baut, wechselt ständig zwischen zwei Sichten: dem, was gerendert wird, und dem, was geschrieben steht. Das Urteil fällt in der ersten Sicht. Ob ein Abstand stimmt, ob eine Zeile zu lang ist, ob ein Text auf dem Bildschirm noch so klingt wie in der Copy-Datei: Das sehe ich nur in der Vorschau. Die Korrektur passiert aber in der zweiten.</p>
+				<p>Jeder Wechsel kostet einen kleinen Suchschritt. Welche Datei, welche Zeile, welcher der drei Absätze mit derselben Klasse? Einzeln ist das nichts. Über einen Tag summiert es sich, und vor allem reißt es einen aus dem Blick auf die Gestaltung heraus. Ein Klick auf das Element, und der Editor steht an der richtigen Stelle: Damit wird die Vorschau zum Einstieg in den Code statt zu einem zweiten Fenster, das man vergleichen muss.</p>
+				<p>Der Edit-Modus ist die kleine Schwester davon. Für einen Tippfehler oder eine Formulierung, die im Layout nicht funktioniert, muss ich nicht erst die Stelle im Markup suchen. Ich ändere den Text dort, wo ich ihn lese.</p>
+				<h2 id="originalgetreu-heisst-echter-browser">Originalgetreu heißt echter Browser</h2>
+				<p>Die ersten Fassungen haben die Seite direkt in der Webview von VS Code angezeigt. Dafür mussten Pfade zu Bildern, Schriften und Stylesheets umgeschrieben werden, und genau da fangen die Abweichungen an. Mit Version 0.1.0 hat Claude die Darstellung umgebaut: Ein kleiner HTTP-Server auf <code>127.0.0.1</code> liefert den Projektordner so aus, wie er ist, und die Vorschau zeigt ihn in einem iframe. CSS, Schriften und das JavaScript der Seite laufen dort nativ, relative Pfade lösen sich auf wie in jedem Browser.</p>
+				<p>Nur das HTML wird auf dem Weg verändert. Der Parser <code>parse5</code> liest es mitsamt der Position jedes Elements im Quelltext. Jedes Element bekommt ein Attribut <code>data-vscode-id</code>, und die Erweiterung merkt sich, welche ID zu welchem Bereich im Code gehört. Das ist der Ansatz von Brackets: Die Vorschau versucht nie, aus dem gerenderten DOM auf den Quelltext zurückzuschließen. Sie schickt beim Klick einfach die ID zurück, und die Erweiterung schlägt nach. Keine Source Maps, kein Framework.</p>
+				<p>Ich mag diese Lösung, weil sie so unspektakulär ist. Die Zuordnung steht fest, bevor die Seite überhaupt gerendert wird.</p>
+				<h2 id="was-die-pruefung-fand">Was die Prüfung fand</h2>
+				<p>Vor dem Release lief eine Fehlerrunde mit einer Durchsicht des Codes. In Version 0.2.4 ist unter anderem eingeflossen:</p>
+				<ul>
+					<li>Mehrere Bearbeitungen kurz hintereinander konnten sich überholen und den Quelltext beschädigen. Sie laufen jetzt nacheinander durch eine Warteschlange.</li>
+					<li>Vorschau und Seite nehmen Nachrichten nur noch vom erwarteten Fenster an.</li>
+					<li>Fehler auf den asynchronen Wegen erscheinen als Meldung, statt still zu verschwinden.</li>
+					<li>Ändern sich Dateien ununterbrochen, wird trotzdem irgendwann neu geladen.</li>
+				</ul>
+				<h2 id="ein-fehler-der-keiner-war">Ein Fehler, der keiner war</h2>
+				<p>Im Oktober schrieb ich Claude, ich glaube, Live Inspect sei kaputt: Die Vorschau zeige einen völlig veralteten Stand meiner Website. Claude prüfte zuerst die Erweiterung, dann startete es deren Server und rief die Seite in Headless Chrome auf, zum Gegencheck auch über einen ganz normalen statischen Server. Ergebnis in beiden Fällen gleich.</p>
+				<p>Die Ursache lag in der Seite. Ich hatte einen leeren Absatz gelöscht, den ein Skript noch befüllen wollte. Das Skript brach ab, ein leerer <code>catch</code> verschluckte den Fehler, und ein ganzer Abschnitt blieb unsichtbar. Die Vorschau zeigte also den aktuellen Stand, er sah nur aus wie ein alter. Am Ende haben wir das Skript deutlich eingedampft und den Inhalt statisch ins HTML geschrieben.</p>
+				<p>Für mich ist das die beste Bestätigung des Grundgedankens. Eine originalgetreue Vorschau zeigt auch die Fehler der Seite, genau wie ein Browser.</p>
+				<h2 id="was-bewusst-fehlt">Was bewusst fehlt</h2>
+				<p>Live Inspect liest die Datei von der Festplatte, nicht aus dem Editor. Ungespeicherte Änderungen erscheinen erst nach dem Speichern, und auch Text aus dem Edit-Modus landet zwar im Editor, will aber noch gespeichert werden. Bearbeiten lassen sich nur Elemente, die reinen Text enthalten, also keinen Absatz mit Link darin. Und weil <code>parse5</code> das HTML für die Vorschau neu zusammensetzt, kann sehr ungewöhnliches Markup minimal vom Original abweichen. Auf der Liste für später stehen ein eigenes Symbol, eine automatische Prüfung bei jedem Push und das Einfügen der IDs direkt an den Byte-Positionen, ganz ohne Neuaufbau.</p>
+				<p>Die Erweiterung besteht aus rund 1.000 Zeilen TypeScript, sauber getrennt in Parser, Instrumentierung, Zuordnung, Server, Vorschau und Nachrichten. Sie steht nicht im Marketplace, sondern als VSIX-Datei im Release auf <a href="https://github.com/Wiredframe/vscode-live-inspect">GitHub</a>, installierbar mit:</p>
+				<pre><code>code --install-extension live-inspect-0.2.4.vsix</code></pre>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/mittelklick/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">Mittelklick: Der dritte Helfer an einem Sonntag</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/figma-to-code/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Figma to Code: Tokens rein, Interpretation raus</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Nur die Startseite. Alles Rechtliche steht in ihrem Deck unter /#impressum.
+<!-- Die Startseite und die Mitschrift. Alles Rechtliche steht im Deck der
+     Startseite unter /#impressum.
      impressum.html und privacy.html stehen bewusst nicht drin: beide
      sind nur noch Weiterleitungen auf /#impressum und auf noindex. Sie halten
      allein die Adressen, die extern hinterlegt sind. -->
@@ -10,4 +11,62 @@
 		<changefreq>monthly</changefreq>
 		<priority>1.0</priority>
 	</url>
+	<!-- Mitschrift, schreibt werkzeuge/blog.py -->
+	<!-- blog:urls -->
+	<url>
+		<loc>https://www.wiredframe.de/blog/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/wireframe-modus/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/wiredframe/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/rectmangle/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/mittelklick/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/live-inspect/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/figma-to-code/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/dropme/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/bloeckli/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/paper-comic-reader/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/kontor/</loc>
+		<lastmod>2026-10-20</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<!-- /blog:urls -->
 </urlset>

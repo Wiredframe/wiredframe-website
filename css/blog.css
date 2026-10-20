@@ -1,0 +1,700 @@
+/**
+ * wiredframe, Mitschrift (/blog/)
+ *
+ * Die Leseseiten. Das Markup schreibt werkzeuge/blog.py, hier steht nur,
+ * wie es aussieht. Bewusst getrennt von deck.css: die Startseite ist ein
+ * Deck aus Panels, die Mitschrift ein ruhiges Blatt zum Lesen. Geteilt
+ * werden Schriften und Farben, die Werte unten sind aus deck.css übernommen.
+ *
+ * Gelesen wird in einer Spalte von 34em, bei der Grundgröße um die 70
+ * Zeichen je Zeile. Abbildungen dürfen breiter werden als der Text, bis an
+ * die Ränder des Blatts: Screenshots haben kleine Schrift und brauchen den
+ * Platz, der Text braucht ihn nicht.
+ */
+@font-face {
+	font-family: 'Brawler';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('../fonts/Brawler-variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Onest';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/Onest-latin.woff2') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+		U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+		U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Onest';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../fonts/Onest-latin-ext.woff2') format('woff2');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+		U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+		U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ===========================================
+   Tokens
+   =========================================== */
+:root {
+	/* aus deck.css */
+	--color-primary: #193239;
+	--color-accent: #beff8a;
+	--color-accent-strong: #a9e85f;
+	--color-ink: #2b493d;
+	--color-white: #f0f6f3;
+	--color-canvas: #e2ebe6;
+	--font-heading: 'Brawler', Georgia, 'Times New Roman', serif;
+	--font-family: 'Onest', system-ui, -apple-system, sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+	--radius-panel: clamp(20px, 3vw, 40px);
+	--radius-cell: clamp(12px, 1.6vw, 20px);
+	--radius-pill: 999px;
+	/* eigene für das Blatt */
+	--color-leise: color-mix(in oklab, var(--color-primary) 66%, var(--color-white));
+	--color-linie: color-mix(in oklab, var(--color-primary) 14%, transparent);
+	--spalte: 34em;
+	--fs-text: clamp(1.0625rem, 0.97rem + 0.35vw, 1.1875rem);
+	--fluss: 1.2em;
+	--gutter: clamp(10px, 2.4vw, 32px);
+}
+
+/* ===========================================
+   Grundlage
+   =========================================== */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	min-height: 100vh;
+	padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px));
+	padding-top: max(var(--gutter), env(safe-area-inset-top, 0px));
+	padding-bottom: env(safe-area-inset-bottom, 0px);
+	background: var(--color-canvas);
+	color: var(--color-primary);
+	font-family: var(--font-family);
+	font-size: var(--fs-text);
+	line-height: 1.7;
+	font-kerning: normal;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+}
+
+::selection {
+	background: var(--color-accent);
+	color: var(--color-ink);
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: inherit;
+}
+
+/* Fokus sichtbar, aber nur für die Tastatur */
+:focus-visible {
+	outline: 3px solid var(--color-primary);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+/* ===========================================
+   Zurück oben links und Fuß
+   -------------------------------------------
+   Der Pfeil ist der runde Knopf aus der Bedienzeile der Startseite,
+   gleiche Größe, Fläche und Linie. Er sitzt in der Ecke des Blatts,
+   damit oben keine eigene Zeile Platz kostet.
+   =========================================== */
+.zurueck {
+	position: absolute;
+	top: clamp(12px, 2.2vw, 28px);
+	left: clamp(12px, 2.2vw, 28px);
+	display: inline-grid;
+	place-items: center;
+	width: 53px;
+	height: 53px;
+	border-radius: var(--radius-pill);
+	background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+	color: var(--color-primary);
+	transition: background 200ms ease, transform 200ms ease;
+}
+
+.zurueck:hover {
+	background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.zurueck:active {
+	transform: scale(0.94);
+}
+
+.zurueck svg {
+	width: 24px;
+	height: 24px;
+}
+
+.fuss {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem 1.75rem;
+	padding-block: clamp(28px, 5vw, 48px);
+	font-size: 0.875rem;
+	color: var(--color-leise);
+}
+
+.fuss a {
+	text-decoration: none;
+}
+
+.fuss a:hover {
+	color: var(--color-primary);
+	text-decoration: underline;
+}
+
+/* ===========================================
+   Das Blatt
+   -------------------------------------------
+   Drei Spalten: die mittlere trägt den Text, die äußeren sind Luft, in
+   die nur Abbildungen hineinragen. So bleibt jede Zeile lesbar breit,
+   egal wie breit das Fenster ist.
+   =========================================== */
+.blatt {
+	position: relative;
+	max-width: 64rem;
+	margin-inline: auto;
+	padding: clamp(80px, 8vw, 96px) clamp(18px, 5.5vw, 72px) clamp(36px, 7vw, 80px);
+	background: var(--color-white);
+	border-radius: var(--radius-panel);
+	corner-shape: squircle;
+}
+
+.beitrag__kopf,
+.beitrag__text,
+.weiter {
+	display: grid;
+	grid-template-columns: [voll-start] minmax(0, 1fr) [text-start] min(100%, var(--spalte)) [text-end] minmax(0, 1fr) [voll-end];
+}
+
+.beitrag__kopf > *,
+.beitrag__text > *,
+.weiter > * {
+	grid-column: text;
+}
+
+/* ===========================================
+   Kopf eines Beitrags
+   =========================================== */
+.meta {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 0.6em;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	line-height: 1.5;
+	color: var(--color-leise);
+	font-variant-numeric: tabular-nums;
+}
+
+.meta > * + *::before {
+	content: '·';
+	margin-right: 0.6em;
+}
+
+.beitrag__titel,
+.mitschrift__titel {
+	margin-top: 0.5em;
+	font-family: var(--font-heading);
+	font-size: clamp(2.1rem, 1.4rem + 3vw, 3.5rem);
+	font-weight: 600;
+	line-height: 1.08;
+	letter-spacing: -0.012em;
+	text-wrap: balance;
+}
+
+.beitrag__lead,
+.mitschrift__intro {
+	margin-top: 0.9em;
+	font-family: var(--font-heading);
+	font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
+	line-height: 1.5;
+	color: color-mix(in oklab, var(--color-primary) 84%, var(--color-white));
+	text-wrap: pretty;
+}
+
+.beitrag__kopf {
+	padding-bottom: clamp(28px, 4vw, 44px);
+}
+
+/* ===========================================
+   Text
+   =========================================== */
+.beitrag__text {
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphenate-limit-chars: 8 4 4;
+	overflow-wrap: break-word;
+}
+
+.beitrag__text > * + * {
+	margin-top: var(--fluss);
+}
+
+.beitrag__text p,
+.beitrag__text li {
+	text-wrap: pretty;
+}
+
+.beitrag__text h2,
+.beitrag__text h3,
+.beitrag__text h4 {
+	hyphens: manual;
+	text-wrap: balance;
+	scroll-margin-top: 1.5rem;
+}
+
+.beitrag__text h2 {
+	margin-top: 2.4em;
+	font-family: var(--font-heading);
+	font-size: 1.6em;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.005em;
+}
+
+.beitrag__text h3 {
+	margin-top: 2.2em;
+	font-size: 1.15em;
+	font-weight: 650;
+	line-height: 1.35;
+}
+
+.beitrag__text h4 {
+	margin-top: 1.8em;
+	font-size: 1em;
+	font-weight: 650;
+}
+
+.beitrag__text :is(h2, h3, h4) + * {
+	margin-top: 0.6em;
+}
+
+.beitrag__text strong {
+	font-weight: 650;
+}
+
+.beitrag__text a {
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-decoration-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+	text-underline-offset: 0.2em;
+	transition: background 150ms ease;
+}
+
+.beitrag__text a:hover {
+	background: var(--color-accent);
+	text-decoration-color: currentColor;
+}
+
+.beitrag__text code {
+	padding: 0.1em 0.35em;
+	border-radius: 0.35em;
+	background: color-mix(in oklab, var(--color-primary) 7%, transparent);
+	font-family: var(--font-mono);
+	font-size: 0.86em;
+	hyphens: none;
+}
+
+.beitrag__text pre {
+	grid-column: voll;
+	overflow-x: auto;
+	padding: 1.1em 1.3em;
+	border-radius: var(--radius-cell);
+	background: var(--color-primary);
+	color: var(--color-white);
+	font-size: 0.875em;
+	line-height: 1.6;
+}
+
+.beitrag__text pre code {
+	padding: 0;
+	background: none;
+	font-size: inherit;
+}
+
+.beitrag__text ul,
+.beitrag__text ol {
+	padding-left: 1.3em;
+}
+
+.beitrag__text li + li {
+	margin-top: 0.55em;
+}
+
+.beitrag__text li::marker {
+	color: var(--color-leise);
+	font-variant-numeric: tabular-nums;
+}
+
+.beitrag__text blockquote {
+	padding-left: 1.1em;
+	border-left: 3px solid var(--color-accent-strong);
+	color: color-mix(in oklab, var(--color-primary) 84%, var(--color-white));
+}
+
+.beitrag__text blockquote p + p {
+	margin-top: 0.8em;
+}
+
+.beitrag__text hr {
+	width: 4rem;
+	height: 2px;
+	margin: 3em auto;
+	border: 0;
+	background: var(--color-linie);
+}
+
+/* ===========================================
+   Abbildungen
+   -------------------------------------------
+   Über die volle Breite des Blatts, die Unterschrift wieder in der
+   Textspalte. Runde Ecken und nur ein weicher Schatten, kein feiner Rand
+   per box-shadow: der lief neben der Bildkante her und sah nach doppelter
+   Kontur aus.
+   =========================================== */
+.beitrag__text figure {
+	grid-column: voll;
+	margin-block: calc(var(--fluss) * 1.6);
+}
+
+.beitrag__text figure + figure {
+	margin-top: calc(var(--fluss) * 1.2);
+}
+
+/* Abbildungen in ihrer natürlichen Größe (width und height aus dem Markup,
+   von blog.py auf höchstens 640 Pixel Höhe begrenzt), höchstens blattbreit */
+.beitrag__text figure img {
+	margin-inline: auto;
+}
+
+.beitrag__text figure img,
+.bento__bild {
+	border-radius: var(--radius-cell);
+	box-shadow: 0 16px 36px -16px rgb(25 50 57 / 0.35);
+}
+
+/* Ein Squircle wirkt bei gleichem Wert deutlich eckiger als ein Kreisbogen,
+   braucht also einen größeren Radius. Wer corner-shape nicht kennt (Safari),
+   bleibt beim normalen Radius oben, sonst wären die Ecken dort zu rund. */
+@supports (corner-shape: squircle) {
+	.beitrag__text figure img {
+		border-radius: clamp(24px, 3.4vw, 44px);
+		corner-shape: squircle;
+	}
+}
+
+/* Fensteraufnahmen mit eigenem Schatten und eigenen Ecken */
+.beitrag__text figure img.freigestellt,
+.bento__bild.freigestellt {
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.beitrag__text figcaption {
+	max-width: var(--spalte);
+	margin: 0.9em auto 0;
+	font-size: 0.875em;
+	line-height: 1.55;
+	color: var(--color-leise);
+	text-wrap: pretty;
+}
+
+/* ===========================================
+   Weiterlesen
+   =========================================== */
+.weiter {
+	row-gap: 1rem;
+	margin-top: clamp(48px, 7vw, 80px);
+	padding-top: clamp(28px, 4vw, 40px);
+	border-top: 1px solid var(--color-linie);
+}
+
+.weiter__link {
+	display: grid;
+	gap: 0.15em;
+	text-decoration: none;
+}
+
+.weiter__richtung {
+	font-size: 0.8125rem;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	color: var(--color-leise);
+}
+
+.weiter__titel {
+	font-family: var(--font-heading);
+	font-size: 1.2em;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.weiter__link:hover .weiter__titel {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.weiter__alle {
+	justify-self: start;
+	margin-top: 0.5rem;
+	padding: 0.55em 1.3em;
+	border: 2px solid var(--color-primary);
+	border-radius: var(--radius-pill);
+	font-size: 0.9375rem;
+	font-weight: 500;
+	text-decoration: none;
+	transition: background 200ms ease, border-color 200ms ease;
+}
+
+.weiter__alle::before {
+	content: '← ';
+}
+
+.weiter__alle:hover {
+	background: var(--color-accent);
+	border-color: var(--color-accent);
+	color: var(--color-ink);
+}
+
+/* ===========================================
+   Übersicht als Bento
+   -------------------------------------------
+   Intro frei auf dem Grund, darunter Karten im Stil der Section-Karten
+   der Startseite. Die Größe einer Karte folgt ihrem Titelbild, blog.py
+   setzt die Klasse:
+
+     gross   gerahmtes Querformat   2 × 2, dunkel wie die dunklen Sections
+     klein   jedes andere Bild      1 × 2
+     ohne    kein Bild              2 × 1, niedrige Textkarte
+
+   grid-auto-flow: dense schließt Lücken, dabei darf eine Karte etwas
+   nach vorn rutschen. Unter 60rem zwei Spalten, unter 36rem eine.
+   =========================================== */
+.mitschrift {
+	max-width: 76rem;
+	margin-inline: auto;
+	padding-bottom: clamp(16px, 3vw, 40px);
+}
+
+.mitschrift .zurueck {
+	position: static;
+}
+
+.mitschrift__kopf {
+	max-width: 40rem;
+	padding: clamp(20px, 3vw, 40px) clamp(4px, 1.4vw, 16px) clamp(28px, 4vw, 52px);
+}
+
+.mitschrift__titel {
+	margin-top: 0;
+	font-size: clamp(2.6rem, 1.6rem + 4vw, 4.4rem);
+}
+
+.bento-raster {
+	--abstand: clamp(14px, 2.4vw, 36px);
+	--bento-radius: clamp(24px, 3.2vw, 44px);
+	--bento-pad: clamp(24px, 2.8vw, 40px);
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-auto-rows: minmax(12rem, auto);
+	grid-auto-flow: row dense;
+	gap: var(--abstand);
+	list-style: none;
+}
+
+.bento {
+	display: flex;
+	min-width: 0;
+}
+
+.bento--gross {
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
+.bento--klein {
+	grid-row: span 2;
+}
+
+.bento--ohne {
+	grid-column: span 2;
+}
+
+.bento__link {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	width: 100%;
+	padding: var(--bento-pad);
+	border-radius: var(--bento-radius);
+	background: var(--color-white);
+	text-decoration: none;
+	transition: background 200ms ease, transform 200ms ease;
+}
+
+/* Wie die Karten der Startseite: leicht anheben und grün tönen, nur mit Zeiger */
+@supports (corner-shape: squircle) {
+	.bento-raster {
+		--bento-radius: clamp(36px, 4.6vw, 64px);
+	}
+
+	.bento__link {
+		corner-shape: squircle;
+	}
+}
+
+@media (hover: hover) {
+	.bento__link:hover {
+		transform: translateY(-4px);
+		background: color-mix(in srgb, var(--color-accent) 24%, var(--color-white));
+	}
+
+	.bento--gross .bento__link:hover {
+		background: color-mix(in srgb, var(--color-accent) 14%, var(--color-primary));
+	}
+}
+
+.bento--gross .bento__link {
+	background: var(--color-primary);
+	color: var(--color-white);
+}
+
+.bento__flaeche {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bento--gross .bento__bild {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	object-position: top left;
+	border-radius: 10px;
+	box-shadow: none;
+}
+
+.bento--klein .bento__flaeche {
+	flex: 1;
+	min-height: 9rem;
+}
+
+.bento--klein .bento__bild {
+	width: auto;
+	max-width: 100%;
+	max-height: 13rem;
+	border-radius: 10px;
+}
+
+.bento__text {
+	display: grid;
+	gap: 0.5rem;
+	margin-top: auto;
+}
+
+.bento__titel {
+	font-family: var(--font-heading);
+	font-size: clamp(1.4rem, 1.15rem + 0.5vw, 1.6rem);
+	font-weight: 600;
+	line-height: 1.15;
+	/* lange Komposita wie „Einstellungsfenster“ passen sonst nicht in die
+	   schmale Karte */
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphenate-limit-chars: 10 4 4;
+	text-wrap: balance;
+}
+
+.bento--ohne .bento__titel {
+	font-size: clamp(1.6rem, 1.2rem + 1vw, 2.15rem);
+}
+
+.bento--gross .bento__titel {
+	font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.9rem);
+	line-height: 1.08;
+	color: var(--color-accent);
+}
+
+.bento__teaser {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	font-size: 0.9375rem;
+	line-height: 1.55;
+	color: color-mix(in oklab, var(--color-primary) 84%, var(--color-white));
+	text-wrap: pretty;
+}
+
+/* In den schmalen Karten stehen Datum und Lesezeit untereinander, sonst
+   bricht die Zeile mit dem Trennpunkt am Anfang um. Einspaltig ist Platz. */
+@media (min-width: 36.01rem) {
+	.bento--klein .meta {
+		flex-direction: column;
+	}
+
+	.bento--klein .meta > * + *::before {
+		content: none;
+	}
+}
+
+.bento--gross .meta,
+.bento--gross .bento__teaser {
+	color: #9aadb2;
+}
+
+@media (max-width: 60rem) {
+	.bento-raster {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.bento--gross,
+	.bento--klein {
+		grid-row: auto;
+	}
+}
+
+@media (max-width: 36rem) {
+	.bento-raster {
+		grid-template-columns: minmax(0, 1fr);
+		grid-auto-rows: auto;
+	}
+
+	.bento--gross,
+	.bento--ohne {
+		grid-column: auto;
+	}
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- Erzeugt von werkzeuge/blog.py aus _blog/. Nicht von Hand bearbeiten, der nächste Lauf überschreibt es. -->
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>DropMe: Ein kleines Fenster, das sich richtig anfühlen soll | Mitschrift | wiredframe</title>
+	<meta name="description" content="Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine eigene Ablage gebaut und dabei vor allem an den Details gefeilt, die man kaum sieht, aber spürt.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<link rel="canonical" href="https://www.wiredframe.de/blog/dropme/">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://www.wiredframe.de/blog/dropme/">
+	<meta property="og:title" content="DropMe: Ein kleines Fenster, das sich richtig anfühlen soll | Mitschrift | wiredframe">
+	<meta property="og:description" content="Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine eigene Ablage gebaut und dabei vor allem an den Details gefeilt, die man kaum sieht, aber spürt.">
+	<meta property="og:site_name" content="wiredframe">
+	<meta property="og:locale" content="de_DE">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="og:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta name="twitter:image" content="https://www.wiredframe.de/images/og-image.png">
+	<meta property="article:published_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-10-20">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#e2ebe6">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "BlogPosting",
+		"@id": "https://www.wiredframe.de/blog/dropme/#beitrag",
+		"headline": "DropMe: Ein kleines Fenster, das sich richtig anfühlen soll",
+		"description": "Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine eigene Ablage gebaut und dabei vor allem an den Details gefeilt, die man kaum sieht, aber spürt.",
+		"url": "https://www.wiredframe.de/blog/dropme/",
+		"datePublished": "2026-10-20",
+		"dateModified": "2026-10-20",
+		"inLanguage": "de-DE",
+		"wordCount": 718,
+		"author": {
+			"@id": "https://www.wiredframe.de/#ulf"
+		},
+		"publisher": {
+			"@id": "https://www.wiredframe.de/#studio"
+		},
+		"isPartOf": {
+			"@id": "https://www.wiredframe.de/blog/#blog"
+		}
+	}
+	</script>
+	<link rel="stylesheet" href="/css/blog.css?v=8b242a49">
+	<link rel="shortcut icon" href="/images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+</head>
+
+<body>
+	<main class="blatt">
+		<a class="zurueck" href="/blog/" aria-label="Zur Mitschrift">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+				stroke-linejoin="round" aria-hidden="true">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</a>
+		<article class="beitrag">
+			<header class="beitrag__kopf">
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>4 Minuten Lesezeit</span></p>
+				<h1 class="beitrag__titel">DropMe: Ein kleines Fenster, das sich richtig anfühlen soll</h1>
+				<p class="beitrag__lead">Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine eigene Ablage gebaut und dabei vor allem an den Details gefeilt, die man kaum sieht, aber spürt.</p>
+			</header>
+			<div class="beitrag__text">
+				<figure>
+					<img class="freigestellt" src="/blog/dropme/ablage-494.webp" srcset="/blog/dropme/ablage-494.webp 494w" sizes="(max-width: 327px) 92vw, 247px"
+						width="247" height="256" alt="DropMe mit drei Dateien, gefächert übereinander, darunter die Pille „3 Objekte“" decoding="async">
+					<figcaption>DropMe mit drei Demodateien. Oben links schließen, oben rechts das Aktionsmenü, unten die Pille.</figcaption>
+				</figure>
+				<p>Ich mag Werkzeuge, die genau eine Sache gut machen und dabei nicht im Weg stehen. Dropover war so eins: Man zieht Dateien, hält die Umschalttaste, und unter dem Mauszeiger erscheint eine kleine Ablage. Dort sammelt man ein paar Dateien aus verschiedenen Ordnern und zieht sie später gemeinsam weiter, in eine Mail, in Figma oder in einen anderen Ordner. Ich hatte die App gekauft und gern benutzt.</p>
+				<p>Dann sah ich, dass sie bei jeder Aktion Daten verschickt. Claude hat die App daraufhin für mich auseinandergenommen: Fest eingebaut ist Sentry, ein Dienst für Fehlerberichte, der Abläufe in der App mitschreibt und an <code>ingest.de.sentry.io</code> schickt. Dazu kommen ein Logging-Baustein, der Protokolle in eine Cloud schicken kann, und Anbindungen an Dropbox, Google Drive, OneDrive, Imgur und S3. Den Schalter „Online-Funktionen deaktivieren“ gibt es zwar, Sentry steckt aber trotzdem drin.</p>
+				<p>Für eine Ablage, die nichts anderes tun soll, als ein paar Dateipfade festzuhalten, war mir das zu viel. Ich wollte eine eigene, private Version, als Open Source und ohne eine einzige Zeile Netzwerkcode.</p>
+				<h2 id="nach-screenshots-gebaut">Nach Screenshots gebaut</h2>
+				<p>Den Anfang machten meine Screenshots von Dropover. Claude baute daraus die erste Fassung: ein Glasfenster mit Schließen links, Chevron rechts, gefächerter Vorschau und einer Namens-Pille unten. Das Ziehen mit gedrückter Umschalttaste schaut sich nur an, welche Typen in der Zwischenablage des Ziehens liegen, nie den Inhalt.</p>
+				<p>Mein erstes Urteil war „bisschen rough noch, aber sonst super“. Genau dieses „rough“ ist der Teil, der mich als UI Designer interessiert. Funktionen hat man schnell, das Gefühl dauert länger.</p>
+				<h2 id="die-details-die-man-spuert">Die Details, die man spürt</h2>
+				<p>Das Fenster misst 200 × 210 Punkt und hat einen Eckradius von 34. Ab macOS 26 liegt es als echtes Liquid Glass auf dem Schreibtisch, auf älteren Systemen als die gewohnte Milchglasfläche. Oben sitzt ein kleiner Griff, damit klar ist, dass man das Fenster verschieben kann, die beiden runden Knöpfe sind 34 Punkt groß und werden beim Überfahren etwas heller.</p>
+				<p>Die Vorschau ist ein Fächer, kein Raster. Die Dateien liegen leicht gedreht übereinander, wie Papier auf einem Tisch. Echte Vorschaubilder bekommen einen weißen Rand mit kleinem Radius und einen Schatten, Symbole bleiben, wie sie sind. So erkennt man auf einen Blick, ob da Bilder liegen oder Dokumente.</p>
+				<p>Die Pille unten nennt bei einer Datei den Namen und bei mehreren die Anzahl. Ein Klick listet die einzelnen Dateien, zum Öffnen, Zeigen oder Entfernen.</p>
+				<h2 id="bewegung-aber-zurueckhaltend">Bewegung, aber zurückhaltend</h2>
+				<p>Für die zweite Runde bat ich um „ein paar ganz subtile Animationen und Transitions“. Herausgekommen ist das:</p>
+				<ul>
+					<li>Das Fenster blendet in 0,16 Sekunden ein und federt dabei aus 92 Prozent seiner Größe auf. Beim Schließen schrumpft es minimal und blendet aus.</li>
+					<li>Zieht man Dateien darüber, leuchtet die Fläche weich auf und der Stapel federt kurz.</li>
+					<li>Die Pille gleitet auf ihre neue Breite, der Text wechselt per Überblenden.</li>
+				</ul>
+				<p>Wer in macOS „Bewegung reduzieren“ eingeschaltet hat, bekommt nur noch das Überblenden. Das war mir wichtig: Bewegung soll erklären, was passiert, und niemanden stören, der keine will.</p>
+				<p>Eine Kleinigkeit hat dabei einen eigenen Anlauf gekostet. Animierte AppKit die Größe der Pille mitsamt Inhalt, blieb der Text manchmal auf der alten Breite stehen. Jetzt wird nur der Rahmen animiert, und der Inhalt richtet sich danach.</p>
+				<h2 id="was-ich-weggelassen-habe">Was ich weggelassen habe</h2>
+				<p>Keine Cloud, kein Konto, keine Synchronisation. Teilen läuft über die Dienste von macOS, also AirDrop, Mail, Nachrichten und Notizen. DropMe selbst schickt nichts. Das lässt sich am Programm nachprüfen, ohne mir glauben zu müssen:</p>
+				<pre><code>otool -L /Applications/DropMe.app/Contents/MacOS/DropMe</code></pre>
+				<p>Dort taucht weder CFNetwork noch das Network-Framework auf.</p>
+				<p>Dafür gibt es etwas, das ich bei Dropover vermisst habe: Schnellziele. Das sind Ordner mit eigenem Namen, die direkt im Aktionsmenü stehen. Bei mir ist das die Ablage meiner Buchhaltungs-App, in die Belege wandern. Zwei Klicks, und die Datei liegt dort.</p>
+				<figure>
+					<img class="freigestellt" src="/blog/dropme/icon-256.webp" srcset="/blog/dropme/icon-256.webp 256w" sizes="(max-width: 208px) 92vw, 128px"
+						width="128" height="128" alt="Das App-Symbol von DropMe" loading="lazy" decoding="async">
+				</figure>
+				<p>DropMe ist an einem Sonntag entstanden, vom ersten Commit bis Version 1.1.1 in acht Commits und rund 1.350 Zeilen Swift. Es läuft nur auf Apple Silicon, ist mit meiner Developer ID signiert und per Homebrew installierbar. Der Code liegt auf <a href="https://github.com/Wiredframe/dropme">GitHub</a>.</p>
+			</div>
+		</article>
+		<nav class="weiter" aria-label="Weitere Beiträge">
+			<a class="weiter__link weiter__link--neuer" href="/blog/figma-to-code/">
+				<span class="weiter__richtung">Neuer</span>
+				<span class="weiter__titel">Figma to Code: Tokens rein, Interpretation raus</span>
+			</a>
+			<a class="weiter__link weiter__link--aelter" href="/blog/bloeckli/">
+				<span class="weiter__richtung">Älter</span>
+				<span class="weiter__titel">Blöckli: Erst der Block, dann der Satz</span>
+			</a>
+			<a class="weiter__alle" href="/blog/">Alle Beiträge der Mitschrift</a>
+		</nav>
+	</main>
+	<footer class="fuss">
+		<a href="/">wiredframe.de</a>
+		<a href="/#impressum">Impressum &amp; Datenschutz</a>
+	</footer>
+</body>
+
+</html>
