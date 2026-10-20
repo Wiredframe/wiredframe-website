@@ -10,8 +10,8 @@
  *   2. Kleinkram: Jahre, Mail-Schutz, Impressum per Link
  *   3. die Projekte hinter dem Codewort
  *
- * Alle anderen Inhalte stehen fertig im Markup. Die Karten für Referenzen,
- * Repos und Mitwisser schreiben die Skripte in werkzeuge/ vorab hinein.
+ * Alle anderen Inhalte stehen fertig im Markup. Die Karten für Referenzen
+ * und Repos schreiben die Skripte in werkzeuge/ vorab hinein.
  *
  * Die Farben stehen fest in css/deck.css. Sie stammen aus theme.js, das
  * sie eine Zeit lang bei jedem Aufruf neu gewürfelt hat; die Datei liegt

@@ -1,0 +1,40 @@
+@layer base {
+    [data-webtui-theme='wiredframe'],
+    [data-webtui-theme='wiredframe-dark'] {
+        --lime: #beff8a;
+        --moss: #a9e85f;
+        --mint: #92f2c4;
+        --teal: #6fd6c8;
+        --sky: #8fd3ee;
+        --blue: #8db4f5;
+        --lavender: #b9b8f7;
+        --sand: #f2df9a;
+        --peach: #f7b98a;
+        --rose: #f4a3b4;
+        --red: #f2877f;
+        --text: #e2ebe6;
+        --subtext1: #bccbcc;
+        --subtext0: #9aadb2;
+        --overlay2: #8199a0;
+        --overlay1: #6b8a92;
+        --overlay0: #557780;
+        --surface2: #3b606b;
+        --surface1: #2e505a;
+        --surface0: #23414a;
+        --base: #193239;
+        --mantle: #12262b;
+        --crust: #0d1c20;
+    }
+
+    [data-webtui-theme|='wiredframe'] {
+        --background0: var(--base);
+        --background1: var(--surface0);
+        --background2: var(--surface1);
+        --background3: var(--surface2);
+
+        --foreground0: var(--text);
+        --foreground1: var(--subtext1);
+        --foreground2: var(--overlay2);
+
+    }
+}

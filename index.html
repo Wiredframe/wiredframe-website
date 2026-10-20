@@ -208,7 +208,7 @@
   }
   </script>
 	<!-- Fonts are now loaded locally from /fonts/ -->
-	<link rel="stylesheet" href="css/deck.css?v=97">
+	<link rel="stylesheet" href="css/deck.css?v=98">
 	<link rel="stylesheet" href="css/icons.css?v=76">
 	<link rel="shortcut icon" href="images/shortcut-icon.svg" type="image/x-icon">
 	<!-- Hier ein PNG und nicht die SVG von oben: apple-touch-icon nimmt kein
@@ -497,14 +497,15 @@
 			</div>
 		</section>
 		<!-- 7 · Repos -->
-		<section class="screen" id="repos" aria-label="Code" data-next="Kollaborateure">
+		<section class="screen" id="repos" aria-label="Code" data-next="Ich brauche Informationen!">
 			<div class="panel">
 				<div class="rail" id="repos-rail" tabindex="0" role="group" aria-label="Repositories, horizontal">
 					<article class="cell cell--title">
 						<h2 class="title">Öffentlicher Code</h2>
-						<p class="text">Vibe Coding? Agentic Engineering? Egal wie man es nennt, Hauptsache, es bringt
-							mir und meinen Kunden Mehrwert: KI-Workflows, nützliche Software und Apps, oder einfach ein
-							Werkzeug mehr im Skriptkasten.</p>
+						<p class="text">Vibe Coding? Agentic Engineering? Egal wie man es nennt: Gebaut wird mit
+							KI-Agenten als Mitwissern, und heraus kommen KI-Workflows, nützliche Apps oder einfach ein
+							Werkzeug mehr im Skriptkasten. Wie es jeweils dazu kam, steht in der <a
+								href="/blog/">Mitschrift</a>.</p>
 					</article>
 					<!-- Karten aus werkzeuge/repos.py -->
 					<!-- repos:karten -->
@@ -708,52 +709,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- 8 · Mitwisser. Aufbau wie Profil. Statistik-Karten, Schriftführer und
-		     Stand schreibt werkzeuge/claude-stats.py, der Rest ist von Hand. -->
-		<section class="screen" id="mitwisser" aria-label="Kollaborateure" data-next="Ich brauche Informationen!">
-			<div class="panel">
-				<div class="rail" id="mitwisser-rail" tabindex="0" role="group" aria-label="Mitwisser, horizontal">
-					<article class="cell cell--title">
-						<h2 class="title">Die Mitwisser</h2>
-						<p class="text">Seit einiger Zeit werde ich von KI-Agenten unterstützt und sie führen genauer
-							Buch als jeder Informant. Schriftführer war meistens ein gewisser Herr <span
-								data-mitwisser="schriftfuehrer">Opus</span>. Stand: <span
-								data-mitwisser="stand">14. Oktober 2026</span></p>
-					</article>
-					<!-- mitwisser:karten -->
-					<article class="cell cell--stat">
-						<p class="stat__value">616</p>
-						<p class="text">konspirative Sitzungen</p>
-					</article>
-					<article class="cell cell--stat">
-						<p class="text">mehr als</p>
-						<p class="stat__value">253</p>
-						<p class="text">Tausend geflüsterte Nachrichten</p>
-					</article>
-					<article class="cell cell--stat">
-						<p class="text">mehr als</p>
-						<p class="stat__value">69</p>
-						<p class="text">Tausend Handgriffe meiner Helfer</p>
-					</article>
-					<article class="cell cell--stat">
-						<p class="stat__value">111</p>
-						<p class="text">Tage im Untergrund</p>
-					</article>
-					<article class="cell cell--stat">
-						<p class="text">mehr als</p>
-						<p class="stat__value">193</p>
-						<p class="text">Millionen Tokens zu Papier gebracht</p>
-					</article>
-					<article class="cell cell--stat">
-						<p class="text">mehr als</p>
-						<p class="stat__value">34</p>
-						<p class="text">Milliarden Tokens aus dem Gedächtnis gekramt</p>
-					</article>
-					<!-- /mitwisser:karten -->
-				</div>
-			</div>
-		</section>
-		<!-- 9 · Kontakt -->
+		<!-- 8 · Kontakt -->
 		<section class="screen screen--dark" id="kontakt" aria-label="Kontakt" data-next="Zurück zum Start">
 			<div class="panel">
 				<div class="stage">
@@ -780,6 +736,15 @@
 								<rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
 								<polyline points="3 7 12 13 21 7"></polyline>
 							</svg> Telegramm hinterlassen </a>
+						<a class="btn btn--light" href="/blog/">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" aria-hidden="true">
+								<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path>
+								<polyline points="14 3 14 8 19 8"></polyline>
+								<line x1="9" y1="13" x2="15" y2="13"></line>
+								<line x1="9" y1="17" x2="13" y2="17"></line>
+							</svg> Mitschrift lesen </a>
 					</div>
 				</div>
 			</div>
@@ -799,7 +764,6 @@
 			<a class="chip" href="#profil"><span>Profil</span></a>
 			<a class="chip" href="#projekte"><span>Projekte</span></a>
 			<a class="chip" href="#repos"><span>Code</span></a>
-			<a class="chip" href="#mitwisser"><span>Kollaborateure</span></a>
 			<a class="chip" href="#kontakt"><span>Kontakt</span></a>
 		</nav>
 		<a class="ctrl ctrl--next" id="nav-next" href="#wahrheit">
@@ -823,8 +787,9 @@
 				<a href="#profil">Profil</a>
 				<a href="#projekte">Projekte</a>
 				<a href="#repos">Code</a>
-				<a href="#mitwisser">Kollaborateure</a>
 				<a href="#kontakt">Kontakt</a>
+				<!-- Keine Section, eine eigene Seite. Die Mitschrift baut werkzeuge/blog.py. -->
+				<a href="/blog/">Mitschrift</a>
 			</nav>
 			<div class="menu__meta">
 				<button type="button" popovertarget="impressum">Impressum, Datenschutz &amp;
@@ -1071,7 +1036,7 @@
 			</svg>
 		</button>
 	</div>
-	<script src="js/deck.js?v=98"></script>
+	<script src="js/deck.js?v=99"></script>
 </body>
 
 </html>

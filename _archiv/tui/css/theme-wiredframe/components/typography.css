@@ -1,0 +1,51 @@
+@layer components {
+    [data-webtui-theme|='wiredframe'] {
+        h1 {
+            color: var(--lime);
+        }
+
+        h2 {
+            color: var(--peach);
+        }
+
+        h3 {
+            color: var(--sand);
+        }
+
+        h4 {
+            color: var(--mint);
+        }
+
+        h5 {
+            color: var(--sky);
+        }
+
+        h6 {
+            color: var(--lavender);
+        }
+
+        p,
+        blockquote,
+        li,
+        [is-~='typography-block'] {
+            --list-marker-color: var(--overlay1);
+
+            a {
+                color: var(--sky);
+                text-decoration: underline;
+
+                &:hover {
+                    color: var(--blue);
+                }
+            }
+
+            strong {
+                color: var(--text);
+            }
+
+            code {
+                color: var(--rose);
+            }
+        }
+    }
+}

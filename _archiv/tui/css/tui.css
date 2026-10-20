@@ -1,0 +1,503 @@
+@layer base, utils, components;
+
+@import './webtui/base.css';
+@import './webtui/utils/box.css';
+@import './webtui/components/button.css';
+@import './webtui/components/typography.css';
+@import './webtui/components/badge.css';
+@import './webtui/components/input.css';
+@import './webtui/components/separator.css';
+@import './webtui/components/table.css';
+@import './webtui/components/mark.css';
+@import './webtui/components/dialog.css';
+@import './webtui/components/progress.css';
+@import './webtui/components/textarea.css';
+
+@import './theme-wiredframe/index.css';
+@import './plugin-declarative-layout/index.css';
+
+/* Aufbau wie die Seiten von webtui.ironclad.sh: Layout.astro, Doc.astro,
+   Navbar.astro, Sidebar.astro und Filter.astro. Selektoren und Werte sind
+   von dort übernommen, eigene Erfindungen stehen hier nicht. */
+
+@layer base {
+    :root {
+        --font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+        --font-size: 14px;
+        --line-height: 1.4;
+        --box-border-color: var(--background2);
+    }
+
+    body,
+    html {
+        width: 100vw;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    ::highlight(vim) {
+        background-color: var(--foreground0);
+        color: var(--background0);
+    }
+
+    ::highlight(search) {
+        background-color: var(--background2);
+        color: var(--foreground0);
+    }
+}
+
+/* Navbar */
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1lh 2ch;
+    white-space: nowrap;
+
+    #home-link {
+        text-decoration: none;
+        font-weight: bold;
+        color: var(--foreground1);
+
+        span:first-of-type {
+            color: var(--lime);
+        }
+
+        &:focus,
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    #links {
+        row-gap: 2ch;
+        column-gap: 2ch;
+
+        a {
+            display: inline-flex;
+            gap: 1ch;
+            text-decoration: none;
+            color: var(--foreground2);
+
+            &:focus,
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    #search-button {
+        display: inline-flex;
+        gap: 1ch;
+    }
+}
+
+/* Sidebar */
+#sidebar-container {
+    display: flex;
+    max-width: 32ch;
+    width: 100%;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-grow: 1;
+
+    &:focus-within {
+        --box-border-color: var(--foreground2);
+    }
+
+    #category-container {
+        position: relative;
+        flex-grow: 1;
+    }
+
+    #category-list {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1lh;
+        padding: 0 1ch;
+        overflow-y: auto;
+    }
+
+    ul > a[href] {
+        color: var(--foreground2);
+        text-decoration: none;
+        outline: none;
+        display: list-item;
+
+        &::before {
+            content: '├ ';
+        }
+
+        &:last-of-type::before {
+            content: '└ ';
+        }
+
+        &.active {
+            color: var(--foreground0);
+            text-decoration: underline;
+            font-weight: var(--font-weight-bold);
+            background-color: var(--background1);
+        }
+
+        &:focus {
+            background-color: var(--background1);
+        }
+    }
+
+    details {
+        summary {
+            font-weight: var(--font-weight-bold);
+            color: var(--foreground0);
+
+            &::marker {
+                color: var(--foreground2);
+                content: '▸ ';
+            }
+
+            &:hover,
+            &:focus {
+                background-color: var(--background1);
+            }
+        }
+
+        &[open] summary::marker {
+            content: '▾ ';
+        }
+
+        &:nth-of-type(1) summary {
+            color: var(--lime);
+        }
+
+        &:nth-of-type(2) summary {
+            color: var(--peach);
+        }
+
+        &:nth-of-type(3) summary {
+            color: var(--sky);
+        }
+    }
+}
+
+#sidebar-keys {
+    padding-left: 1ch;
+    padding-right: 2ch;
+    padding-top: 1lh;
+    padding-bottom: 1lh;
+    display: flex;
+    flex-direction: row;
+
+    #vim-navigation {
+        padding: 0 1ch;
+        background-color: var(--background1);
+        box-shadow: 1ch 0.5lh 0 0 var(--mantle);
+
+        button[size-='small'] {
+            padding: 0 1ch;
+        }
+    }
+}
+
+/* Artikel */
+article {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    &:focus-within {
+        --box-border-color: var(--foreground2);
+    }
+}
+
+#scroll-container {
+    position: relative;
+    flex-grow: 1;
+
+    #main-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1lh;
+        padding: 1lh 1ch;
+        overflow-y: auto;
+        color: var(--foreground1);
+
+        strong {
+            color: var(--foreground0);
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 1lh;
+
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        [tabindex='0'] {
+            outline: none;
+
+            &:focus {
+                background-color: var(--background1);
+            }
+        }
+
+        #doc-pagination {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            a {
+                color: var(--sky);
+                text-decoration: none;
+                display: flex;
+                flex-direction: column;
+                --box-border-color: var(--background2);
+                outline: none;
+
+                &.next {
+                    text-align: right;
+                    margin-left: auto;
+                }
+
+                &[hidden] {
+                    display: none;
+                }
+
+                &:hover,
+                &:focus {
+                    --box-border-color: var(--foreground2);
+                }
+            }
+        }
+    }
+}
+
+/* Übersicht: Widgets im Raster, wie Widgets.astro */
+#dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(34ch, 1fr));
+    gap: 1lh 1ch;
+
+    .widget {
+        display: flex;
+        flex-direction: column;
+        gap: 1lh;
+        outline: none;
+
+        &:focus {
+            --box-border-color: var(--foreground2);
+            background-color: transparent;
+        }
+    }
+
+    .widget--wide {
+        grid-column: span 2;
+    }
+
+    @media (max-width: 120ch) {
+        .widget--wide {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+.balken {
+    .balken__name {
+        width: 24ch;
+        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .balken__zahl {
+        width: 4ch;
+        flex-shrink: 0;
+        text-align: right;
+        white-space: nowrap;
+    }
+}
+
+#widget-arten .balken__name {
+    width: 12ch;
+}
+
+/* Katalog: ganze Zeilen sind anklickbar */
+table.katalog tbody tr {
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background1);
+    }
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+/* Steckbriefe: die Schlüsselspalte bleibt so breit wie ihr längster Begriff */
+table.kv td:first-child {
+    width: 1%;
+    white-space: nowrap;
+    padding-right: 2ch;
+}
+
+.screenshot {
+    max-width: 80ch;
+    width: 100%;
+    height: auto;
+}
+
+#telegramm textarea,
+#telegramm input {
+    width: 100%;
+}
+
+h1::before {
+    content: '# ';
+}
+h2::before {
+    content: '## ';
+}
+h3::before {
+    content: '### ';
+}
+
+/* Befehlspalette */
+#search-dialog {
+    position: fixed;
+
+    &::backdrop {
+        backdrop-filter: grayscale(100%);
+    }
+}
+
+#search-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background0);
+}
+
+#search-results {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+
+    #search-results-container {
+        position: absolute;
+        inset: 0;
+        overflow-y: auto;
+        padding-left: 1ch;
+        padding-right: 1ch;
+        display: flex;
+        flex-direction: column;
+
+        .search-result {
+            text-decoration: none;
+            color: var(--foreground1);
+
+            &.hidden {
+                display: none;
+            }
+
+            &:focus,
+            &:hover,
+            &.active {
+                background-color: var(--background1);
+            }
+        }
+    }
+}
+
+#search-input,
+label[box-] input {
+    background-color: var(--background0);
+}
+
+label[box-] {
+    display: flex;
+    flex-direction: column;
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+/* Statuszeile und Mobilnavigation */
+#statusline {
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: var(--background1);
+
+    .hint {
+        margin-left: auto;
+        padding-right: 1ch;
+        color: var(--foreground2);
+    }
+}
+
+#mobile-nav {
+    display: none;
+    gap: 1ch;
+
+    button {
+        flex-grow: 1;
+    }
+}
+
+@media (max-width: 120ch) {
+    #sidebar-container {
+        max-width: 100%;
+    }
+
+    #mobile-nav {
+        display: flex;
+    }
+
+    .mobile-hidden {
+        display: none !important;
+    }
+
+    .next,
+    .prev {
+        flex-grow: 1;
+
+        code {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 84ch) {
+    #navbar #links {
+        gap: 1ch;
+
+        a {
+            background-color: var(--background1);
+            padding: 0 1ch;
+        }
+    }
+
+    #statusline .hint,
+    #sidebar-keys {
+        display: none;
+    }
+}
+
+@media (max-width: 54ch) {
+    #navbar #links a:not(#search-button) {
+        display: none;
+    }
+}

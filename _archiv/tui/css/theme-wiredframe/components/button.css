@@ -1,0 +1,61 @@
+@layer components {
+    [data-webtui-theme|='wiredframe'] {
+        button,
+        [is-~='button'] {
+            &[variant-='lime'] {
+                --button-primary: var(--lime);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='moss'] {
+                --button-primary: var(--moss);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='mint'] {
+                --button-primary: var(--mint);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='teal'] {
+                --button-primary: var(--teal);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='sky'] {
+                --button-primary: var(--sky);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='blue'] {
+                --button-primary: var(--blue);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='lavender'] {
+                --button-primary: var(--lavender);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='sand'] {
+                --button-primary: var(--sand);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='peach'] {
+                --button-primary: var(--peach);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='rose'] {
+                --button-primary: var(--rose);
+                --button-secondary: var(--background0);
+            }
+
+            &[variant-='red'] {
+                --button-primary: var(--red);
+                --button-secondary: var(--background0);
+            }
+        }
+    }
+}

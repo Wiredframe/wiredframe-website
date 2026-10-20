@@ -18,6 +18,8 @@ Sollte hier später einmal ein `.nojekyll` liegen, gilt das nicht mehr.
 | `js/theme.js` | der Farbgenerator. Das Ergebnis steht heute fest in `css/deck.css`, die Herleitung ist hier nachlesbar |
 | `images/icons8_*.svg`, `images/Slice*.svg`, `images/ArtBoard1_*.png`, `images/shape-*.svg`, `images/items.svg`, `images/arrow-down.svg`, `images/profile2x.png` | Bildmaterial der alten Startseite |
 | `images/*-1996.gif` | Netscape, Flash und Frontpage, Deko der DOS-Seite |
+| `werkzeuge/claude-stats.py`, `claude-skills/mitwisser-zahlen/` | Kennzahlen der Section „Die Mitwisser“ aus Claude Code. Die Section ist seit Oktober 2026 aufgelöst, der Gedanke steht nur noch als Satz bei „Öffentlicher Code“ |
+| `tui/`, `werkzeuge/tui.py` | One-Pager im Terminal-Look mit WebTUI, ein Exkurs vom Oktober 2026. `tui.py` liest noch die Mitwisser-Marker aus `index.html` und läuft deshalb nicht mehr |
 | `fonts/MavenProLight-*.otf` | alte Schnitte der Maven Pro |
 | `projekte.html`, `css/projekte.css`, `css/tailwind.src.css`, `tailwind.config.js`, `scripts/build-css.sh`, `fonts/MavenPro-*.woff2` | die eigenständige Referenzgalerie samt Tailwind-Kette. Seit Oktober 2026 zeigt die Section `#projekte` der Startseite dieselben Daten nach dem Codewort, im Formensystem des Decks |
 

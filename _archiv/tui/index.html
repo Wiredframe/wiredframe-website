@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="de" data-webtui-theme="wiredframe">
+
+<head>
+	<meta charset="utf-8">
+	<title>wiredframe im Terminal | UI/UX Design &amp; Figma-to-Code</title>
+	<meta name="description"
+		content="Freelance UI/UX Designer seit 2005: Figma-to-Code Workflows, Design Systems, Agentic Coding. wiredframe als Terminal-Anwendung mit WebTUI.">
+	<meta name="author" content="Ulf Schuster / wiredframe">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, follow">
+	<link rel="canonical" href="https://www.wiredframe.de/">
+	<meta name="theme-color" content="#193239">
+	<link rel="stylesheet" href="css/tui.css">
+	<link rel="shortcut icon" href="../images/shortcut-icon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+</head>
+
+<body>
+	<column self-="grow">
+		<nav box-="square" id="navbar">
+			<a href="#start" id="home-link">~/<span>wiredframe</span></a>
+			<row id="links">
+				<a href="#neues">Neues</a>
+				<a href="../">Grafisch</a>
+				<a href="https://github.com/Wiredframe" target="_blank" rel="noopener">GitHub</a>
+				<button id="search-button" size-="small" variant-="lime">/ Befehle</button>
+			</row>
+		</nav>
+		<row self-="grow" gap-="1">
+			<div id="sidebar-container" class="mobile-hidden">
+				<nav box-="square" id="sidebar" aria-label="Seiten">
+					<div id="category-container">
+						<div id="category-list">
+							<details open>
+								<summary>wiredframe</summary>
+								<ul>
+									<a href="#start" data-slug="start">Übersicht</a>
+									<a href="#neues" data-slug="neues">Neues</a>
+									<a href="#ueber" data-slug="ueber">Über mich</a>
+									<a href="#philosophie" data-slug="philosophie">Philosophie</a>
+									<a href="#mitwisser" data-slug="mitwisser">Mitwisser</a>
+								</ul>
+							</details>
+							<details open>
+								<summary>Leistungen</summary>
+								<ul>
+									<a href="#leistungen" data-slug="leistungen">Alle Leistungen</a>
+									<a href="#leistungen/ui-ux" data-slug="leistungen/ui-ux">UI/UX Design</a>
+									<a href="#leistungen/figma-to-code" data-slug="leistungen/figma-to-code">Figma-to-Code</a>
+									<a href="#leistungen/design-systems" data-slug="leistungen/design-systems">Design Systems</a>
+									<a href="#leistungen/agentic-coding" data-slug="leistungen/agentic-coding">Agentic Coding</a>
+									<a href="#leistungen/prototyping" data-slug="leistungen/prototyping">Prototyping</a>
+									<a href="#leistungen/no-code" data-slug="leistungen/no-code">No-/Low-Code</a>
+								</ul>
+							</details>
+							<details open>
+								<summary>Katalog</summary>
+								<ul>
+									<a href="#projekte" data-slug="projekte">Projekte</a>
+									<a href="#code" data-slug="code">Code</a>
+								</ul>
+							</details>
+							<details open>
+								<summary>Verbindung</summary>
+								<ul>
+									<a href="#kontakt" data-slug="kontakt">Kontakt</a>
+									<a href="#tastatur" data-slug="tastatur">Tastatur</a>
+								</ul>
+							</details>
+						</div>
+					</div>
+					<div id="sidebar-keys">
+						<row gap-="1" align-="center" id="vim-navigation">
+							<button size-="small" variant-="background2" data-key="h">h</button>
+							<button size-="small" variant-="background2" data-key="j">j</button>
+							<button size-="small" variant-="background2" data-key="k">k</button>
+							<button size-="small" variant-="background2" data-key="l">l</button>
+							<button size-="small" variant-="background2" data-key="/">/</button>
+							<button size-="small" variant-="background2" data-key="?">?</button>
+						</row>
+					</div>
+				</nav>
+			</div>
+			<article box-="square" shear-="top">
+				<header is-="row" align-="between">
+					<div is-="badge" variant-="background0">
+						<h1 id="page-title">Übersicht</h1>
+					</div>
+					<span is-="badge" variant-="background0" id="page-pos"></span>
+				</header>
+				<row gap-="1" self-="grow">
+					<div id="scroll-container">
+						<main id="main-content">
+
+							<!-- Übersicht -->
+							<section data-route="start" data-title="Übersicht" data-path="wiredframe">
+								<div id="dashboard">
+									<div box-="square" shear-="top" class="widget widget--wide">
+										<row>
+											<span is-="badge" variant-="lime">wiredframe</span>
+										</row>
+										<h2>Niemand hat die Absicht, eine Website zu errichten ...</h2>
+										<p>... und doch passiert es jeden Tag, und Claude hat mitgemacht! Ich bin Ulf Schuster,
+											unabhängiger UI/UX Designer seit 2005. Ich gestalte Interfaces in Figma, baue Design
+											Systems und sorge dafür, dass Design ohne Reibung zu Code wird, auch wenn eine KI ihn
+											schreibt.</p>
+										<row gap-="1" class="widget__actions">
+											<a is-="button" box-="square" variant-="lime" href="#leistungen">Leistungen</a>
+											<a is-="button" box-="square" variant-="peach" href="#projekte">Katalog</a>
+											<a is-="button" box-="square" variant-="sky" href="#kontakt">Kontakt</a>
+										</row>
+									</div>
+									<div box-="square" shear-="top" class="widget">
+										<row>
+											<span is-="badge" variant-="background0">Zahlen</span>
+										</row>
+										<table divide-="horizontal" class="kv">
+											<tbody>
+												<tr>
+													<td><strong>&gt;200</strong></td>
+													<td>abgeschlossene Projekte</td>
+												</tr>
+												<tr>
+													<td><strong data-years>21</strong></td>
+													<td>Jahre Berufserfahrung</td>
+												</tr>
+												<tr>
+													<td><strong data-kennzahl="dokumentiert">168</strong></td>
+													<td>davon im Katalog</td>
+												</tr>
+												<tr>
+													<td><strong>0</strong></td>
+													<td>Bock, damit aufzuhören</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div box-="square" shear-="top" class="widget">
+										<row align-="between">
+											<span is-="badge" variant-="background0">Neues</span>
+											<a href="#neues" is-="badge" variant-="background0">alles</a>
+										</row>
+										<ul marker-="tree" id="widget-neues"></ul>
+									</div>
+									<div box-="square" shear-="top" class="widget">
+										<row>
+											<span is-="badge" variant-="background0">Projektarten</span>
+										</row>
+										<column gap-="1" id="widget-arten"></column>
+									</div>
+									<div box-="square" shear-="top" class="widget">
+										<row>
+											<span is-="badge" variant-="background0">Währenddessen da draußen</span>
+										</row>
+										<h2 id="zaehler" aria-hidden="true">151050</h2>
+										<p>Prompts, die irgendwo da draußen gerade abgefeuert werden, mit fragwürdigem Ergebnis. Viele
+											der Websites, die dabei entstehen, sind schon bei Fertigstellung veraltet, inkonsistent oder
+											einfach langweilig. <a href="#leistungen">Was dagegen hilft</a></p>
+									</div>
+								</div>
+							</section>
+
+							<!-- Neues -->
+							<section data-route="neues" data-title="Neues" data-path="wiredframe">
+								<h2>Was gibt es Neues?</h2>
+								<p>Releases, frische Werkzeuge und neue Zahlen, das Jüngste oben.
+									Stand: <span data-stand></span>.</p>
+								<table divide-="horizontal" class="katalog kv" is-="typography-block">
+									<tbody id="neues-liste"></tbody>
+								</table>
+							</section>
+
+							<!-- Über mich -->
+							<section data-route="ueber" data-title="Über mich" data-path="wiredframe">
+								<h2>Was ist wiredframe?</h2>
+								<p>wiredframe, das ist Ulf Schuster: unabhängiger UI/UX Designer und Digital Creator aus
+									Leidenschaft seit <span data-years>21</span> Jahren. Remote und kollaborativ, von der ersten
+									Idee bis zum Launch. wiredframe ist ein Einzelstudio: Wer beauftragt, arbeitet mit der Person, die auch gestaltet.</p>
+								<table divide-="horizontal" class="kv">
+									<tbody>
+										<tr>
+											<td><strong>Name</strong></td>
+											<td>Ulf Schuster</td>
+										</tr>
+										<tr>
+											<td><strong>Rolle</strong></td>
+											<td>UI/UX Designer und Digital Creator</td>
+										</tr>
+										<tr>
+											<td><strong>Sitz</strong></td>
+											<td>Penzberg, Oberbayern, rund 50 km südlich von München</td>
+										</tr>
+										<tr>
+											<td><strong>Seit</strong></td>
+											<td>2005, mehr als 200 abgeschlossene Projekte</td>
+										</tr>
+										<tr>
+											<td><strong>Arbeitsweise</strong></td>
+											<td>remote, mit Agenturen, Startups und Unternehmen</td>
+										</tr>
+										<tr>
+											<td><strong>Sprachen</strong></td>
+											<td>Deutsch, Englisch, Italienisch</td>
+										</tr>
+									</tbody>
+								</table>
+							</section>
+
+							<!-- Philosophie -->
+							<section data-route="philosophie" data-title="Philosophie" data-path="wiredframe">
+								<h2>Wie ich arbeite</h2>
+								<p>Das einzig bekannte Gegenmittel gegen schlechtes Design ist Leidenschaft, gepaart mit
+									Erfahrung und den richtigen Workflows. Daraus sind ein paar Grundsätze geworden:</p>
+								<table divide-="horizontal" is-="typography-block">
+									<tbody>
+										<tr>
+											<td><strong>Eine Quelle für Design und Code.</strong><br>Tokens und Komponenten in Figma sind mit den echten Code-Komponenten verknüpft. Gebaut wird mit echten Werten, nicht mit nachgemessenen Pixeln.</td>
+										</tr>
+										<tr>
+											<td><strong>Erst die Regeln, dann die KI.</strong><br>Agenten bauen so gut wie ihre Vorgaben. Wer ihnen Tokens und Komponentenregeln mitgibt, bekommt brauchbaren Code zurück.</td>
+										</tr>
+										<tr>
+											<td><strong>Konsistenz hält länger als Effekte.</strong><br>Ein Design System soll einen Auftritt über Jahre tragen, nicht nur bis zum Launch.</td>
+										</tr>
+										<tr>
+											<td><strong>Direkt, ohne Zwischenebene.</strong><br>Abgestimmt wird mit dem, der gestaltet. Das spart Umwege und eine Menge Meetings.</td>
+										</tr>
+										<tr>
+											<td><strong>Diskretion gehört dazu.</strong><br>Die meisten Projekte laufen über Agenturen, deshalb nenne ich Kundennamen nur auf Nachfrage.</td>
+										</tr>
+										<tr>
+											<td><strong>Kleine Werkzeuge, die eine Sache gut machen.</strong><br>Was im Alltag fehlt, baue ich selbst: ohne Netzwerk, ohne Telemetrie, offen im <a href="#code">Code</a>.</td>
+										</tr>
+										<tr>
+											<td><strong>Privatsphäre ist der Normalfall.</strong><br>Diese Seite setzt keine Cookies, misst niemanden und lädt nichts von fremden Servern nach.</td>
+										</tr>
+									</tbody>
+								</table>
+							</section>
+
+							<!-- Mitwisser -->
+							<section data-route="mitwisser" data-title="Mitwisser" data-path="wiredframe">
+								<h2>Die Mitwisser</h2>
+								<p>Seit einiger Zeit arbeiten KI-Agenten mit, und sie führen genauer Buch als jeder Informant. Schriftführer war meistens ein gewisser Herr <span
+										data-mitwisser="schriftfuehrer">Opus</span>. Stand: <span
+										data-mitwisser="stand">14. Oktober 2026</span>.</p>
+								<table divide-="horizontal" class="kv">
+									<tbody id="mitwisser-zahlen"></tbody>
+								</table>
+							</section>
+
+							<!-- Leistungen -->
+							<section data-route="leistungen" data-title="Leistungen" data-path="leistungen">
+								<h2>Was ich mache</h2>
+								<p>Sechs Arbeitsfelder, die ineinandergreifen. Jedes beginnt bei einem Problem, das mir in
+									Projekten immer wieder begegnet.</p>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<tbody>
+										<tr data-href="#leistungen/ui-ux">
+											<td><a href="#leistungen/ui-ux">UI/UX Design mit Figma</a></td>
+											<td>Interfaces und Experience Design für Websites, Web-Apps und digitale Produkte</td>
+										</tr>
+										<tr data-href="#leistungen/figma-to-code">
+											<td><a href="#leistungen/figma-to-code">Figma-to-Code Workflows</a></td>
+											<td>Übergabe von Design an Entwicklung, die diesen Namen verdient</td>
+										</tr>
+										<tr data-href="#leistungen/design-systems">
+											<td><a href="#leistungen/design-systems">Design Systems &amp; Tokens</a></td>
+											<td>Token-Sets, Komponenten-Bibliotheken und Styleguides, die konsistent bleiben</td>
+										</tr>
+										<tr data-href="#leistungen/agentic-coding">
+											<td><a href="#leistungen/agentic-coding">Agentic Coding &amp; AI</a></td>
+											<td>Design-to-Code Pipelines, in denen die KI baut, was gemeint war</td>
+										</tr>
+										<tr data-href="#leistungen/prototyping">
+											<td><a href="#leistungen/prototyping">Prototyping</a></td>
+											<td>klickbare Prototypen zur Abstimmung, bevor Code entsteht</td>
+										</tr>
+										<tr data-href="#leistungen/no-code">
+											<td><a href="#leistungen/no-code">No-Code &amp; Low-Code</a></td>
+											<td>Umsetzung in Webflow und Framer, wenn kein eigener Stack nötig ist</td>
+										</tr>
+									</tbody>
+								</table>
+							</section>
+
+							<section data-route="leistungen/ui-ux" data-title="UI/UX Design" data-path="leistungen">
+								<h2>UI/UX Design mit Figma</h2>
+								<p><mark fg-="rose">Problem:</mark> Meetings über das Design dauern länger als das Design selbst.</p>
+								<p>Interfaces und Experience Design für Websites, Web-Apps und digitale Produkte. Entworfen und abgestimmt wird in Figma, FigJam und Dev Mode, damit alle am selben Stand arbeiten.</p>
+								<p><span is-="badge" variant-="background2">Figma</span> <span is-="badge"
+										variant-="background2">FigJam</span> <span is-="badge" variant-="background2">Dev Mode</span></p>
+								<h3>Passt, wenn</h3>
+								<ul marker-="tree">
+									<li>ein Relaunch oder Neubau ansteht.</li>
+									<li>eine Agentur Verstärkung im UI/UX braucht, remote und ohne Einarbeitungsvorlauf.</li>
+								</ul>
+							</section>
+
+							<section data-route="leistungen/figma-to-code" data-title="Figma-to-Code" data-path="leistungen">
+								<h2>Figma-to-Code Workflows</h2>
+								<p><mark fg-="rose">Problem:</mark> „Figma-to-Code“ heißt oft: Copy-Paste und debuggen bis
+									Mitternacht. Und Figma-Files mit 99+ Seiten, aber keiner weiß, wo das finale Design liegt.</p>
+								<p>Design und Code teilen sich eine Quelle: Tokens und Komponenten in Figma sind über Dev Mode
+									und Code Connect mit den echten Code-Komponenten verknüpft. Statt Pixel nachzumessen, übernimmt die Entwicklung verbindliche Werte, und jede Komponente folgt einem festen Vertrag. Screenshot und Hoffnung haben ausgedient.</p>
+								<p><span is-="badge" variant-="background2">Dev Mode</span> <span is-="badge"
+										variant-="background2">Code Connect</span> <span is-="badge" variant-="background2">Design
+										Tokens</span></p>
+								<h3>Passt, wenn</h3>
+								<ul marker-="tree">
+									<li>ein Figma-File da ist, aber der Weg in den Code jedes Mal Tage kostet.</li>
+								</ul>
+								<h3>Im Code</h3>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<tbody data-repos="Figma-to-Code convert-figma-variables2css-output Responsive-Replacer-Dynamic Responsive-Replacer-Static Responsive-Replacer-Text Duplicate-Component vscode-live-inspect"></tbody>
+								</table>
+							</section>
+
+							<section data-route="leistungen/design-systems" data-title="Design Systems" data-path="leistungen">
+								<h2>Design Systems &amp; Tokens</h2>
+								<p><mark fg-="rose">Problem:</mark> Design Tokens existieren, aber niemand nutzt sie konsistent.</p>
+								<p>Aufbau und Pflege von Token-Sets, Komponenten-Bibliotheken und Styleguides, damit ein
+									Markenauftritt über Jahre konsistent bleibt. Die Tokens liegen maschinenlesbar vor, so arbeiten Menschen und Werkzeuge mit denselben Werten.</p>
+								<p><span is-="badge" variant-="background2">Figma Variables</span> <span is-="badge"
+										variant-="background2">Design Tokens</span> <span is-="badge"
+										variant-="background2">Komponenten</span> <span is-="badge"
+										variant-="background2">Styleguides</span></p>
+								<h3>Passt, wenn</h3>
+								<ul marker-="tree">
+									<li>ein Design System entstehen soll oder zerfallen ist und Ordnung braucht.</li>
+								</ul>
+								<h3>Im Code</h3>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<tbody data-repos="convert-figma-variables2css-output wiredframe-website"></tbody>
+								</table>
+							</section>
+
+							<section data-route="leistungen/agentic-coding" data-title="Agentic Coding" data-path="leistungen">
+								<h2>Agentic Coding &amp; AI</h2>
+								<p><mark fg-="rose">Problem:</mark> KI generiert Code schneller, als du „Figma Dev Mode“ sagen
+									kannst. Und die KI entscheidet jetzt selbst, was sie baut.</p>
+								<p>KI-Agenten schreiben Code weitgehend selbstständig. Damit dabei kein Wildwuchs entsteht,
+									brauchen sie Design-Vorgaben in maschinenlesbarer Form: Tokens, Komponentenregeln, klare
+									Struktur. Genau diese Vorarbeit ist Teil der Leistung, ebenso die Pipelines, in denen
+									Design zu Code wird. Damit die KI baut, was du meinst.</p>
+								<p><span is-="badge" variant-="background2">Claude</span> <span is-="badge"
+										variant-="background2">Cursor</span> <span is-="badge" variant-="background2">GitHub
+										Copilot</span></p>
+								<h3>Passt, wenn</h3>
+								<ul marker-="tree">
+									<li>ein Team KI-Werkzeuge zum Bauen nutzt und Design-Vorgaben braucht, an die sich diese
+										Werkzeuge halten können.</li>
+								</ul>
+								<h3>Im Code</h3>
+								<p>Die meisten Werkzeuge im <a href="#code">Code</a> sind so entstanden, Buch führen die <a
+										href="#mitwisser">Mitwisser</a>.</p>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<tbody data-repos="basquiat rectmangle dropme los"></tbody>
+								</table>
+							</section>
+
+							<section data-route="leistungen/prototyping" data-title="Prototyping" data-path="leistungen">
+								<h2>Prototyping</h2>
+								<p><mark fg-="rose">Problem:</mark> Was erst im fertigen Code auffällt, wird teuer.</p>
+								<p>Klickbare Prototypen zur Abstimmung, bevor Code entsteht. So wird über das Verhalten einer
+									Oberfläche entschieden, solange eine Änderung noch Minuten kostet und nicht Tage.</p>
+								<p><span is-="badge" variant-="background2">Figma</span> <span is-="badge"
+										variant-="background2">Prototypen</span></p>
+							</section>
+
+							<section data-route="leistungen/no-code" data-title="No-/Low-Code" data-path="leistungen">
+								<h2>No-Code &amp; Low-Code</h2>
+								<p><mark fg-="rose">Problem:</mark> Nicht jede Website braucht einen eigenen Stack.</p>
+								<p>Umsetzung in Webflow und Framer, dazu Prototypen und
+									frontendnahe Arbeit an Komponenten. Für größere Backend-Systeme arbeite ich mit den
+									Entwicklungsteams der Kunden oder Agenturen zusammen.</p>
+								<p><span is-="badge" variant-="background2">Webflow</span> <span is-="badge"
+										variant-="background2">Framer</span></p>
+							</section>
+
+							<!-- Katalog -->
+							<section data-route="projekte" data-title="Projekte" data-path="katalog">
+								<h2>Geheime Projekte</h2>
+								<p id="projekte-text">Die letzten zehn Projekte, deren Namen nicht genannt werden dürfen. In
+									allen war ich ein zuverlässiger, design-systemtreuer Kollaborateur: Termine gehalten,
+									Absprachen gehalten, Klappe gehalten.</p>
+								<label box-="square" shear-="top" id="codewort-feld">
+									<row>
+										<span is-="badge" variant-="background0">Codewort</span>
+									</row>
+									<input id="codewort-input" placeholder="Wer es kennt, sieht die echten Namen" autocomplete="off" spellcheck="false">
+								</label>
+								<label box-="square" shear-="top" id="filter-feld" hidden>
+									<row align-="between">
+										<span is-="badge" variant-="background0">Filter</span>
+										<span is-="badge" variant-="background0" id="filter-zahl"></span>
+									</row>
+									<input id="filter-input" placeholder="Jahr, Typ, Branche, Agentur oder Titel" autocomplete="off" spellcheck="false">
+								</label>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<thead>
+										<tr>
+											<th>Projekt</th>
+											<th>Jahr</th>
+										</tr>
+									</thead>
+									<tbody id="projekte-liste"></tbody>
+								</table>
+								<h3>Im Katalog</h3>
+								<column gap-="1" id="projekte-statistik"></column>
+							</section>
+
+							<section data-route="code" data-title="Code" data-path="katalog">
+								<h2>Öffentlicher Code</h2>
+								<p>Vibe Coding? Agentic Engineering? Egal, wie man es nennt, Hauptsache, es nützt mir und meinen Kunden: KI-Workflows, Software und Apps oder einfach ein Werkzeug mehr im
+									Skriptkasten.</p>
+								<table divide-="horizontal" class="katalog" is-="typography-block">
+									<thead>
+										<tr>
+											<th>Repo</th>
+											<th>Sprache</th>
+											<th>Stand</th>
+										</tr>
+									</thead>
+									<tbody id="code-liste"></tbody>
+								</table>
+							</section>
+
+							<!-- Detailseiten, gefüllt von tui.js -->
+							<section data-route="detail" id="detail"></section>
+
+							<!-- Verbindung -->
+							<section data-route="kontakt" data-title="Kontakt" data-path="verbindung">
+								<h2>Mehr Informationen?</h2>
+								<p>Punkt Mitternacht, an der großen Eiche. Codewort: <code>herbstlaub</code>. Keine Namen, keine
+									Visitenkarten, kein Wort über das Wetter. Informanten, die mich auf eine heiße Spur zu
+									künftigen Auftraggebern führen, werden selbstverständlich belohnt.</p>
+								<h3>Ablauf</h3>
+								<ol>
+									<li>Ein Gespräch, per Termin oder E-Mail.</li>
+									<li>Eine Einschätzung zu Umfang, Ablauf und Kosten.</li>
+									<li>Die Arbeit, remote und direkt mit mir.</li>
+								</ol>
+								<p>Abgerechnet wird nach Tagessatz oder als Festpreis pro Projekt. Konkrete Zahlen gibt es nach
+									dem Gespräch, weil sie vorher nichts aussagen.</p>
+								<form id="telegramm" box-="square" shear-="top">
+									<row>
+										<span is-="badge" variant-="background0">Telegramm</span>
+									</row>
+									<column gap-="1">
+										<input id="telegramm-betreff" placeholder="Betreff" autocomplete="off">
+										<textarea id="telegramm-text" rows="5" placeholder="Worum geht es?"></textarea>
+										<row gap-="1">
+											<button type="submit" box-="square" variant-="peach">Telegramm hinterlassen</button>
+											<a is-="button" box-="square" variant-="lime" id="termin-link"
+												href="https://outlook.office.com/book/EinGesprchvereinbaren@wiredframe.onmicrosoft.com/?ismsaljsauthenabled"
+												target="_blank" rel="noopener">Konspiratives Treffen</a>
+										</row>
+									</column>
+								</form>
+								<p>Das Telegramm öffnet dein Mailprogramm, abgeschickt wird erst dort.
+									<a href="../impressum.html">Impressum</a>, <a href="../privacy.html">Datenschutz &amp;
+										Nutzungsbedingungen</a>.</p>
+							</section>
+
+							<section data-route="tastatur" data-title="Tastatur" data-path="verbindung">
+								<h2>Alles geht ohne Maus</h2>
+								<table divide-="horizontal" class="kv">
+									<tbody>
+										<tr>
+											<td><strong>/ oder ⌘K</strong></td>
+											<td>Befehle: tippen filtert, ↑↓ oder ⌃n ⌃p wählen, Enter führt aus</td>
+										</tr>
+										<tr>
+											<td><strong>j k ↑ ↓</strong></td>
+											<td>eine Zeile weiter oder zurück, in Navigation und Inhalt</td>
+										</tr>
+										<tr>
+											<td><strong>g G</strong></td>
+											<td>an den Anfang oder ans Ende</td>
+										</tr>
+										<tr>
+											<td><strong>h l</strong></td>
+											<td>in die Navigation oder in den Inhalt</td>
+										</tr>
+										<tr>
+											<td><strong>Enter</strong></td>
+											<td>markierte Zeile öffnen</td>
+										</tr>
+										<tr>
+											<td><strong>Backspace</strong></td>
+											<td>eine Ebene höher, etwa vom Projekt zurück in den Katalog</td>
+										</tr>
+										<tr>
+											<td><strong>⌃n ⌃p</strong></td>
+											<td>nächste oder vorige Seite, im Katalog der nächste Eintrag</td>
+										</tr>
+										<tr>
+											<td><strong>⌃o ⌃i</strong></td>
+											<td>zurück oder vor im Verlauf</td>
+										</tr>
+										<tr>
+											<td><strong>?</strong></td>
+											<td>diese Übersicht</td>
+										</tr>
+										<tr>
+											<td><strong>Esc</strong></td>
+											<td>Befehle schließen, Eingabefeld verlassen</td>
+										</tr>
+									</tbody>
+								</table>
+								<p>Und wer das Codewort irgendwo tippt, bekommt die Akten.</p>
+							</section>
+
+							<div id="doc-pagination">
+								<a href="#start" class="prev" box-="square" shear-="top">
+									<div is-="typography-block">
+										<span is-="badge" variant-="background0">
+											<row gap-="1">
+												<span>←</span>
+												<code>&lt;C-p&gt;</code>
+												<span>Zurück</span>
+											</row>
+										</span>
+									</div>
+									<span pad-="1 0" data-label></span>
+								</a>
+								<a href="#start" class="next" box-="square" shear-="top">
+									<row align-="start end" is-="typography-block">
+										<span is-="badge" variant-="background0">
+											<row gap-="1">
+												<span>Weiter</span>
+												<code>&lt;C-n&gt;</code>
+												<span>→</span>
+											</row>
+										</span>
+									</row>
+									<span pad-="1 0" data-label></span>
+								</a>
+							</div>
+						</main>
+					</div>
+				</row>
+			</article>
+		</row>
+		<row id="statusline" gap-="1">
+			<span is-="badge" variant-="lime" id="mode">NORMAL</span>
+			<span id="path">~/wiredframe</span>
+			<span class="hint">j/k bewegen · Enter öffnen · ⌫ zurück · / Befehle · ? Tasten</span>
+			<span is-="badge" variant-="background2" id="cursor">1:1</span>
+		</row>
+		<div id="mobile-nav">
+			<button variant-="background1" id="menu-button">Menü</button>
+			<button id="docs-button">Inhalt</button>
+		</div>
+	</column>
+
+	<dialog id="search-dialog" size-="small" position-="center" container-="fill">
+		<div box-="square" shear-="top" id="search-content">
+			<row align-="between">
+				<span is-="badge" variant-="background0">Befehle</span>
+				<button id="close-btn" variant-="foreground0" size-="small">x</button>
+			</row>
+			<column box-="square">
+				<input id="search-input" placeholder="Seite, Leistung, Projekt, Repo oder Befehl" autocomplete="off" spellcheck="false">
+			</column>
+			<div id="search-results">
+				<div id="search-results-container"></div>
+			</div>
+		</div>
+	</dialog>
+
+	<script src="js/daten.js"></script>
+	<script src="js/tui.js"></script>
+</body>
+
+</html>

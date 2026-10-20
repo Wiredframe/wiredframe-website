@@ -471,7 +471,7 @@ body.dock-invers .dock :focus-visible {
    aufnimmt. Deshalb steht die Strichfarbe zweimal fest verdrahtet in der
    Grafik, statt aus currentColor zu kommen.
    =========================================== */
-/* Die Chevrons stehen an der Section, damit #profil und #mitwisser sie
+/* Die Chevrons stehen an der Section, damit #profil sie
    weiter unten in Weiß überschreiben können. Wo ::scroll-button() fehlt
    (Stand August 2026 Safari und Firefox), gibt es keine Pfeile, dort wird
    gewischt oder gescrollt. */
@@ -536,10 +536,8 @@ body.dock-invers .dock :focus-visible {
 	pointer-events: none;
 }
 
-/* Auf den grünen Statistik-Karten ginge ein grüner Pfeil unter. Profil
-   und Mitwisser tragen beide solche Karten. */
-#profil,
-#mitwisser {
+/* Auf den grünen Statistik-Karten ginge ein grüner Pfeil unter. */
+#profil {
 	--chevron-prev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'/%3E%3C/svg%3E");
 	--chevron-next: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
 }
@@ -551,8 +549,7 @@ body.dock-invers .dock :focus-visible {
 	}
 }
 
-#profil .rail::scroll-button(*),
-#mitwisser .rail::scroll-button(*) {
+#profil .rail::scroll-button(*) {
 	background-color: var(--color-primary);
 }
 
