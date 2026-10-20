@@ -122,7 +122,6 @@ gerade arbeitet: eigene Werkzeuge und Apps, Workflows mit KI-Agenten und
 was dabei gelernt wurde. Die neuesten Beiträge zuerst:
 
 <!-- blog:liste -->
-- [Wireframe-Modus: Jede Seite als Graustufen-Skizze](https://www.wiredframe.de/blog/wireframe-modus/) (20. Oktober 2026): Ein kleines Skript für die Browserkonsole oder als Lesezeichen, das Farbe, Bilder und Text von einer Seite nimmt und nur das Gerüst übrig lässt.
 - [wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue](https://www.wiredframe.de/blog/wiredframe/) (20. Oktober 2026): Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?
 - [Rectmangle: Vom Config-File zum Einstellungsfenster](https://www.wiredframe.de/blog/rectmangle/) (20. Oktober 2026): Ein Fenstermanager ohne Lizenzcheck war schnell gebaut. Benutzbar wurde er erst, als ich ihn mit den Augen eines UI Designers angeschaut habe.
 - [Mittelklick: Der dritte Helfer an einem Sonntag](https://www.wiredframe.de/blog/mittelklick/) (20. Oktober 2026): Nach DropMe und Rectmangle lag es nahe, auch den Mittelklick selbst zu bauen. Herausgekommen sind 446 Zeilen, ein Framework, das es offiziell gar nicht gibt, und die Frage, wann ein Tippen kein Tippen ist.
