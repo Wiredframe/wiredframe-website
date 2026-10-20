@@ -643,19 +643,15 @@ a {
 
 .bento__titel {
 	font-family: var(--font-heading);
-	font-size: clamp(1.4rem, 1.15rem + 0.5vw, 1.6rem);
+	font-size: clamp(1.6rem, 1.2rem + 1vw, 2.15rem);
 	font-weight: 600;
-	line-height: 1.15;
+	line-height: 1.12;
 	/* lange Komposita wie „Einstellungsfenster“ passen sonst nicht in die
 	   schmale Karte */
 	hyphens: auto;
 	-webkit-hyphens: auto;
 	hyphenate-limit-chars: 10 4 4;
 	text-wrap: balance;
-}
-
-.bento--ohne .bento__titel {
-	font-size: clamp(1.6rem, 1.2rem + 1vw, 2.15rem);
 }
 
 /* Eine niedrige Karte, die als Ausweichform zwei Zeilen hoch wird, füllt
@@ -681,22 +677,10 @@ a {
 	overflow: hidden;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 4;
-	font-size: 0.9375rem;
+	font-size: 1rem;
 	line-height: 1.55;
 	color: color-mix(in oklab, var(--color-primary) 84%, var(--color-white));
 	text-wrap: pretty;
-}
-
-/* In den schmalen Karten stehen Datum und Lesezeit untereinander, sonst
-   bricht die Zeile mit dem Trennpunkt am Anfang um. Einspaltig ist Platz. */
-@media (min-width: 36.01rem) {
-	.bento--klein .meta {
-		flex-direction: column;
-	}
-
-	.bento--klein .meta > * + *::before {
-		content: none;
-	}
 }
 
 .bento--gross .meta,
