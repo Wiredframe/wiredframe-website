@@ -1,8 +1,12 @@
-# NetNewsFeed: Mein NetNewsWire-Fork liest sich jetzt wie ein Magazin
+---
+aktualisiert: 2026-10-23
+---
+
+# RSS Feed Magazine: Mein NetNewsWire-Fork liest sich jetzt wie ein Magazin
 
 *Seit 2020 wünschen sich Nutzer von NetNewsWire Bilder in der Artikelliste. Ich habe an einem Nachmittag einen eigenen Fork gebaut, und am Ende war daraus ein Magazin geworden.*
 
-![Die Magazinansicht von NetNewsFeed mit Titelkopf „All Unread“, großem Aufmacher und Bildmeldungen](bilder/magazin-titel.png)
+![Die Magazinansicht von RSS Feed Magazine mit Titelkopf „All Unread“, großem Aufmacher und Bildmeldungen](bilder/magazin-titel.png)
 
 *Die Titelseite der Magazinansicht. Alle Bilder in diesem Beitrag zeigen gemeinfreie NASA-Feeds.*
 
@@ -10,7 +14,7 @@ NetNewsWire ist ein wunderbarer RSS-Reader: schnell, aufgeräumt, Open Source. N
 
 Ich bin nicht der Einzige, den das stört. Das Ticket „Feature request: image thumbnail on article list instead of feed icon“ ist vom Januar 2020. Im Juli 2026 schrieb Brent Simmons dort, er wolle so ein zentrales Feature wohl selbst bauen, wegen der Folgen für Bedienung, Speicher und Leistung. Das verstehe ich. Warten wollte ich trotzdem nicht.
 
-Also habe ich mit Claude einen Fork gebaut. Er heißt NetNewsFeed, weil der Name NetNewsWire seinen Machern gehört, und läuft neben der offiziellen App. Einen Pull Request gibt es bewusst nicht: Die Regeln des Projekts verlangen vorher Abstimmung, und das Feature ist erklärtermaßen Chefsache.
+Also habe ich mit Claude einen Fork gebaut. Er heißt RSS Feed Magazine, hat ein eigenes Icon und läuft neben der offiziellen App. Einen Pull Request gibt es bewusst nicht: Die Regeln des Projekts verlangen vorher Abstimmung, und das Feature ist erklärtermaßen Chefsache.
 
 ## Bilder, wo sie hingehören
 
@@ -56,7 +60,7 @@ Das Grundlinienraster hat erst einmal alles kaputt gemacht. Text stand doppelt u
 
 ## Die versteckten Bilder
 
-Ausgerechnet Merkur, BR24, t3n und Notebookcheck zeigten keine Bilder, und GameStar nur Pixelbrei. Der Grund war überraschend: Diese Feeds haben ihr Bild gar nicht im Artikeltext, sondern in eigenen Feldern, in `media:content`, als Anhang oder, bei BR24, in einem ARD-eigenen Format. NetNewsWire hat diese Felder nie gelesen. Das tut der Parser in NetNewsFeed jetzt.
+Ausgerechnet Merkur, BR24, t3n und Notebookcheck zeigten keine Bilder, und GameStar nur Pixelbrei. Der Grund war überraschend: Diese Feeds haben ihr Bild gar nicht im Artikeltext, sondern in eigenen Feldern, in `media:content`, als Anhang oder, bei BR24, in einem ARD-eigenen Format. NetNewsWire hat diese Felder nie gelesen. Das tut der Parser in RSS Feed Magazine jetzt.
 
 Bei GameStar steckte im Text ein Teaserbild mit 127 Pixeln Breite, und im Feld daneben dasselbe Bild mit 1.920 Pixeln. Von mehreren Bildern nimmt er jeweils das größte. Damit das auch für Artikel gilt, die schon in der Datenbank lagen, liest die App beim ersten Start einmal alle Feeds neu. Neue Tests sichern das ab, alle 333 Tests des Parsers laufen grün.
 
@@ -68,7 +72,7 @@ Weil die Magazinansicht ohnehin aus seitenähnlichen Blöcken besteht, war der S
 
 *Aus dem PDF: Titelseite, Bildseite, schwarze Seite.*
 
-Der knifflige Teil war unsichtbar. SwiftUIs PDF-Renderer zeichnet alles außer den TextKit-Spalten, AppKits PDF-Export nur die Spalten. NetNewsFeed rendert deshalb jede Seite zweimal und legt die Spalten an ihren gemessenen Positionen über das Bild. Einen Farbverlauf zeichnet der Renderer im PDF übrigens als schwarze Fläche; auf der schwarzen Seite verlief das Bild deshalb zuerst ins Nichts. Stattdessen sind es nun 48 feine Streifen, die auf Papier genauso aussehen.
+Der knifflige Teil war unsichtbar. SwiftUIs PDF-Renderer zeichnet alles außer den TextKit-Spalten, AppKits PDF-Export nur die Spalten. RSS Feed Magazine rendert deshalb jede Seite zweimal und legt die Spalten an ihren gemessenen Positionen über das Bild. Einen Farbverlauf zeichnet der Renderer im PDF übrigens als schwarze Fläche; auf der schwarzen Seite verlief das Bild deshalb zuerst ins Nichts. Stattdessen sind es nun 48 feine Streifen, die auf Papier genauso aussehen.
 
 ## Ein Nachmittag
 
@@ -76,4 +80,10 @@ Der erste Commit kam um zwölf Uhr mittags, der letzte für diesen Beitrag gegen
 
 Ich lese meine Feeds jetzt anders. Nicht mehr als Liste, die abgearbeitet werden will, sondern wie eine Zeitung, durch die man morgens blättert.
 
-NetNewsFeed ist Open Source wie das Original: Code, Screenshots und Release liegen auf [GitHub](https://github.com/Wiredframe/netnewsfeed), installieren lässt es sich mit `brew install --cask wiredframe/tap/netnewsfeed`.
+RSS Feed Magazine ist Open Source wie das Original: Code, Screenshots und Release liegen auf [GitHub](https://github.com/Wiredframe/rss-feed-magazine), installieren lässt es sich mit `brew install --cask wiredframe/tap/rss-feed-magazine`.
+
+## Nachträge
+
+### Neuer Name (23. Oktober)
+
+Ursprünglich hieß der Fork NetNewsFeed. Brent Simmons meldete sich prompt: Der Name sei viel zu nah an NetNewsWire, er wolle nicht, dass jemand die beiden verwechselt, und bat außerdem um ein eigenes Icon und einen eigenen User-Agent. Das ist nur fair. Der Fork heißt jetzt RSS Feed Magazine, hat ein oranges Icon mit Magazin und RSS-Zeichen und meldet sich bei den Feeds unter eigenem Namen. Auch das Hilfe-Menü zeigt jetzt auf den Fork statt auf NetNewsWire.
