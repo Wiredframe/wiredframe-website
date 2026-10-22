@@ -15,8 +15,13 @@
 	<!-- blog:urls -->
 	<url>
 		<loc>https://www.wiredframe.de/blog/</loc>
-		<lastmod>2026-10-20</lastmod>
+		<lastmod>2026-10-22</lastmod>
 		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.wiredframe.de/blog/netnewsfeed/</loc>
+		<lastmod>2026-10-22</lastmod>
+		<priority>0.5</priority>
 	</url>
 	<url>
 		<loc>https://www.wiredframe.de/blog/wiredframe/</loc>
