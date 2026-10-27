@@ -31,6 +31,7 @@ import json
 import re
 import sys
 
+import markdown
 from seite import SEITE, WURZEL, einsetzen
 
 QUELLE = WURZEL / 'data' / 'references.json'
@@ -173,6 +174,7 @@ def main():
 	SEITE.write_text(einsetzen(SEITE.read_text(encoding='utf-8'), 'referenzen:karten', markup), encoding='utf-8')
 
 	print('%d von %d Einträgen übernommen -> %s\n' % (len(ausgabe), len(quelle), SEITE.name))
+	markdown.main()
 	for e in ausgabe:
 		print('  %s  %-10s %s%s' % (
 			e['jahr'], e['icon'], e['satz'],

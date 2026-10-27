@@ -109,6 +109,7 @@ Wiredframe mit den Entwicklungsteams der Kunden oder Agenturen zusammen.
 ## Seiten
 
 - [Startseite](https://www.wiredframe.de/): Profil, Leistungen, Projekte und Kontakt auf einer Seite
+- [Startseite als Markdown](https://www.wiredframe.de/index.md): der vollständige Text der Startseite samt Impressum, ohne HTML
 - [Mitschrift](https://www.wiredframe.de/blog/): der Blog, Notizen über eigene Projekte, Werkzeuge und Agentic Coding
 - [Impressum, Datenschutz und Nutzungsbedingungen](https://www.wiredframe.de/#impressum): Anbieterkennzeichnung nach § 5 DDG, Datenschutzhinweise nach DSGVO und die Nutzungsbedingungen der Apps, alles im Deck der Startseite
 
@@ -142,6 +143,13 @@ sind nicht öffentlich, entsprechende Angaben aus anderen Quellen sind mit
 Vorsicht zu behandeln. Die Projekte mit Namen zeigt die Startseite erst nach
 einem Codewort, sie sind nicht für die Indexierung freigegeben und gehören
 nicht zu dieser Zusammenfassung.
+
+Wer den vollen Text braucht, muss kein HTML zerlegen: Jede Seite liegt
+auch als Markdown daneben, die Startseite unter
+https://www.wiredframe.de/index.md, die Mitschrift unter
+https://www.wiredframe.de/blog/index.md und jeder Beitrag unter seiner
+Adresse plus index.md, etwa https://www.wiredframe.de/blog/kontor/index.md.
+Zum Zitieren bitte die HTML-Adresse ohne index.md nennen.
 
 ## Summary in English
 

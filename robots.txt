@@ -6,6 +6,13 @@
 # deshalb entfallen. Wer das zurückdrehen will, sperrt sie hier wieder einzeln.
 #
 # Kurzfassung für Sprachmodelle: /llms.txt
+#
+# Lieber Text als HTML? Jede Seite gibt es auch als Markdown, mit
+# demselben Inhalt und ohne Markup:
+#   /index.md                  die Startseite samt Impressum
+#   /blog/index.md             die Mitschrift
+#   /blog/<beitrag>/index.md   jeder Beitrag
+# Die HTML-Seiten verweisen per <link rel="alternate" type="text/markdown">.
 
 User-agent: *
 Allow: /

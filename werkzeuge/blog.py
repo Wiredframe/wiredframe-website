@@ -40,7 +40,8 @@ Ausgabe, oder alles mit --neu.
 
 Der Ordner blog/ gehört ganz diesem Skript: jeder Lauf schreibt alle Seiten
 neu und löscht dort, was keine Quelle mehr hat. Von Hand gehört dort nichts
-hinein. Dazu kommen die Einträge in sitemap.xml und llms.txt, jeweils
+hinein. Neben jede index.html legt es eine index.md mit demselben Text
+als Markdown. Dazu kommen die Einträge in sitemap.xml und llms.txt, jeweils
 zwischen <!-- blog:… --> und <!-- /blog:… -->.
 
 Der Unterstrich vor _blog ist Absicht, wie bei _archiv: GitHub Pages lässt
@@ -339,7 +340,7 @@ def beitrag_bauen(ordner, neu, erwartet, stand):
 	url = f'/blog/{slug}/'
 	b = {'slug': slug, 'datum': datum, 'aktualisiert': aktualisiert, 'url': url,
 		'cover': None, 'og': None, 'og_alt': '', 'ausgabe': ausgabe}
-	namen = {}
+	namen, bilder = {}, {}
 
 	def abbildung(alt, pfad, titel, unterschrift, erste):
 		bild = (ordner / pfad).resolve()
@@ -374,6 +375,7 @@ def beitrag_bauen(ordner, neu, erwartet, stand):
 				vorschau(bild, og)
 			b['og'] = f'{url}{og.name}'
 			b['og_alt'] = alt
+		bilder[pfad] = f'{BASIS}{url}{name}-{varianten[0]}.webp'
 		srcset = ', '.join(f'{url}{name}-{w}.webp {w}w' for w in varianten)
 		# Angezeigt in halber Pixelgröße (Retina), aber nie höher als HOEHE:
 		# ein Handy-Screenshot im Hochformat stünde sonst über zwei Bildschirme
@@ -394,8 +396,18 @@ def beitrag_bauen(ordner, neu, erwartet, stand):
 		titel, teaser, text_html, woerter = markdown(text, abbildung)
 	except ValueError as e:
 		sys.exit(f'{quelle.relative_to(WURZEL)}: {e}')
-	b.update(titel=titel, teaser=teaser, html=text_html, woerter=woerter)
+	b.update(titel=titel, teaser=teaser, html=text_html, woerter=woerter, md=text_als_md(text, bilder))
 	return b
+
+
+def text_als_md(text, bilder):
+	"""Der Beitrag fürs Markdown: Bilder zeigen auf die fertigen WebPs,
+	Verweise innerhalb der Seite auf deren Markdown-Fassung."""
+	def bild(m):
+		return f'![{m[1]}]({bilder[m[2]]})' if m[2] in bilder else m[0]
+	text = re.sub(r'!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)', bild, text)
+	text = re.sub(r'\]\(/blog/([a-z0-9-]+/)?\)', lambda m: f']({BASIS}/blog/{m[1] or ""}index.md)', text)
+	return re.sub(r'\]\(/', f']({BASIS}/', text).strip()
 
 
 # ========================================
@@ -428,6 +440,7 @@ def seite(titel, beschreibung, url, typ, bild, extra, daten, inhalt, zurueck):
 		f'\t<meta name="description" content="{e(beschreibung)}">',
 		'\t<meta name="author" content="Ulf Schuster / wiredframe">',
 		f'\t<link rel="canonical" href="{BASIS}{url}">',
+		f'\t<link rel="alternate" type="text/markdown" href="{url}index.md" title="Als Markdown">',
 		f'\t<meta property="og:type" content="{typ}">',
 		f'\t<meta property="og:url" content="{BASIS}{url}">',
 		f'\t<meta property="og:title" content="{e(titel)}">',
@@ -461,6 +474,7 @@ def seite(titel, beschreibung, url, typ, bild, extra, daten, inhalt, zurueck):
 		'\t<footer class="fuss">',
 		'\t\t<a href="/">wiredframe.de</a>',
 		'\t\t<a href="/#impressum">Impressum &amp; Datenschutz</a>',
+		f'\t\t<a href="{url}index.md">Als Markdown lesen</a>',
 		'\t</footer>',
 		'</body>',
 		'',
@@ -607,6 +621,38 @@ def packen(beitraege):
 	return raus
 
 
+def md_meta(b):
+	teile = [lang(b['datum'])]
+	if b['aktualisiert']:
+		teile.append(f'aktualisiert am {lang(b["aktualisiert"])}')
+	return ', '.join(teile + [lesezeit(b['woerter'])])
+
+
+def beitrag_md(b, neuer, aelter):
+	"""Der Beitrag als Markdown, unter dem Teaser Datum und Lesezeit.
+	Fehlt die kursive Zeile, stehen sie direkt unter dem Titel."""
+	zeilen = b['md'].split('\n')
+	titel = next(i for i, z in enumerate(zeilen) if z.startswith('# '))
+	stelle = titel + 1
+	folgende = next((i for i in range(titel + 1, len(zeilen)) if zeilen[i].strip()), None)
+	if folgende is not None and ganz_kursiv(zeilen[folgende]):
+		stelle = folgende + 1
+	zeilen[stelle:stelle] = ['', f'**{md_meta(b)}**']
+	weiter = [f'- {richtung}: [{ziel["titel"]}]({BASIS}{ziel["url"]}index.md)'
+		for richtung, ziel in (('Neuer', neuer), ('Älter', aelter)) if ziel]
+	weiter += [f'- [Alle Beiträge der {NAME}]({BASIS}/blog/index.md)',
+		f'- [Diesen Beitrag als Seite lesen]({BASIS}{b["url"]})']
+	return '\n'.join(zeilen) + '\n\n---\n\n' + '\n'.join(weiter) + '\n'
+
+
+def uebersicht_md(beitraege):
+	teile = [f'# {NAME}', f'> {INTRO}']
+	for b in beitraege:
+		teile += ['---', f'## [{b["titel"]}]({BASIS}{b["url"]}index.md)', f'*{md_meta(b)}*', b['teaser']]
+	teile += ['---', f'[wiredframe.de als Markdown]({BASIS}/index.md)']
+	return '\n\n'.join(teile) + '\n'
+
+
 def uebersicht(beitraege):
 	e = html.escape
 	eintraege = []
@@ -724,7 +770,9 @@ def main():
 		neuer = beitraege[i - 1] if i > 0 else None
 		aelter = beitraege[i + 1] if i + 1 < len(beitraege) else None
 		schreiben(b['ausgabe'] / 'index.html', beitragsseite(b, neuer, aelter), erwartet)
+		schreiben(b['ausgabe'] / 'index.md', beitrag_md(b, neuer, aelter), erwartet)
 	schreiben(ZIEL / 'index.html', uebersicht(beitraege), erwartet)
+	schreiben(ZIEL / 'index.md', uebersicht_md(beitraege), erwartet)
 	weg = aufraeumen(erwartet)
 	sitemap(beitraege)
 	llms(beitraege)

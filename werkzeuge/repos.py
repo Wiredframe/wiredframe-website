@@ -23,6 +23,7 @@ import subprocess
 import sys
 import urllib.request
 
+import markdown
 from seite import MONATE, SEITE, einsetzen
 
 USER = 'Wiredframe'
@@ -77,6 +78,7 @@ def main():
 	markup = [z for r in repos for z in karte(r)]
 	SEITE.write_text(einsetzen(SEITE.read_text(encoding='utf-8'), 'repos:karten', markup), encoding='utf-8')
 	print(f'{len(repos)} Repositories -> {SEITE.name}')
+	markdown.main()
 	for r in repos:
 		print(f'  {r["name"]:32} {r.get("language") or "":12} {monat(r.get("pushed_at") or r["updated_at"])}')
 
