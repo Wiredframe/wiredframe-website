@@ -6,7 +6,9 @@ Holt die öffentlichen GitHub-Repositories für die Section #repos.
 
 Fragt die GitHub-API ab (über gh, wenn angemeldet, sonst ohne Anmeldung)
 und schreibt die Karten in index.html, zwischen <!-- repos:karten --> und
-<!-- /repos:karten -->. Archivierte Repositories bleiben draußen.
+<!-- /repos:karten -->. Archivierte Repositories bleiben draußen, Forks auch,
+außer sie stehen in EIGENE_FORKS: Gezeigt wird nur, was im Wesentlichen
+selbst entwickelt ist, nicht ein Fork für einen Patch oder Pull Request.
 
 Früher holte der Browser jedes Besuchers die Liste selbst. Ohne Anmeldung
 erlaubt GitHub aber nur 60 Anfragen pro Stunde und IP, hinter Mobilfunk-
@@ -35,6 +37,8 @@ SPRACHEN = {
 	'JavaScript': '#f1e05a', 'Ruby': '#701516', 'Python': '#3572A5', 'Shell': '#89e051', 'Go': '#00ADD8',
 	'Rust': '#dea584', 'Java': '#b07219', 'Kotlin': '#A97BFF', 'PHP': '#4F5D95', 'C++': '#f34b7d', 'C#': '#178600',
 }
+# Forks, die eigene Projekte geworden sind (eigener Name, eigene Releases)
+EIGENE_FORKS = {'paper-comic-reader-mac', 'rss-feed-magazine'}
 OHNE_BESCHREIBUNG = 'Noch ohne Beschreibung, aber öffentlich einsehbar.'
 
 
@@ -72,7 +76,8 @@ def karte(r):
 
 
 def main():
-	repos = [r for r in holen() if not r.get('archived')]
+	repos = [r for r in holen() if not r.get('archived')
+		and (not r.get('fork') or r['name'] in EIGENE_FORKS)]
 	if not repos:
 		sys.exit('GitHub lieferte keine Repositories, index.html bleibt unverändert.')
 	markup = [z for r in repos for z in karte(r)]
