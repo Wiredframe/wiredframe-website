@@ -85,19 +85,24 @@ Vibe Coding? Agentic Engineering? Egal wie man es nennt: Gebaut wird mit KI-Agen
 
 | Repository | Beschreibung | Sprache | Stand |
 |---|---|---|---|
+| [wiredframe-website](https://github.com/Wiredframe/wiredframe-website) | Noch ohne Beschreibung, aber öffentlich einsehbar. | HTML | November 2026 |
+| [kontor-landingpage](https://github.com/Wiredframe/kontor-landingpage) | Landingpage für Kontor – die native macOS-Buchhaltungs-App für KSK-versicherte Freiberufler (EÜR, UStVA, KSK, Rücklagen, lokal auf dem Mac). | HTML | November 2026 |
+| [kontor-buchhaltung](https://github.com/Wiredframe/kontor-buchhaltung) | Lokale Buchhaltungs-App (SwiftUI + SwiftData) für Freelancer – EÜR, UStVA, KSK, MCP-Server | Swift | November 2026 |
+| [obsidian-plugins](https://github.com/Wiredframe/obsidian-plugins) | Tiny, readable Obsidian plugins (Mail-style navigator, reminders, toolbar) and the Wiredframe theme | TypeScript | November 2026 |
+| [timer](https://github.com/Wiredframe/timer) | A deliberately minimal Tabata and interval timer for iPhone. No library, no history, no network. | Swift | November 2026 |
+| [MarkEdit](https://github.com/Wiredframe/MarkEdit) | Just like TextEdit on Mac but dedicated to Markdown. | Swift | Oktober 2026 |
 | [homebrew-tap](https://github.com/Wiredframe/homebrew-tap) | Homebrew tap for Wiredframe's macOS apps | Ruby | Oktober 2026 |
-| [rectmangle](https://github.com/Wiredframe/rectmangle) | Minimal macOS window manager modelled on Rectangle: keyboard shortcuts, no network access | Swift | Oktober 2026 |
-| [dropme](https://github.com/Wiredframe/dropme) | A small, private drop shelf for macOS, inspired by Dropover. No network, no telemetry. | Swift | Oktober 2026 |
+| [paper-comic-reader-mac](https://github.com/Wiredframe/paper-comic-reader-mac) | Paper Comic Reader for the Mac: a comic reader that makes the page look printed. Library, Live Text, iOS-compatible backups. | Swift | Oktober 2026 |
+| [rss-feed-magazine](https://github.com/Wiredframe/rss-feed-magazine) | A personal NetNewsWire fork for the Mac with article images and a magazine layout | Swift | Oktober 2026 |
+| [RDPKit](https://github.com/Wiredframe/RDPKit) | Pure Swift RDP library for Apple platforms, built around Apple media, security, and networking primitives. |  | Oktober 2026 |
+| [paper-comic-reader](https://github.com/Wiredframe/paper-comic-reader) | Paper Comic Reader — a focused iOS comic reader | Swift | Oktober 2026 |
 | [mittelklick](https://github.com/Wiredframe/mittelklick) | Middle click on the macOS trackpad by tapping with three or four fingers, no network | Swift | Oktober 2026 |
+| [dropme](https://github.com/Wiredframe/dropme) | A small, private drop shelf for macOS, inspired by Dropover. No network, no telemetry. | Swift | Oktober 2026 |
+| [rectmangle](https://github.com/Wiredframe/rectmangle) | Minimal macOS window manager modelled on Rectangle: keyboard shortcuts, no network access | Swift | Oktober 2026 |
 | [flow](https://github.com/Wiredframe/flow) | A tiny, fast photo and video viewer for macOS: one folder, square grid, newest first, videos play in place. | Swift | Oktober 2026 |
 | [los](https://github.com/Wiredframe/los) | A tiny launcher for everything you installed in the terminal. Los means go! | Shell | Oktober 2026 |
-| [wiredframe-website](https://github.com/Wiredframe/wiredframe-website) | Noch ohne Beschreibung, aber öffentlich einsehbar. | HTML | Oktober 2026 |
-| [kontor-buchhaltung](https://github.com/Wiredframe/kontor-buchhaltung) | Lokale Buchhaltungs-App (SwiftUI + SwiftData) für Freelancer – EÜR, UStVA, KSK, MCP-Server | Swift | Oktober 2026 |
-| [kontor-landingpage](https://github.com/Wiredframe/kontor-landingpage) | Landingpage für Kontor – die native macOS-Buchhaltungs-App für KSK-versicherte Freiberufler (EÜR, UStVA, KSK, Rücklagen, lokal auf dem Mac). | HTML | Oktober 2026 |
 | [reminders-cli](https://github.com/Wiredframe/reminders-cli) | A simple CLI for interacting with macOS reminders |  | September 2026 |
-| [paper-comic-reader](https://github.com/Wiredframe/paper-comic-reader) | Paper Comic Reader — a focused iOS comic reader | Swift | September 2026 |
 | [ricoh-sp150-macos-tahoe](https://github.com/Wiredframe/ricoh-sp150-macos-tahoe) | Get the Ricoh SP 150 (USB, host based) printing again on macOS 26 Tahoe using only Apple CoreGraphics. No Ghostscript, no print server. | C | September 2026 |
-| [Simple-Comic](https://github.com/Wiredframe/Simple-Comic) | macOS comic viewer | Objective-C | September 2026 |
 | [vscode-live-inspect](https://github.com/Wiredframe/vscode-live-inspect) | Faithful HTML live preview for VS Code with click to source, inspect outline, and lightweight in place editing | TypeScript | Juli 2026 |
 | [paper-comic-reader-landingpage](https://github.com/Wiredframe/paper-comic-reader-landingpage) | Landing page for Paper Comic Reader — a lean, native iPhone & iPad comic reader that makes pages read like ink on paper. | HTML | Juli 2026 |
 | [basquiat](https://github.com/Wiredframe/basquiat) | Agents for Figma design files |  | März 2026 |
