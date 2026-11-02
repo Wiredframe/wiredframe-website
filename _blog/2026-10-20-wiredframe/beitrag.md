@@ -1,3 +1,7 @@
+---
+aktualisiert: 2026-11-02
+---
+
 # wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue
 
 *Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?*
@@ -259,3 +263,107 @@ Ein paar Beispiele.
 Vieles davon sieht man nicht. Ein Beleg landete still in der offenen Ausgabe vom Vorjahr, nur weil das Monatsabo gleich viel kostet. Zwei Überweisungen am selben Tag, gleicher Betrag, Bankreferenz „NOTPROVIDED“, wurden zu einer zusammengezogen. Absender mit Komma im Namen (etwa „Baumgartl, Bernhard“) zerfielen beim Abruf; 56 Mails hingen deshalb an niemandem. `wf restore` hätte mit der falschen Datei alle Daten durch eine leere Datenbank ersetzt. Und einen großen Kunden zu öffnen geht jetzt etwa doppelt so schnell, der erste Buchstabe in der Suche rund viermal: wiredframe merkt sich die Zusammenhänge bis zur nächsten Änderung.
 
 Am meisten gelernt habe ich aber aus dem, was die Agenten nicht ändern durften. In meinen echten Daten steht eine Umsatzsteuer-Vorauszahlung über 500 Euro, zu der keine Abbuchung gehört. Im Ordner der Ausgangsrechnungen lagen drei PDFs von Rechnungen, die ich gestellt und gleich wieder gelöscht hatte. Solche Funde entscheide ich selbst.
+
+### Schlanker, aber nicht kürzer (20. Oktober)
+
+wiredframe wächst mit jeder Idee, und die Tests wachsen mit. Ich wollte wissen, was sich dagegen tun lässt, ohne auf eine einzige Funktion zu verzichten. Sechs Agenten haben den Code zuerst nur gelesen: toter Code, Duplikate, Komplexität, Eigenbau, Aufbau der Tests, doppelte Tests. Gefunden haben sie wenig. Toter Code machte 0,3 % aus, kopierte Stellen fand pylint keine mehr, und die Tests waren dichter, als ich dachte.
+
+Statt zu kürzen, haben wir aufgeräumt. Der Verteiler hinter `wf` hatte eine Komplexität von 76 und beschrieb jeden Unterbefehl dreimal. Heute steht jeder Befehl an einer Stelle. Das Rechnungs-PDF, die E-Rechnung, das Buchen im Kontoauszug, die Tastenverarbeitung und die Detailansicht sind in benannte Schritte zerlegt. Die Zahl der sehr komplexen Funktionen hat sich halbiert, von 49 auf 25. In Zeilen gemessen ist der Code dabei um gut ein Prozent länger geworden: Jede neue kleine Funktion bringt ihren Kopf und ihren Satz Doku mit.
+
+Damit nichts kaputtgeht, lief vorher und nachher ein Schnappschuss auf den Demodaten und auf einer Kopie meiner echten Daten, mit fester Uhr und festen IDs: Datenbank, fast 2.000 Ausgaben von `wf`, 111 Rechnungs-PDFs Byte für Byte, die E-Rechnungen und jeder Bildschirm. Am Ende wichen genau die zwei Stellen ab, die ich ändern wollte.
+
+Eine davon sieht man: Angebote blättern jetzt wie Rechnungen monatsweise, mit `[ ]` und `.`. Offene Angebote stehen in jedem Monat, bis sie entschieden sind.
+
+![Angebote im Oktober, ein offenes Angebot](bilder/verschlankung-angebote-nachher.png)
+
+*Angebote nach Monat. Vorher standen alle in einer Liste, gruppiert nach Status.*
+
+Bei den Tests habe ich jede Streichung einzeln abgenickt, in Worten, die ich ohne Testcode verstehe. Aus 770 Testfunktionen wurden 727, aus zwölf Tests fürs Blättern drei Szenarien, und feste Pausen warten jetzt auf den Zustand, den sie meinen. Neu sind Eigenschafts-Tests mit hypothesis. Statt „1.234,50 ergibt 123450 Cent“ prüft ein Test, dass sich jeder Betrag, den wiredframe anzeigt, exakt wieder einlesen lässt, und würfelt dafür Hunderte Beträge. Ein Mutationstest baut absichtlich Fehler in den Code ein und zählt, wie viele die Tests bemerken. Die neuen Parser-Tests bemerken 93 mehr als vorher.
+
+Künftig soll Wachstum auffallen, dafür gibt es ein Größenbudget: keine Funktion über 50 Anweisungen, keine Datei über 800 Zeilen. Die zwölf heutigen Ausnahmen dürfen nicht wachsen. Wird eine kleiner, hält der Test den Gewinn fest.
+
+### Details passend zur Aufgabe (21. Oktober)
+
+Beim Zeitbuchen schlägt das Feld „Details“ frühere Einträge vor. Bisher waren das die häufigsten des letzten Jahres, egal worauf ich gerade buchte. Auf einer Aufgabe zum Webdesign standen so „Testgeräte“ und „Abstimmung“ aus ganz anderen Projekten oben, dahinter, wie oft ich sie benutzt hatte.
+
+![Vorschläge für Details vorher](bilder/details-vorschlaege-vorher.png)
+
+*Vorher: alles aus allen Projekten, sortiert nach Häufigkeit.*
+
+Jetzt kommen auf einer Aufgabe, einem Projekt oder Kunden nur die Details, die ich dort schon gebucht habe, das zuletzt benutzte zuerst. Das gilt auch beim Bearbeiten und Duplizieren. Ist dort noch nichts gebucht, bleibt es bei den häufigsten. Die Anzahl dahinter ist weggefallen, gebraucht habe ich sie nie.
+
+![Vorschläge für Details nachher](bilder/details-vorschlaege-nachher.png)
+
+*Nachher: nur, was auf dieser Aufgabe schon vorkam.*
+
+### Monatswerte zum Blättern (23. Oktober)
+
+KSK-Beiträge und ESt-Satz ändern sich bei mir ein paarmal im Jahr, meist nach einem neuen Bescheid. Eingetragen habe ich das in einem Formular mit dem Feld „Monat (JJJJ-MM)“. Tippte ich dort einen anderen Monat, passierte nichts: Die Felder zeigten weiter die Werte des Monats, mit dem das Formular geöffnet war. Was im Juni wirklich galt, sah ich erst nach dem Speichern.
+
+![Monatswerte vorher](bilder/monatswerte-vorher.png)
+
+*Vorher: Juni eingetippt, die Felder zeigen weiter den Oktober.*
+
+Jetzt blättere ich im Monatsfeld mit ← und →, wie in den Listen mit `[ ]`. Titel und Felder zeigen bei jedem Schritt, was in diesem Monat gilt. Daneben steht, ob er einen eigenen Wechsel hat oder woher er erbt. Habe ich schon etwas geändert, bleibt der Monat stehen, statt meine Eingabe still zu verwerfen. Neu ist „Gilt: nur in diesem Monat“ für einmalige Abweichungen. Danach gilt wieder, was vorher galt. Die KSK steht jetzt in der Reihenfolge ihres Bescheids (Renten-, Kranken-, Pflegeversicherung) und erbt über den Jahreswechsel. Im Januar steht also nicht mehr 0 €, bis ich den neuen Bescheid eintrage.
+
+![Monatswerte nachher](bilder/monatswerte-nachher.png)
+
+*Nachher: der Juni mit seinen Werten, geerbt aus dem Mai.*
+
+Gebaut ist das allgemein: Ein Formularfeld kann beim Ändern andere Felder neu füllen. Das Steuerjahr kann das später genauso nutzen.
+
+### Verbinden ohne Durcheinander (27. Oktober)
+
+In der Liste der Notizen steht rechts statt der Wires eine Vorschau der gewählten Notiz. Wollte ich eine Notiz von dort verbinden (`w`), blieb die Vorschau stehen, und das Formular schob sich darunter. Bei einer Notiz mit Tabelle lagen Text, Tabelle und Auswahlliste übereinander. Außerdem wurde die Seitenleiste fürs Verbinden breiter als sonst.
+
+![Verbinden vorher](bilder/wire-vorher.png)
+
+*Vorher: die Vorschau der Notiz über dem Formular.*
+
+Inzwischen verschwindet die Vorschau, solange das Formular offen ist, und kommt nach dem Schließen wieder. Verbinden bleibt so schmal wie die Wires.
+
+![Verbinden nachher](bilder/wire-nachher.png)
+
+*Nachher: nur das Formular, in der gewohnten Breite.*
+
+### Kontakte zum Wiederfinden (29. Oktober)
+
+Ich habe die Mails ab 2020 nachgeladen, um alte Kontakte wiederzufinden. Dabei fiel auf, wie dünn die Personen in wiredframe waren: eine Mailadresse, eine Telefonnummer, fertig. Bei einem meiner Kunden gehen die Rechnungen an eine Adresse, geschrieben wird über eine zweite, privat gibt es eine dritte. Nur die eine gespeicherte Adresse ordnete Mails zu. An der Person hingen deshalb 66 Mails statt 420.
+
+![Kontakte vorher](bilder/kontakte-vorher.png)
+
+*Vorher: eine Adresse, sonst nichts.*
+
+Eine Person hat jetzt weitere Adressen, je Zeile eine mit Bezeichnung („Arbeit“, „privat“). Die Hauptadresse bleibt für Rechnungen und neue Mails. Alle Adressen ordnen Mails, Termine und Chats zu, und beim Schreiben schlägt „An“ sie mit ihrer Bezeichnung vor. Dazu kommen ein Geburtstag, mit oder ohne Jahr, und Links wie LinkedIn oder die eigene Website, im Detail anklickbar.
+
+![Kontakte nachher](bilder/kontakte-nachher.png)
+
+*Nachher: weitere Adressen, Geburtstag mit Alter, Links.*
+
+Der Geburtstag ist kein Notizfeld. Die Übersicht zeigt die der nächsten zwei Wochen, und er geht mit den Kontakten nach Microsoft 365, von dort in Outlook und den Geburtstagskalender auf dem iPhone. Ohne Jahr steht dort 1604, so halten es Outlook und Apple.
+
+![Geburtstage in der Übersicht](bilder/geburtstage.png)
+
+*Die Kachel „Geburtstage“ in der Übersicht.*
+
+Bewusst nicht gebaut habe ich frei definierbare Felder, mehrere Telefonnummern und Anschriften. wiredframe soll keine Kontaktverwaltung werden. Was es kann, soll beim Zuordnen helfen und daran erinnern, sich mal wieder zu melden.
+
+### Ein Vordruck auf weißem Papier (29. Oktober)
+
+Das Theme „finanzamt“ ist mein Alltagstheme geworden, wegen der schwarzen Rubrik-Balken: Jeder Bereich trägt seinen Titel als Negativ-Balken, Tabellenköpfe ebenso, und ich sehe sofort, wo ich bin. Der blassgrüne Grund des Vordrucks macht auf Dauer aber alles grünstichig.
+
+![finanzamt vorher](bilder/weiss-vorher.png)
+
+*Vorher: finanzamt, Orientierung gut, aber alles im Vordruckgrün.*
+
+„wiredframe-weiss“ nimmt den weißen Grund von xcode-light und die Farben meiner Website. Grün gibt es nur noch für Fokus und Auswahl, Flächen und Linien sind neutral. Die Rubrik-Balken stehen in Petrol, der Bereich mit Fokus in Grün. Runde Ecken hätten sich mit den eckigen Balken gebissen, und Balken lassen sich im Terminal nicht abrunden. Deshalb sind die Rahmen eckig und kräftig wie im Vordruck.
+
+![wiredframe-weiss nachher](bilder/weiss-nachher.png)
+
+*Nachher: wiredframe-weiss, dieselbe Gliederung auf Weiß.*
+
+### Die Bank hat keinen Namen (2. November)
+
+Beim Monatsabschluss für Oktober fiel mir auf, dass die Kontoführungsgebühr der Sparkasse an einer Ausgabe aus dem Juli hing. Beim Nachsehen zeigte sich mehr: Jeder Monat war anders gebucht, mal privat als Anschaffung, mal betrieblich mit 19 % Vorsteuer, die es bei Bankgebühren gar nicht gibt.
+
+Das lag an den Regeln. wiredframe lernt aus jeder Buchung eine, und zwar je Gläubiger-ID oder Gegenpartei. Der Entgeltabschluss hat beides nicht, die Bank bucht bei sich selbst. Der Schlüssel der Regel blieb leer, also wurde nie etwas gelernt und jeden Monat neu geraten. In diesem Fall nimmt wiredframe jetzt den Buchungstext („ENTGELTABSCHLUSS“). Einmal als Fixkosten, privat und steuerfrei gebucht, kommt jeder weitere Monat von selbst so. Die alten Buchungen habe ich in einem Rutsch nachgezogen.

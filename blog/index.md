@@ -14,7 +14,7 @@ Seit 2020 wünschen sich Nutzer von NetNewsWire Bilder in der Artikelliste. Ich 
 
 ## [wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue](https://www.wiredframe.de/blog/wiredframe/index.md)
 
-*20. Oktober 2026, 20 Minuten Lesezeit*
+*20. Oktober 2026, aktualisiert am 2. November 2026, 26 Minuten Lesezeit*
 
 Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?
 

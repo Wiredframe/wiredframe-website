@@ -20,7 +20,7 @@
 	<meta name="twitter:image" content="https://www.wiredframe.de/blog/wiredframe/vorschau-uebersicht.jpg">
 	<meta property="og:image:alt" content="Übersicht mit Kacheln, nicht abgerechneten Zeiten und Steuerfristen">
 	<meta property="article:published_time" content="2026-10-20">
-	<meta property="article:modified_time" content="2026-10-20">
+	<meta property="article:modified_time" content="2026-11-02">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="theme-color" content="#e2ebe6">
 	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -33,9 +33,9 @@
 		"description": "Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?",
 		"url": "https://www.wiredframe.de/blog/wiredframe/",
 		"datePublished": "2026-10-20",
-		"dateModified": "2026-10-20",
+		"dateModified": "2026-11-02",
 		"inLanguage": "de-DE",
-		"wordCount": 3822,
+		"wordCount": 5094,
 		"author": {
 			"@id": "https://www.wiredframe.de/#ulf"
 		},
@@ -63,7 +63,7 @@
 		</a>
 		<article class="beitrag">
 			<header class="beitrag__kopf">
-				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>20 Minuten Lesezeit</span></p>
+				<p class="meta"><time datetime="2026-10-20">20. Oktober 2026</time><span>aktualisiert am <time datetime="2026-11-02">2. November 2026</time></span><span>26 Minuten Lesezeit</span></p>
 				<h1 class="beitrag__titel">wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue</h1>
 				<p class="beitrag__lead">Nach gut zehn Stunden lief die erste Version mit meinen echten Daten. Die Wochen danach gehörten vor allem einer Frage: Was passiert, wenn etwas schiefgeht?</p>
 			</header>
@@ -291,6 +291,94 @@
 				</figure>
 				<p>Vieles davon sieht man nicht. Ein Beleg landete still in der offenen Ausgabe vom Vorjahr, nur weil das Monatsabo gleich viel kostet. Zwei Überweisungen am selben Tag, gleicher Betrag, Bankreferenz „NOTPROVIDED“, wurden zu einer zusammengezogen. Absender mit Komma im Namen (etwa „Baumgartl, Bernhard“) zerfielen beim Abruf; 56 Mails hingen deshalb an niemandem. <code>wf restore</code> hätte mit der falschen Datei alle Daten durch eine leere Datenbank ersetzt. Und einen großen Kunden zu öffnen geht jetzt etwa doppelt so schnell, der erste Buchstabe in der Suche rund viermal: wiredframe merkt sich die Zusammenhänge bis zur nächsten Änderung.</p>
 				<p>Am meisten gelernt habe ich aber aus dem, was die Agenten nicht ändern durften. In meinen echten Daten steht eine Umsatzsteuer-Vorauszahlung über 500 Euro, zu der keine Abbuchung gehört. Im Ordner der Ausgangsrechnungen lagen drei PDFs von Rechnungen, die ich gestellt und gleich wieder gelöscht hatte. Solche Funde entscheide ich selbst.</p>
+				<h3 id="schlanker-aber-nicht-kuerzer-20-oktober">Schlanker, aber nicht kürzer (20. Oktober)</h3>
+				<p>wiredframe wächst mit jeder Idee, und die Tests wachsen mit. Ich wollte wissen, was sich dagegen tun lässt, ohne auf eine einzige Funktion zu verzichten. Sechs Agenten haben den Code zuerst nur gelesen: toter Code, Duplikate, Komplexität, Eigenbau, Aufbau der Tests, doppelte Tests. Gefunden haben sie wenig. Toter Code machte 0,3 % aus, kopierte Stellen fand pylint keine mehr, und die Tests waren dichter, als ich dachte.</p>
+				<p>Statt zu kürzen, haben wir aufgeräumt. Der Verteiler hinter <code>wf</code> hatte eine Komplexität von 76 und beschrieb jeden Unterbefehl dreimal. Heute steht jeder Befehl an einer Stelle. Das Rechnungs-PDF, die E-Rechnung, das Buchen im Kontoauszug, die Tastenverarbeitung und die Detailansicht sind in benannte Schritte zerlegt. Die Zahl der sehr komplexen Funktionen hat sich halbiert, von 49 auf 25. In Zeilen gemessen ist der Code dabei um gut ein Prozent länger geworden: Jede neue kleine Funktion bringt ihren Kopf und ihren Satz Doku mit.</p>
+				<p>Damit nichts kaputtgeht, lief vorher und nachher ein Schnappschuss auf den Demodaten und auf einer Kopie meiner echten Daten, mit fester Uhr und festen IDs: Datenbank, fast 2.000 Ausgaben von <code>wf</code>, 111 Rechnungs-PDFs Byte für Byte, die E-Rechnungen und jeder Bildschirm. Am Ende wichen genau die zwei Stellen ab, die ich ändern wollte.</p>
+				<p>Eine davon sieht man: Angebote blättern jetzt wie Rechnungen monatsweise, mit <code>[ ]</code> und <code>.</code>. Offene Angebote stehen in jedem Monat, bis sie entschieden sind.</p>
+				<figure>
+					<img src="/blog/wiredframe/verschlankung-angebote-nachher-1200.webp" srcset="/blog/wiredframe/verschlankung-angebote-nachher-1200.webp 1200w, /blog/wiredframe/verschlankung-angebote-nachher-1700.webp 1700w" sizes="(max-width: 930px) 92vw, 850px"
+						width="850" height="400" alt="Angebote im Oktober, ein offenes Angebot" loading="lazy" decoding="async">
+					<figcaption>Angebote nach Monat. Vorher standen alle in einer Liste, gruppiert nach Status.</figcaption>
+				</figure>
+				<p>Bei den Tests habe ich jede Streichung einzeln abgenickt, in Worten, die ich ohne Testcode verstehe. Aus 770 Testfunktionen wurden 727, aus zwölf Tests fürs Blättern drei Szenarien, und feste Pausen warten jetzt auf den Zustand, den sie meinen. Neu sind Eigenschafts-Tests mit hypothesis. Statt „1.234,50 ergibt 123450 Cent“ prüft ein Test, dass sich jeder Betrag, den wiredframe anzeigt, exakt wieder einlesen lässt, und würfelt dafür Hunderte Beträge. Ein Mutationstest baut absichtlich Fehler in den Code ein und zählt, wie viele die Tests bemerken. Die neuen Parser-Tests bemerken 93 mehr als vorher.</p>
+				<p>Künftig soll Wachstum auffallen, dafür gibt es ein Größenbudget: keine Funktion über 50 Anweisungen, keine Datei über 800 Zeilen. Die zwölf heutigen Ausnahmen dürfen nicht wachsen. Wird eine kleiner, hält der Test den Gewinn fest.</p>
+				<h3 id="details-passend-zur-aufgabe-21-oktober">Details passend zur Aufgabe (21. Oktober)</h3>
+				<p>Beim Zeitbuchen schlägt das Feld „Details“ frühere Einträge vor. Bisher waren das die häufigsten des letzten Jahres, egal worauf ich gerade buchte. Auf einer Aufgabe zum Webdesign standen so „Testgeräte“ und „Abstimmung“ aus ganz anderen Projekten oben, dahinter, wie oft ich sie benutzt hatte.</p>
+				<figure>
+					<img src="/blog/wiredframe/details-vorschlaege-vorher-1200.webp" srcset="/blog/wiredframe/details-vorschlaege-vorher-1200.webp 1200w, /blog/wiredframe/details-vorschlaege-vorher-1400.webp 1400w" sizes="(max-width: 780px) 92vw, 700px"
+						width="700" height="450" alt="Vorschläge für Details vorher" loading="lazy" decoding="async">
+					<figcaption>Vorher: alles aus allen Projekten, sortiert nach Häufigkeit.</figcaption>
+				</figure>
+				<p>Jetzt kommen auf einer Aufgabe, einem Projekt oder Kunden nur die Details, die ich dort schon gebucht habe, das zuletzt benutzte zuerst. Das gilt auch beim Bearbeiten und Duplizieren. Ist dort noch nichts gebucht, bleibt es bei den häufigsten. Die Anzahl dahinter ist weggefallen, gebraucht habe ich sie nie.</p>
+				<figure>
+					<img src="/blog/wiredframe/details-vorschlaege-nachher-1200.webp" srcset="/blog/wiredframe/details-vorschlaege-nachher-1200.webp 1200w, /blog/wiredframe/details-vorschlaege-nachher-1400.webp 1400w" sizes="(max-width: 780px) 92vw, 700px"
+						width="700" height="450" alt="Vorschläge für Details nachher" loading="lazy" decoding="async">
+					<figcaption>Nachher: nur, was auf dieser Aufgabe schon vorkam.</figcaption>
+				</figure>
+				<h3 id="monatswerte-zum-blaettern-23-oktober">Monatswerte zum Blättern (23. Oktober)</h3>
+				<p>KSK-Beiträge und ESt-Satz ändern sich bei mir ein paarmal im Jahr, meist nach einem neuen Bescheid. Eingetragen habe ich das in einem Formular mit dem Feld „Monat (JJJJ-MM)“. Tippte ich dort einen anderen Monat, passierte nichts: Die Felder zeigten weiter die Werte des Monats, mit dem das Formular geöffnet war. Was im Juni wirklich galt, sah ich erst nach dem Speichern.</p>
+				<figure>
+					<img src="/blog/wiredframe/monatswerte-vorher-1200.webp" srcset="/blog/wiredframe/monatswerte-vorher-1200.webp 1200w, /blog/wiredframe/monatswerte-vorher-2400.webp 2400w" sizes="(max-width: 1233px) 92vw, 1153px"
+						width="1153" height="640" alt="Monatswerte vorher" loading="lazy" decoding="async">
+					<figcaption>Vorher: Juni eingetippt, die Felder zeigen weiter den Oktober.</figcaption>
+				</figure>
+				<p>Jetzt blättere ich im Monatsfeld mit ← und →, wie in den Listen mit <code>[ ]</code>. Titel und Felder zeigen bei jedem Schritt, was in diesem Monat gilt. Daneben steht, ob er einen eigenen Wechsel hat oder woher er erbt. Habe ich schon etwas geändert, bleibt der Monat stehen, statt meine Eingabe still zu verwerfen. Neu ist „Gilt: nur in diesem Monat“ für einmalige Abweichungen. Danach gilt wieder, was vorher galt. Die KSK steht jetzt in der Reihenfolge ihres Bescheids (Renten-, Kranken-, Pflegeversicherung) und erbt über den Jahreswechsel. Im Januar steht also nicht mehr 0 €, bis ich den neuen Bescheid eintrage.</p>
+				<figure>
+					<img src="/blog/wiredframe/monatswerte-nachher-1200.webp" srcset="/blog/wiredframe/monatswerte-nachher-1200.webp 1200w, /blog/wiredframe/monatswerte-nachher-2400.webp 2400w" sizes="(max-width: 1233px) 92vw, 1153px"
+						width="1153" height="640" alt="Monatswerte nachher" loading="lazy" decoding="async">
+					<figcaption>Nachher: der Juni mit seinen Werten, geerbt aus dem Mai.</figcaption>
+				</figure>
+				<p>Gebaut ist das allgemein: Ein Formularfeld kann beim Ändern andere Felder neu füllen. Das Steuerjahr kann das später genauso nutzen.</p>
+				<h3 id="verbinden-ohne-durcheinander-27-oktober">Verbinden ohne Durcheinander (27. Oktober)</h3>
+				<p>In der Liste der Notizen steht rechts statt der Wires eine Vorschau der gewählten Notiz. Wollte ich eine Notiz von dort verbinden (<code>w</code>), blieb die Vorschau stehen, und das Formular schob sich darunter. Bei einer Notiz mit Tabelle lagen Text, Tabelle und Auswahlliste übereinander. Außerdem wurde die Seitenleiste fürs Verbinden breiter als sonst.</p>
+				<figure>
+					<img src="/blog/wiredframe/wire-vorher-1200.webp" srcset="/blog/wiredframe/wire-vorher-1200.webp 1200w, /blog/wiredframe/wire-vorher-2400.webp 2400w" sizes="(max-width: 1229px) 92vw, 1149px"
+						width="1149" height="640" alt="Verbinden vorher" loading="lazy" decoding="async">
+					<figcaption>Vorher: die Vorschau der Notiz über dem Formular.</figcaption>
+				</figure>
+				<p>Inzwischen verschwindet die Vorschau, solange das Formular offen ist, und kommt nach dem Schließen wieder. Verbinden bleibt so schmal wie die Wires.</p>
+				<figure>
+					<img src="/blog/wiredframe/wire-nachher-1200.webp" srcset="/blog/wiredframe/wire-nachher-1200.webp 1200w, /blog/wiredframe/wire-nachher-2400.webp 2400w" sizes="(max-width: 1229px) 92vw, 1149px"
+						width="1149" height="640" alt="Verbinden nachher" loading="lazy" decoding="async">
+					<figcaption>Nachher: nur das Formular, in der gewohnten Breite.</figcaption>
+				</figure>
+				<h3 id="kontakte-zum-wiederfinden-29-oktober">Kontakte zum Wiederfinden (29. Oktober)</h3>
+				<p>Ich habe die Mails ab 2020 nachgeladen, um alte Kontakte wiederzufinden. Dabei fiel auf, wie dünn die Personen in wiredframe waren: eine Mailadresse, eine Telefonnummer, fertig. Bei einem meiner Kunden gehen die Rechnungen an eine Adresse, geschrieben wird über eine zweite, privat gibt es eine dritte. Nur die eine gespeicherte Adresse ordnete Mails zu. An der Person hingen deshalb 66 Mails statt 420.</p>
+				<figure>
+					<img src="/blog/wiredframe/kontakte-vorher-1200.webp" srcset="/blog/wiredframe/kontakte-vorher-1200.webp 1200w, /blog/wiredframe/kontakte-vorher-2400.webp 2400w" sizes="(max-width: 1227px) 92vw, 1147px"
+						width="1147" height="640" alt="Kontakte vorher" loading="lazy" decoding="async">
+					<figcaption>Vorher: eine Adresse, sonst nichts.</figcaption>
+				</figure>
+				<p>Eine Person hat jetzt weitere Adressen, je Zeile eine mit Bezeichnung („Arbeit“, „privat“). Die Hauptadresse bleibt für Rechnungen und neue Mails. Alle Adressen ordnen Mails, Termine und Chats zu, und beim Schreiben schlägt „An“ sie mit ihrer Bezeichnung vor. Dazu kommen ein Geburtstag, mit oder ohne Jahr, und Links wie LinkedIn oder die eigene Website, im Detail anklickbar.</p>
+				<figure>
+					<img src="/blog/wiredframe/kontakte-nachher-1200.webp" srcset="/blog/wiredframe/kontakte-nachher-1200.webp 1200w, /blog/wiredframe/kontakte-nachher-2400.webp 2400w" sizes="(max-width: 1227px) 92vw, 1147px"
+						width="1147" height="640" alt="Kontakte nachher" loading="lazy" decoding="async">
+					<figcaption>Nachher: weitere Adressen, Geburtstag mit Alter, Links.</figcaption>
+				</figure>
+				<p>Der Geburtstag ist kein Notizfeld. Die Übersicht zeigt die der nächsten zwei Wochen, und er geht mit den Kontakten nach Microsoft 365, von dort in Outlook und den Geburtstagskalender auf dem iPhone. Ohne Jahr steht dort 1604, so halten es Outlook und Apple.</p>
+				<figure>
+					<img src="/blog/wiredframe/geburtstage-1200.webp" srcset="/blog/wiredframe/geburtstage-1200.webp 1200w, /blog/wiredframe/geburtstage-2400.webp 2400w" sizes="(max-width: 1227px) 92vw, 1147px"
+						width="1147" height="640" alt="Geburtstage in der Übersicht" loading="lazy" decoding="async">
+					<figcaption>Die Kachel „Geburtstage“ in der Übersicht.</figcaption>
+				</figure>
+				<p>Bewusst nicht gebaut habe ich frei definierbare Felder, mehrere Telefonnummern und Anschriften. wiredframe soll keine Kontaktverwaltung werden. Was es kann, soll beim Zuordnen helfen und daran erinnern, sich mal wieder zu melden.</p>
+				<h3 id="ein-vordruck-auf-weissem-papier-29-oktober">Ein Vordruck auf weißem Papier (29. Oktober)</h3>
+				<p>Das Theme „finanzamt“ ist mein Alltagstheme geworden, wegen der schwarzen Rubrik-Balken: Jeder Bereich trägt seinen Titel als Negativ-Balken, Tabellenköpfe ebenso, und ich sehe sofort, wo ich bin. Der blassgrüne Grund des Vordrucks macht auf Dauer aber alles grünstichig.</p>
+				<figure>
+					<img src="/blog/wiredframe/weiss-vorher-1200.webp" srcset="/blog/wiredframe/weiss-vorher-1200.webp 1200w, /blog/wiredframe/weiss-vorher-1400.webp 1400w" sizes="(max-width: 780px) 92vw, 700px"
+						width="700" height="450" alt="finanzamt vorher" loading="lazy" decoding="async">
+					<figcaption>Vorher: finanzamt, Orientierung gut, aber alles im Vordruckgrün.</figcaption>
+				</figure>
+				<p>„wiredframe-weiss“ nimmt den weißen Grund von xcode-light und die Farben meiner Website. Grün gibt es nur noch für Fokus und Auswahl, Flächen und Linien sind neutral. Die Rubrik-Balken stehen in Petrol, der Bereich mit Fokus in Grün. Runde Ecken hätten sich mit den eckigen Balken gebissen, und Balken lassen sich im Terminal nicht abrunden. Deshalb sind die Rahmen eckig und kräftig wie im Vordruck.</p>
+				<figure>
+					<img src="/blog/wiredframe/weiss-nachher-1200.webp" srcset="/blog/wiredframe/weiss-nachher-1200.webp 1200w, /blog/wiredframe/weiss-nachher-1400.webp 1400w" sizes="(max-width: 780px) 92vw, 700px"
+						width="700" height="450" alt="wiredframe-weiss nachher" loading="lazy" decoding="async">
+					<figcaption>Nachher: wiredframe-weiss, dieselbe Gliederung auf Weiß.</figcaption>
+				</figure>
+				<h3 id="die-bank-hat-keinen-namen-2-november">Die Bank hat keinen Namen (2. November)</h3>
+				<p>Beim Monatsabschluss für Oktober fiel mir auf, dass die Kontoführungsgebühr der Sparkasse an einer Ausgabe aus dem Juli hing. Beim Nachsehen zeigte sich mehr: Jeder Monat war anders gebucht, mal privat als Anschaffung, mal betrieblich mit 19 % Vorsteuer, die es bei Bankgebühren gar nicht gibt.</p>
+				<p>Das lag an den Regeln. wiredframe lernt aus jeder Buchung eine, und zwar je Gläubiger-ID oder Gegenpartei. Der Entgeltabschluss hat beides nicht, die Bank bucht bei sich selbst. Der Schlüssel der Regel blieb leer, also wurde nie etwas gelernt und jeden Monat neu geraten. In diesem Fall nimmt wiredframe jetzt den Buchungstext („ENTGELTABSCHLUSS“). Einmal als Fixkosten, privat und steuerfrei gebucht, kommt jeder weitere Monat von selbst so. Die alten Buchungen habe ich in einem Rutsch nachgezogen.</p>
 			</div>
 		</article>
 		<nav class="weiter" aria-label="Weitere Beiträge">
