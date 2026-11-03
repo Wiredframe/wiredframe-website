@@ -82,6 +82,7 @@ RSS Feed Magazine ist Open Source wie das Original: Code, Screenshots und Releas
 
 ---
 
+- Neuer: [Plain Tabata Timer: Ein Timer, der nur eins kann](https://www.wiredframe.de/blog/plain-tabata-timer/index.md)
 - Älter: [wiredframe: Meine Arbeit in einer Terminal-App, und ein Rückgängig, dem ich vertraue](https://www.wiredframe.de/blog/wiredframe/index.md)
 - [Alle Beiträge der Mitschrift](https://www.wiredframe.de/blog/index.md)
 - [Diesen Beitrag als Seite lesen](https://www.wiredframe.de/blog/netnewsfeed/)

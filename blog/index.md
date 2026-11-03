@@ -4,6 +4,14 @@
 
 ---
 
+## [Plain Tabata Timer: Ein Timer, der nur eins kann](https://www.wiredframe.de/blog/plain-tabata-timer/index.md)
+
+*3. November 2026, 5 Minuten Lesezeit*
+
+Ich wollte einen Intervall-Timer, der schön ist, einfach bleibt und mir nie etwas verkaufen will. Also habe ich ihn gebaut. Bald gibt es ihn kostenlos im App Store, ohne Werbung, ohne Abo, ohne Pro-Version.
+
+---
+
 ## [RSS Feed Magazine: Mein NetNewsWire-Fork liest sich jetzt wie ein Magazin](https://www.wiredframe.de/blog/netnewsfeed/index.md)
 
 *22. Oktober 2026, 6 Minuten Lesezeit*
