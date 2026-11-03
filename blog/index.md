@@ -78,7 +78,7 @@ Dropover hat bei jeder Aktion nach Hause telefoniert. Also habe ich mir meine ei
 
 ## [Paper Comic Reader: Comics wie auf Papier gedruckt](https://www.wiredframe.de/blog/paper-comic-reader/index.md)
 
-*24. Juli 2026, aktualisiert am 20. Oktober 2026, 7 Minuten Lesezeit*
+*24. Juli 2026, aktualisiert am 3. November 2026, 8 Minuten Lesezeit*
 
 Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.
 

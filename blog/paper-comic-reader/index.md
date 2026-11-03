@@ -2,11 +2,11 @@
 
 *Ich bin UI Designer und schreibe keine Schleifen von Hand. Trotzdem liegt jetzt eine iOS-App von mir im App Store, gebaut zusammen mit Claude, angestoßen von einem Rest Wochenkontingent.*
 
-**24. Juli 2026, aktualisiert am 20. Oktober 2026, 7 Minuten Lesezeit**
+**24. Juli 2026, aktualisiert am 3. November 2026, 8 Minuten Lesezeit**
 
-![Die Ansicht „Recents“ mit dem Cover des Demo-Comics „Deep Blue“ im Karussell, darunter Titel, Seitenzahl und der Knopf „Read“](https://www.wiredframe.de/blog/paper-comic-reader/zuletzt-1200.webp)
+![Die Ansicht „Verlauf“: das rote Cover des Demo-Comics „Crimson Alley“ im Karussell, darunter Titel, Seitenzahl und der Knopf „Lesen“](https://www.wiredframe.de/blog/paper-comic-reader/verlauf-1200.webp)
 
-*Zuletzt gelesen als Karussell. Die Cover sind mitgelieferte Demo-Comics, keine Verlagsware.*
+*Der Verlauf als Karussell. Die Cover sind mitgelieferte Demo-Comics, keine Verlagsware.*
 
 Ich kann eine halbe Stunde über einen Schatten mit vier Punkt Unschärfe diskutieren. Eine saubere `for`-Schleife bekomme ich allein nicht hin. Paper Comic Reader gibt es trotzdem: ein schlanker, nativer Comic-Reader für iPhone und iPad, der Seiten so zeigt, als wären sie mit Tinte auf Papier gedruckt, statt hinter leuchtendem Glas.
 
@@ -22,7 +22,11 @@ Dazu kommt das Korn, und zwar zweifach, so wie bei echtem Papier: eine feine Str
 
 Die erste Fassung des Korns hatte ein feines Gitter, wie ein Fliegengitter. Das Rauschen lag brav am Pixelraster. Die Lösung war, jede Rauschebene ein Stück zu drehen, damit sich nichts mehr mit dem Raster deckt. Bewusst bemerkt das niemand. Dass es fehlt, bemerkt dagegen jeder.
 
-![Die Einstellungsseite „Paper Effect“ mit einer Musterseite in Creme, darunter Schalter, Voreinstellung „Cream paper“ und Regler für Durchscheinen und Korn](https://www.wiredframe.de/blog/paper-comic-reader/papiereffekt-1200.webp)
+![Eine Comicseite in warmem Creme, rosa Panels mit feinem Korn und zwei Sprechblasen](https://www.wiredframe.de/blog/paper-comic-reader/leseansicht-1200.webp)
+
+*Eine Seite mit Cremepapier: Weiß wird warm, die Farben matt, das Korn scheint durch.*
+
+![Die Einstellungsseite „Papiereffekt“ mit einer Musterseite in Creme, Schalter, Vorlage „Cremepapier“ und Reglern für Durchscheinen und Körnung](https://www.wiredframe.de/blog/paper-comic-reader/papiereffekt-1200.webp)
 
 *Die Einstellungen mit Vorschau. Die Regler gibt es auch als benannte Papiersorten.*
 
@@ -36,6 +40,10 @@ Hartnäckiger war ein Gefühl: Umblättern wirkte einen Hauch weniger flüssig a
 
 Ähnlich das Karussell für „Entdecken“: Es ruckte am Ende eines langsamen Wischens, bei einem schnellen nicht. Der Container las bei jedem Bild mit, welches Cover gerade in der Mitte steht, zeichnete sich deshalb neu und schubste die Karte, die gerade einrasten wollte. Jetzt wissen das nur noch die Ansichten, die es brauchen. Nachweisen ließ sich das nur am echten Gerät. Solche Dinge findet kein Test, man muss sie ertasten.
 
+![Die Bibliothek mit den Reitern Entdecken, Beliebt und Verstaubt und dem orangen Cover von „Copper Fox“ im Karussell](https://www.wiredframe.de/blog/paper-comic-reader/entdecken-1200.webp)
+
+*Entdecken, Beliebt und Verstaubt holen Comics hervor, die man vergessen hat.*
+
 ## Raus aus dem App Store und wieder rein
 
 Am 7. Juli war die App schon auf Paper Comic Reader umbenannt und für den App Store vorbereitet. Zurück kam eine Ablehnung, unter anderem mit „Tips failed to load“. Ich hatte einen kleinen Trinkgeld-Knopf eingebaut, und ausgerechnet der lud beim Prüfer nicht.
@@ -46,7 +54,15 @@ Der Aufwand mit Freigaben und Verträgen war mir das für eine kostenlose App ni
 
 In der zweiten Woche lernte die App, die Angaben in `ComicInfo.xml` zu lesen, also Serie, Ausgabe und Story, und speichert sie mit dem Lesefortschritt in einer kleinen Datenbank. CBR flog dafür raus, seitdem liest die App nur noch CBZ.
 
+![Die Detailansicht von „Deep Blue 2“ mit zwei Geschichten samt Autoren und Zeichnern, Verlag, Erscheinungsjahr und Sprache](https://www.wiredframe.de/blog/paper-comic-reader/details-1200.webp)
+
+*Was in `ComicInfo.xml` steht, zeigt die Detailansicht, bei Sammelbänden mit Inhaltsverzeichnis.*
+
 Das Stück, das mir am meisten gefällt, sieht man nicht. Eine Comic-Sammlung ist schnell viele Gigabyte groß, die will niemand komplett auf dem Telefon haben. Man zeigt der App deshalb einen Ordner, den die Dateien-App erreicht, etwa ein NAS, iCloud oder einen Fileserver. Sie geht ihn einmal durch und holt aus jedem Comic nur Cover und Metadaten. Die Bibliothek sieht vollständig aus, durchsuchbar nach Titel, Story und Ausgabe. Erst beim Antippen wird ein Comic geladen, und wer Platz braucht, entfernt die Datei wieder, Cover und Titel bleiben stehen.
+
+![Die Bibliothek als Raster aus vier farbigen Demo-Covern mit Suchfeld, Titeln und Seitenzahlen](https://www.wiredframe.de/blog/paper-comic-reader/bibliothek-1200.webp)
+
+*Die Bibliothek. Ob ein Comic gerade auf dem Telefon liegt, sieht man ihr nicht an.*
 
 Dahinter steckt viel unsichtbare Arbeit: eine Zugriffserlaubnis auf den fremden Ordner, die Neustarts übersteht. Die Frage „ist der Ordner überhaupt da?“, die bei einem schlafenden NAS hängen kann und deshalb nicht auf dem Hauptthread laufen darf. Und ein Ordner `ComicsExtra`, der nicht fälschlich in `Comics` landen soll, nur weil der Name gleich anfängt.
 
@@ -73,6 +89,10 @@ Der Papiereffekt hat inzwischen auch ein Geschwisterprojekt: „Papier“ legt i
 Version 1.4.2 besteht aus 46 Commits an einem Tag, und fast keiner davon ist eine neue Funktion. Claude und ich sind die App auf Fehlerfälle durchgegangen. Der wichtigste betrifft die Datenbank: Lässt sie sich nicht öffnen, wird sie nie mehr gelöscht. Die App versucht es erneut, legt die Datei sonst in eine Sicherung (die fünf neuesten bleiben) und schreibt bei jedem Wechsel in den Hintergrund einen Schnappschuss der Bibliothek, aus dem sie sich nach einem Zurücksetzen einmal wiederherstellen lässt. Dazu: abgebrochene Downloads werden nicht mehr installiert, Sicherungen mit Dateinamen außerhalb ihres Ordners abgelehnt, VoiceOver kann blättern, und die Detailansicht wächst mit der Schriftgröße.
 
 Stand heute: 202 Commits, Version 1.4.2.
+
+### Neue Demo-Comics, neue Bilder (2. November)
+
+Die vier Demo-Comics mit leeren, nummerierten Seiten sind mit Version 1.4.4 sechs neuen gewichen, denselben, die auch die Mac-Version mitbringt: einfarbige Cover, Seiten mit Panels und ein paar Sprechblasen, gezeichnet von einem kleinen Swift-Skript, das sich beide Apps teilen. Wer die App schon installiert hat, merkt davon nichts, die Demo-Comics werden nur beim ersten Start angelegt. Mit ihnen sind die App-Store-Bilder auf Englisch, Deutsch und Italienisch neu entstanden, und die deutschen Aufnahmen dafür stehen jetzt auch hier im Beitrag.
 
 ---
 
